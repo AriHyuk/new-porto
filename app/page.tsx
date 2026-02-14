@@ -1,14 +1,19 @@
 import { getProjects } from '@/app/actions/get-projects';
+import { getCertificates } from '@/app/actions/get-certificates';
 import ProjectList from '@/components/ProjectList';
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
 import AboutSection from '@/components/About/AboutSection';
+import CertificateSection from '@/components/Certificates/CertificateSection';
 
 // Configure caching: revalidate every 1 hour (3600 seconds)
 export const revalidate = 3600;
 
 export default async function Page() {
-  const projects = await getProjects();
+  const [projects, certificates] = await Promise.all([
+    getProjects(),
+    getCertificates(),
+  ]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -20,6 +25,9 @@ export default async function Page() {
 
         {/* About Section */}
         <AboutSection />
+
+        {/* Certificates Section */}
+        <CertificateSection certificates={certificates} />
 
         {/* Projects Section */}
         <section id="portfolio" className="py-24 px-4 sm:px-6 lg:px-8">
