@@ -2,6 +2,8 @@
 
 Portfolio v2 - Next.js 15 with Supabase & Docker
 
+**Vision:** Modern portfolio with Admin CMS, inspired by old portfolio design.
+
 ---
 
 ## ✅ Phase 1: Infrastructure (Foundation)
@@ -13,13 +15,13 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 - [x] Git Rules & Commit Standards Setup
 - [x] Project documentation (README, .gitignore)
 
-**Status:** ✅ **COMPLETED**
+**Status:** ✅ **COMPLETED** (v0.1.0)
 
 ---
 
-## 🚧 Phase 2: Feature "Project Showcase" (Vertical Slice)
+## 🚧 Phase 2: Public Interface (The Showcase)
 
-**Goal:** Halaman `/projects` yang menampilkan data real dari database.
+**Goal:** Website bisa dilihat publik dengan desain mirip Portfolio lama.
 
 ### Database Layer
 - [x] Setup Supabase Client & Environment Variables
@@ -27,42 +29,66 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 - [x] Seed initial project data
 
 ### Backend Layer
-- [x] Server Actions: `getProjects()`
-- [ ] Server Actions: `addProject()`
-- [ ] Server Actions: `updateProject()`
+- [x] Server Actions: `getProjects()` (Read Only)
+- [ ] Server Actions: `getProjectBySlug()` (Detail Page)
 
 ### Frontend Layer
-- [ ] Component: `ProjectCard` (Migrasi dari React)
-- [ ] Component: `ProjectGrid` (Layout wrapper)
-- [ ] Page: `/projects` (Integration)
+- [ ] Component: `ProjectCard` (Porting style dari repo lama)
+- [ ] Component: `ProjectList` (Grid layout wrapper)
+- [ ] Page: Landing Page (Hero, Navbar, Footer)
+  - [ ] Hero Section (CTA, animations)
+  - [ ] Navbar (Desktop & Mobile responsive)
+  - [ ] Footer (Social links, copyright)
+- [ ] Page: `/projects` (Projects showcase page)
+- [ ] Page: `/projects/[slug]` (Project detail page)
 
-### Integration
-- [ ] Connect UI `ProjectPage` to Server Actions
-- [ ] Add loading states & error handling
-- [ ] Verify responsive design (mobile/desktop)
+### Design Reference
+- **Source:** Old portfolio repository (React version)
+- **Style Guide:** Maintain color scheme, typography, and component aesthetics
+- **Responsive:** Mobile-first approach
 
-**Status:** 🚧 **IN PROGRESS**
+**Status:** 🚧 **IN PROGRESS** (v0.2.0 - Backend Complete)
 
 ---
 
-## ⏳ Phase 3: Feature "Landing Page" (UI Slice)
+## ⏳ Phase 3: Admin Dashboard (The CMS)
 
-**Goal:** Halaman Home yang menarik dan profesional.
+**Goal:** Halaman login untuk manajemen konten tanpa coding.
 
-### Hero Section
-- [ ] Hero component (Migrasi & Polish)
-- [ ] CTA buttons & animations
-- [ ] Responsive layout
+### Authentication
+- [ ] Setup Supabase Auth (Email/Password)
+- [ ] Create Login Page (`/admin/login`)
+- [ ] Implement logout functionality
+- [ ] Session management & refresh tokens
 
-### Navigation
-- [ ] Navbar component (Desktop & Mobile)
-- [ ] Footer component
-- [ ] Smooth scroll navigation
+### Security & Middleware
+- [ ] Next.js Middleware (Protect `/admin/*` routes)
+- [ ] RLS Policies for admin operations (INSERT, UPDATE, DELETE)
+- [ ] Role-based access control (admin role check)
 
-### Content Sections
-- [ ] About Me section
-- [ ] Skills/Tech Stack showcase
-- [ ] Contact section
+### Admin Dashboard UI
+- [ ] Dashboard Layout (Sidebar, Header, Content)
+- [ ] Dashboard Home (`/admin`)
+  - [ ] Stats overview (Total projects, messages)
+  - [ ] Recent activity feed
+- [ ] Projects Management (`/admin/projects`)
+  - [ ] List all projects (Table view with search/filter)
+  - [ ] Create new project form
+  - [ ] Edit existing project form
+  - [ ] Delete project (with confirmation)
+  - [ ] Image upload (Supabase Storage integration)
+  - [ ] Rich text editor for description
+  - [ ] Slug auto-generation from title
+- [ ] Contact Messages (`/admin/messages`)
+  - [ ] Inbox viewer (List all contact form submissions)
+  - [ ] Mark as read/unread
+  - [ ] Delete messages
+
+### Additional Features
+- [ ] Toast notifications for success/error states
+- [ ] Loading states for all async operations
+- [ ] Form validation (client & server-side)
+- [ ] Image optimization & preview
 
 **Status:** ⏳ **PLANNED**
 
@@ -76,15 +102,17 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 - [ ] Configure Cloud Run deployment ($5 budget)
 - [ ] Set environment variables (Supabase keys)
 - [ ] Verify Docker image optimization
+- [ ] Configure custom domain (optional)
 
-### CI/CD & Domain
-- [ ] Setup GitHub Actions (optional)
-- [ ] Domain setup / DNS configuration
-- [ ] SSL certificate verification
+### CI/CD
+- [ ] Setup GitHub Actions for auto-deploy (optional)
+- [ ] Automated testing before deploy
 
-### Monitoring
-- [ ] Setup basic logging
+### Monitoring & Optimization
+- [ ] Setup basic logging (Cloud Logging)
 - [ ] Monitor resource usage (stay under budget)
+- [ ] Performance optimization (Lighthouse score)
+- [ ] SSL certificate verification
 
 **Status:** ⏳ **PLANNED**
 
@@ -92,21 +120,23 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ## 📊 Progress Tracker
 
-| Phase | Progress | ETA |
-|-------|----------|-----|
-| Phase 1: Infrastructure | ✅ 100% | Completed |
-| Phase 2: Project Showcase | 🚧 0% | TBD |
-| Phase 3: Landing Page | ⏳ 0% | TBD |
-| Phase 4: Deployment | ⏳ 0% | TBD |
+| Phase | Progress | Status |
+|-------|----------|--------|
+| Phase 1: Infrastructure | ✅ 100% | v0.1.0 |
+| Phase 2: Public Interface | 🚧 40% | v0.2.0 (Backend Done) |
+| Phase 3: Admin Dashboard | ⏳ 0% | Planned |
+| Phase 4: Deployment | ⏳ 0% | Planned |
 
 ---
 
 ## 📝 Notes
 
-- **Vertical Slice Approach:** Setiap phase menyelesaikan satu fitur end-to-end (database → backend → frontend → integration)
-- **Auto-Update:** File ini akan di-update otomatis setiap kali sub-task selesai
+- **Design Philosophy:** Port UI/UX from old portfolio (React) to Next.js 15
+- **Admin-First:** CMS untuk manage konten tanpa perlu coding/deploy ulang
+- **Vertical Slice:** Setiap phase menyelesaikan fitur end-to-end
 - **Budget Constraint:** Deployment harus tetap dalam budget $5 (Google Cloud Free Tier)
+- **Auto-Update:** File ini akan di-update otomatis setiap kali sub-task selesai
 
 ---
 
-**Last Updated:** 2026-02-14
+**Last Updated:** 2026-02-14 | **Current Version:** v0.2.0
