@@ -1,0 +1,16 @@
+services:
+  web:
+    # Use the same build context
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Override the command to run dev server
+    command: pnpm dev
+    # Mount local directory to container to enable hot reload
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    # Set environment to development
+    environment:
+      - NODE_ENV=development
