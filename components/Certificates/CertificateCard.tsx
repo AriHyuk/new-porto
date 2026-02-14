@@ -11,9 +11,14 @@ interface CertificateCardProps {
 }
 
 export default function CertificateCard({ certificate, onClick }: CertificateCardProps) {
-  const baseUrl = 'https://admin-panel.oktovet.store/api/certificates';
-  const imagePath = certificate.image.startsWith('/') ? certificate.image : `/${certificate.image}`;
-  const [imgSrc, setImgSrc] = useState(`${baseUrl}${imagePath}`);
+  // If image is a full URL, use it; otherwise, try to construct it or use placeholder
+  const getInitialImage = () => {
+    if (certificate.image?.startsWith('http')) return certificate.image;
+    if (certificate.image?.startsWith('/')) return certificate.image; // Local path or relative
+    return `https://admin-panel.oktovet.store/api/certificates/${certificate.image}`;
+  };
+
+  const [imgSrc, setImgSrc] = useState(getInitialImage());
 
   return (
     <motion.div
