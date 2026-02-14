@@ -23,11 +23,11 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ### Database Layer
 - [x] Setup Supabase Client & Environment Variables
-- [ ] Create Table `projects` & RLS Policies
-- [ ] Seed initial project data
+- [x] Create Table `projects` & RLS Policies
+- [x] Seed initial project data
 
 ### Backend Layer
-- [ ] Server Actions: `getProjects()`
+- [x] Server Actions: `getProjects()`
 - [ ] Server Actions: `addProject()`
 - [ ] Server Actions: `updateProject()`
 
