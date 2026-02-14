@@ -14,6 +14,31 @@ export const textVariants: Variants = {
   },
 };
 
+// Tab switching animation
+export const tabVariants: Variants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.4, ease: 'easeOut' } 
+  },
+  exit: { 
+    opacity: 0, 
+    x: 10,
+    transition: { duration: 0.3, ease: 'easeIn' } 
+  },
+};
+
+// Generic scroll reveal
+export const entryVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 // Container animation with stagger children
 export const containerVariants: Variants = {
   hidden: {
@@ -22,7 +47,7 @@ export const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.1,
       delayChildren: 0.1,
     },
   },

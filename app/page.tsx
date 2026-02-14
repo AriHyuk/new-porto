@@ -2,6 +2,7 @@ import { getProjects } from '@/app/actions/get-projects';
 import ProjectList from '@/components/ProjectList';
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
+import AboutSection from '@/components/About/AboutSection';
 
 // Configure caching: revalidate every 1 hour (3600 seconds)
 export const revalidate = 3600;
@@ -16,6 +17,9 @@ export default async function Page() {
       <main>
         {/* Hero Section */}
         <Hero />
+
+        {/* About Section */}
+        <AboutSection />
 
         {/* Projects Section */}
         <section id="portfolio" className="py-24 px-4 sm:px-6 lg:px-8">
