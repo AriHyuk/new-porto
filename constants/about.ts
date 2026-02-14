@@ -89,9 +89,9 @@ export const skills: Skill[] = [
 export const experienceData: Experience[] = [
   {
     period: '2020 - Present',
-    role: 'Full Stack Developer',
+    role: 'Software Engineer',
     company: 'Freelance',
-    description: 'Developed various web applications using React, Next.js, and Node.js. Focused on performance, accessibility, and user-friendly designs.',
+    description: 'Engineering scalable web solutions and high-performance applications. Focused on clean architecture, seamless user experiences, and modern backend integration.',
   },
   {
     period: '2019 - 2020',
