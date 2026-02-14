@@ -5,6 +5,15 @@ import type { Variants } from 'framer-motion';
  * Refactored from legacy code with proper TypeScript typing
  */
 
+export const textVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
+
 // Container animation with stagger children
 export const containerVariants: Variants = {
   hidden: {
@@ -58,5 +67,67 @@ export const cardVariants: Variants = {
       duration: 0.3,
       ease: 'easeOut',
     },
+  },
+};
+
+// Navbar and Text animations
+export const navVariants: Variants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.05,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+export const letterVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+// Background shape animations
+export const shapeVariants: Variants = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: (i: number) => ({
+    opacity: 0.8,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+      delay: 0.2 + i * 0.1,
+    },
+  }),
+};
+
+// Profile image animation
+export const profileVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.8, rotate: -5 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      duration: 0.8,
+      ease: 'easeOut',
+      delay: 0.4,
+    },
+  },
+  hover: {
+    scale: 1.05,
+    rotate: 2,
+    boxShadow: '0px 0px 30px rgba(59,130,246,0.6)',
+    transition: { duration: 0.3 },
   },
 };

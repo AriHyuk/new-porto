@@ -8,6 +8,9 @@ Portfolio website built with Next.js 15, TypeScript, and Tailwind CSS v4.
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **Package Manager**: pnpm
+- **Database/Auth**: Supabase
+- **Animations**: Framer Motion
+- **Icons**: React Icons
 - **Deployment**: Docker (Multi-stage build)
 
 ## Getting Started
@@ -67,16 +70,23 @@ docker run -p 3000:3000 new-porto
 ```
 new-porto/
 ├── app/                # Next.js App Router
+│   ├── projects/       # Projects dynamic routes
+│   │   └── [slug]/     # Project detail page
+│   ├── actions/        # Server Actions (Supabase interactions)
 │   ├── layout.tsx      # Root layout
 │   ├── page.tsx        # Home page
 │   └── globals.css     # Global styles
+├── components/         # Reusable UI components
+├── lib/                # Utility libraries (Supabase, etc)
+├── types/              # TypeScript interfaces
+├── utils/              # Helper utilities (animations, etc)
+├── supabase/           # Migrations and seed data
 ├── public/             # Static assets
 ├── Dockerfile          # Multi-stage Docker build
 ├── docker-compose.yml  # Docker Compose config
 ├── next.config.ts      # Next.js configuration
-├── postcss.config.mjs  # PostCSS config (Tailwind v4)
-├── eslint.config.mjs   # ESLint configuration
-└── tsconfig.json       # TypeScript configuration
+├── tsconfig.json       # TypeScript configuration
+└── ROADMAP.md          # Project development roadmap
 ```
 
 ## Scripts
