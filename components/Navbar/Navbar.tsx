@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes';
 import ThemeToggle from './ThemeToggle';
 import NavLink from './NavLink';
 import MobileMenu from './MobileMenu';
+import ContactSection from '../Contact/ContactSection';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,14 +55,28 @@ export default function Navbar() {
   // Dark mode specifics (handled via CSS variables or conditional logic if needed, 
   // but framer motion handles rgba interpolation efficiently)
 
-  const navLinks = ['hero', 'about', 'portfolio', 'certifity'];
-  const nameText = "Ari Hyuk";
-  const nameChars = nameText.split("");
+  const navLinks = [
+    { id: 'hero', label: 'Hero' },
+    { id: 'about', label: 'about' },
+    { id: 'portfolio', label: 'projects' },
+    { id: 'certificates', label: 'Certify' }
+  ];
 
   const handleLinkClick = (section: string) => {
     setActiveLink(section);
     setMenuOpen(false);
+    
+    // Smooth scroll for non-ScrollLink triggers
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
+
+  // Brand parts consolidated
+  const brandParts = [
+    { text: "AriHyuk", isSup: false }
+  ];
 
   return (
     <>
@@ -72,7 +87,7 @@ export default function Navbar() {
             top: navTop,
             borderRadius: navBorderRadius,
             backgroundColor: navBackground,
-            backdropFilter: navBackdropBlur, // Note: backdrop-filter needs explicit style
+            backdropFilter: navBackdropBlur,
             border: navBorder,
             boxShadow: navShadow,
           }}
@@ -81,35 +96,68 @@ export default function Navbar() {
           <div className="flex justify-between items-center">
             {/* Animated Brand Name */}
             <motion.div 
-              className="text-2xl font-bold dark:text-white cursor-pointer"
-              variants={navVariants}
-              initial="hidden"
-              animate="visible"
+              className="text-2xl font-black cursor-pointer relative group flex items-center gap-1.5"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <div className="flex group">
-                {nameChars.map((char, index) => (
-                  <motion.span 
-                    key={`name-${index}`} 
-                    variants={letterVariants}
-                    className="inline-block transition-transform duration-10 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                    whileHover={{ y: -5, transition: { duration: 0.2 }}}
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
+              <div className="flex items-baseline py-1">
+                {brandParts.map((part, partIndex) => (
+                  <div key={`part-${partIndex}`} className="flex items-baseline">
+                    {part.text.split("").map((char, charIndex) => (
+                      <motion.span 
+                        key={`${partIndex}-${charIndex}`}
+                        className="inline-block transition-colors duration-300 text-blue-600 dark:text-blue-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                        whileHover={{ 
+                          y: -8,
+                          transition: { 
+                            type: 'spring', 
+                            stiffness: 400, 
+                            damping: 10,
+                          }
+                        }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </div>
                 ))}
+                
+                {/* Logo Icon */}
+                <motion.span 
+                  className="ml-1 text-blue-600 dark:text-blue-500 font-mono text-base font-bold transition-colors duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  whileHover={{ 
+                    y: -8,
+                    rotate: [0, -10, 10, 0],
+                    transition: { 
+                      type: 'spring', 
+                      stiffness: 400, 
+                      damping: 10,
+                      rotate: { duration: 0.4, ease: "easeInOut" }
+                    } 
+                  }}
+                >
+                  &lt;/&gt;
+                </motion.span>
               </div>
+              
+              {/* Subtle Shimmer Line Underneath */}
+              <motion.div 
+                className="absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full"
+                initial={{ width: 0 }}
+                variants={{
+                  hovered: { width: '100%', transition: { duration: 0.3 } }
+                }}
+              />
             </motion.div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <div className="flex items-center gap-6 mr-4">
-                {navLinks.map((section) => (
+                {navLinks.map((link) => (
                   <NavLink
-                    key={section}
-                    to={section}
-                    label={section}
-                    isActive={activeLink === section}
+                    key={link.id}
+                    to={link.id}
+                    label={link.label}
+                    isActive={activeLink === link.id}
                     onSetActive={setActiveLink}
                   />
                 ))}
@@ -120,6 +168,7 @@ export default function Navbar() {
               <ThemeToggle />
 
               <button
+                onClick={() => handleLinkClick('contact')}
                 className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold shadow-md hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105"
               >
                 Hire me
