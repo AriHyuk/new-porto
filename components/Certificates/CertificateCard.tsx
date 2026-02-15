@@ -13,9 +13,9 @@ interface CertificateCardProps {
 export default function CertificateCard({ certificate, onClick }: CertificateCardProps) {
   // If image is a full URL, use it; otherwise, try to construct it or use placeholder
   const getInitialImage = () => {
-    if (certificate.image?.startsWith('http')) return certificate.image;
-    if (certificate.image?.startsWith('/')) return certificate.image; // Local path or relative
-    return `https://admin-panel.oktovet.store/api/certificates/${certificate.image}`;
+    if (certificate.image_url?.startsWith('http')) return certificate.image_url;
+    if (certificate.image_url?.startsWith('/')) return certificate.image_url; // Local path or relative
+    return certificate.image_url || '';
   };
 
   const [imgSrc, setImgSrc] = useState(getInitialImage());

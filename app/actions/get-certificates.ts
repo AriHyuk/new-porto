@@ -1,60 +1,43 @@
 'use server';
 
+import { createClient } from '@/lib/supabase/server';
 import { Certificate } from '@/types/certificate';
-
-const API_URL = 'https://admin-panel.oktovet.store/api/certificates';
 
 export async function getCertificates(): Promise<Certificate[]> {
   try {
-    const res = await fetch(API_URL, {
-      next: { revalidate: 3600 }, // Revalidate every hour
-    });
+    const supabase = await createClient();
+    
+    const { data, error } = await supabase
+      .from('certificates')
+      .select('*')
+      .order('issued_at', { ascending: false });
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch certificates: ${res.status}`);
+    if (error) {
+      throw error;
     }
 
-    const data = await res.json();
-    
-    // Ensure data is an array
-    return Array.isArray(data) ? data : [];
+    return data as Certificate[];
   } catch (error) {
-    console.warn('⚠️ API Unreachable. Using Fallback Data for Certificates.');
+    console.error('Error fetching certificates from Supabase:', error);
     
-    // Mock Data for fallback
+    // Fallback Mock Data as safety net
     return [
       {
-        id: 1,
+        id: 'mock-1',
         name: "Mock Certificate 1",
         issuer: "Coursera",
         issued_at: "2023-01-01",
-        image: "https://via.placeholder.com/600x400?text=Certificate+1", 
+        image_url: "https://via.placeholder.com/600x400?text=Certificate+1", 
         certificate_url: "#",
       },
       {
-        id: 2,
+        id: 'mock-2',
         name: "Mock Certificate 2",
         issuer: "Udemy",
         issued_at: "2023-02-01",
-        image: "https://via.placeholder.com/600x400?text=Certificate+2",
+        image_url: "https://via.placeholder.com/600x400?text=Certificate+2",
         certificate_url: "#",
-      },
-      {
-        id: 3,
-        name: "Mock Certificate 3",
-        issuer: "Google",
-        issued_at: "2023-03-01",
-        image: "https://via.placeholder.com/600x400?text=Certificate+3",
-        certificate_url: "#",
-      },
-       {
-        id: 4,
-        name: "Mock Certificate 4",
-        issuer: "Dicoding",
-        issued_at: "2023-04-01",
-        image: "https://via.placeholder.com/600x400?text=Certificate+4",
-        certificate_url: "#",
-      },
+      }
     ];
   }
 }

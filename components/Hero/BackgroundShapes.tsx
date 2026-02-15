@@ -1,11 +1,39 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { shapeVariants } from '@/utils/animation';
+import { useEffect } from 'react';
 
 export default function BackgroundShapes() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth out the mouse movement
+  const spotlightX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const spotlightY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Interactive Spotlight */}
+      <motion.div
+        className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/5 dark:bg-blue-400/5 blur-[120px] z-0"
+        style={{
+          left: spotlightX,
+          top: spotlightY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+      />
+
       {/* Top Right Glow */}
       <motion.div 
         className="absolute top-20 right-10 w-64 h-64 rounded-full bg-blue-100 dark:bg-blue-900/20 filter blur-3xl"

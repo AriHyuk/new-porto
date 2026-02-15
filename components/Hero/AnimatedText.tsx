@@ -26,7 +26,7 @@ export default function AnimatedText({
         visible: {
           transition: {
             delayChildren,
-            staggerChildren,
+            staggerChildren: 0.05,
           },
         },
       }}
@@ -35,7 +35,19 @@ export default function AnimatedText({
       {chars.map((char, index) => (
         <motion.span
           key={`${char}-${index}`}
-          variants={letterVariants}
+          variants={{
+            hidden: { opacity: 0, y: 50, rotateX: -90 },
+            visible: { 
+              opacity: 1, 
+              y: 0, 
+              rotateX: 0,
+              transition: {
+                type: 'spring',
+                damping: 12,
+                stiffness: 100
+              }
+            }
+          }}
           className="inline-block"
         >
           {char === ' ' ? '\u00A0' : char}

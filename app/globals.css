@@ -2,6 +2,24 @@
 
 @theme {
   --font-sans: var(--font-inter);
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  --animate-shimmer: shimmer 3s infinite linear;
+}
+
+@utility animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
 }
 
 /* Tailwind v4 dark mode configuration */

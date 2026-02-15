@@ -78,12 +78,16 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         {/* Optimized Image */}
         <div className="relative w-full h-full">
           <Image
-            src={project.image_url || '/placeholder.jpg'}
+            src={project.image_url || '/images/projects/placeholder.png'}
             alt={project.title}
             fill
             className="object-cover transform group-hover:scale-110 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={false}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop';
+            }}
           />
         </div>
       </div>

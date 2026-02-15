@@ -51,7 +51,7 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
             <div className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900/50 flex items-center justify-center">
               <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-gray-200 dark:border-gray-700">
                 <Image
-                  src={`https://admin-panel.oktovet.store/api/certificates/${certificate.image}`}
+                  src={certificate.image_url}
                   alt={certificate.name}
                   fill
                   className="object-contain"

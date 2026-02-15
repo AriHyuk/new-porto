@@ -32,7 +32,7 @@ export default function ProfileCard() {
             whileHover="hover"
           >
             <Image
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop"
+              src="/images/profile/avatar.jpeg"
               alt="Ari Awaludin"
               fill
               className="object-cover"

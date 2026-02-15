@@ -6,7 +6,7 @@ import { clsx } from 'clsx';
 
 interface MobileMenuProps {
   isOpen: boolean;
-  navLinks: string[];
+  navLinks: { id: string; label: string }[];
   activeLink: string;
   onLinkClick: (to: string) => void;
   onSetActive: (to: string) => void;
@@ -43,19 +43,19 @@ export default function MobileMenu({
             className="fixed top-0 right-0 h-full w-[280px] bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden flex flex-col p-8"
           >
             <div className="flex flex-col gap-6 mt-16">
-              {navLinks.map((section) => (
+              {navLinks.map((link) => (
                 <NavLink
-                  key={section}
-                  to={section}
-                  label={section}
-                  isActive={activeLink === section}
-                  onClick={() => onLinkClick(section)}
+                  key={link.id}
+                  to={link.id}
+                  label={link.label}
+                  isActive={activeLink === link.id}
+                  onClick={() => onLinkClick(link.id)}
                   onSetActive={onSetActive}
                 />
               ))}
               
               <button
-                onClick={() => onLinkClick('hire-me')}
+                onClick={() => onLinkClick('contact')}
                 className="mt-4 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold text-lg shadow-md hover:from-blue-700 hover:to-blue-900 transition-all text-center"
               >
                 Hire me
