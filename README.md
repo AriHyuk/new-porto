@@ -1,4 +1,4 @@
-# Portfolio v2
+# Portfolio v0.9.2
 
 Portfolio website built with Next.js 15, TypeScript, and Tailwind CSS v4.
 
