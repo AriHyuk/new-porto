@@ -1,8 +1,9 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { Skill } from '@/types/skill';
 
-export async function getSkills() {
+export async function getSkills(): Promise<Skill[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('skills')
@@ -13,6 +14,6 @@ export async function getSkills() {
     return [];
   }
 
-  return data;
+  return data as Skill[];
 }
 
