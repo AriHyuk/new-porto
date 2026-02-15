@@ -1,10 +1,28 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { experienceData } from '@/constants/about';
 import { containerVariants, itemVariants } from '@/utils/animation';
 
-export default function ExperienceTab() {
+interface Experience {
+  role: string;
+  company: string;
+  period: string;
+  description: string;
+}
+
+interface ExperienceTabProps {
+  experiences: Experience[];
+}
+
+export default function ExperienceTab({ experiences }: ExperienceTabProps) {
+  if (!experiences || experiences.length === 0) {
+    return (
+      <div className="text-center py-20 text-gray-500">
+        No experience data found.
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-blue-500/30 before:to-transparent"
@@ -12,7 +30,7 @@ export default function ExperienceTab() {
       initial="hidden"
       animate="visible"
     >
-      {experienceData.map((item, index) => (
+      {experiences.map((item, index) => (
         <motion.div
           key={index}
           className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"

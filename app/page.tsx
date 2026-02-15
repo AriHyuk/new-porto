@@ -1,18 +1,23 @@
 import { getProjects } from '@/app/actions/get-projects';
 import { getCertificates } from '@/app/actions/get-certificates';
+import { getExperiences, getSkills } from '@/app/actions/get-about-data';
 import ProjectList from '@/components/ProjectList';
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
 import AboutSection from '@/components/About/AboutSection';
 import CertificateSection from '@/components/Certificates/CertificateSection';
+import ContactSection from '@/components/Contact/ContactSection';
 
 // Configure caching: revalidate every 1 hour (3600 seconds)
-export const revalidate = 3600;
+// Configure dynamic rendering for debugging
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-  const [projects, certificates] = await Promise.all([
+  const [projects, certificates, experiences, skills] = await Promise.all([
     getProjects(),
     getCertificates(),
+    getExperiences(),
+    getSkills(),
   ]);
 
   return (
@@ -24,10 +29,7 @@ export default async function Page() {
         <Hero />
 
         {/* About Section */}
-        <AboutSection />
-
-        {/* Certificates Section */}
-        <CertificateSection certificates={certificates} />
+        <AboutSection experiences={experiences} skills={skills} />
 
         {/* Projects Section */}
         <section id="portfolio" className="py-24 px-4 sm:px-6 lg:px-8">
@@ -45,17 +47,12 @@ export default async function Page() {
           </div>
         </section>
 
-        {/* Other sections like 'about' and 'certifity' can be added here */}
-      </main>
+        {/* Certificates Section */}
+        <CertificateSection certificates={certificates} />
 
-      {/* Footer Stats */}
-      <footer className="py-12 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            ✅ Connected to Supabase | Total Projects: <strong>{projects.length}</strong>
-          </p>
-        </div>
-      </footer>
+        {/* Contact Section */}
+        <ContactSection />
+      </main>
     </div>
   );
 }
