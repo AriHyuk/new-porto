@@ -33,7 +33,7 @@ export default function CertificateCard({ certificate, onClick }: CertificateCar
         fill
         className="object-cover transition-transform duration-500 group-hover:scale-110"
         onError={() => setImgSrc('https://via.placeholder.com/600x400?text=Certificate')}
-        unoptimized
+        sizes="(max-width: 768px) 288px, 288px"
       />
       
       {/* Overlay */}

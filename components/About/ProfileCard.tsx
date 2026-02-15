@@ -36,6 +36,8 @@ export default function ProfileCard() {
               alt="Ari Awaludin"
               fill
               className="object-cover"
+              sizes="160px"
+              priority
             />
           </motion.div>
         </div>
