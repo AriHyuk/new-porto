@@ -27,6 +27,7 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 - [x] Setup Supabase Client & Environment Variables
 - [x] Create Table `projects` & RLS Policies
 - [x] Seed initial project data
+- [x] Migrate static About data (Experience & Skills) to DB
 
 ### Backend Layer
 - [x] Server Actions: `getProjects()` (Read Only)
@@ -47,7 +48,7 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 - **Style Guide:** Maintain color scheme, typography, and component aesthetics
 - **Responsive:** Mobile-first approach
 
-**Status:** 🚧 **IN PROGRESS** (v0.7.0 - Landing Page Refinement)
+**Status:** 🚧 **IN PROGRESS** (v0.8.0 - Supabase Migration)
 
 ---
 
@@ -139,4 +140,4 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-15 | **Current Version:** v0.7.0
+**Last Updated:** 2026-02-15 | **Current Version:** v0.8.0
