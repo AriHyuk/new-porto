@@ -1,7 +1,9 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import ProjectCard from './ProjectCard';
+import ProjectModal from './ProjectModal';
 import type { Project } from '@/types';
 import { containerVariants } from '@/utils/animation';
 
@@ -10,6 +12,8 @@ interface ProjectListProps {
 }
 
 export default function ProjectList({ projects }: ProjectListProps) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   // Empty state component
   if (projects.length === 0) {
     return (
@@ -81,21 +85,30 @@ export default function ProjectList({ projects }: ProjectListProps) {
 
   // Projects grid with stagger animation
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        key="project-grid"
-      >
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-          />
-        ))}
-      </motion.div>
-    </AnimatePresence>
+    <>
+      <AnimatePresence mode="wait">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          key="project-grid"
+        >
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onClick={() => setSelectedProject(project)}
+            />
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
+      <ProjectModal
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+    </>
   );
 }
