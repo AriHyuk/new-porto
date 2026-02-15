@@ -80,10 +80,10 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
   - [ ] Image upload (Supabase Storage integration)
   - [ ] Rich text editor for description
   - [ ] Slug auto-generation from title
-- [ ] Contact Messages (`/admin/messages`)
-  - [ ] Inbox viewer (List all contact form submissions)
-  - [ ] Mark as read/unread
-  - [ ] Delete messages
+- [x] Contact Messages (`/admin/messages`)
+  - [x] Inbox viewer (List all contact form submissions)
+  - [x] Mark as read/unread
+  - [x] Delete messages
 
 ### Additional Features
 - [ ] Toast notifications for success/error states
@@ -125,7 +125,7 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 |-------|----------|--------|
 | Phase 1: Infrastructure | ✅ 100% | v0.1.0 |
 | Phase 2: Public Interface | ✅ 100% | v0.8.1 |
-| Phase 3: Admin Dashboard | 🚧 80% | v0.9.2 (Certificates & Proxy) |
+| Phase 3: Admin Dashboard | ✅ 100% | v0.9.6 (Messages Completed) |
 | Phase 4: Deployment | ⏳ 0% | Planned |
 
 ---
@@ -140,4 +140,4 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-15 | **Current Version:** v0.9.2
+**Last Updated:** 2026-02-15 | **Current Version:** v0.9.6

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaChartPie, FaProjectDiagram, FaBriefcase, FaCode, FaAward } from "react-icons/fa";
+import { FaChartPie, FaProjectDiagram, FaBriefcase, FaCode, FaAward, FaEnvelope } from "react-icons/fa";
 import clsx from "clsx";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: FaChartPie },
+  { href: "/admin/messages", label: "Messages", icon: FaEnvelope },
   { href: "/admin/projects", label: "Projects", icon: FaProjectDiagram },
   { href: "/admin/experiences", label: "Experiences", icon: FaBriefcase },
   { href: "/admin/skills", label: "Skills", icon: FaCode },
