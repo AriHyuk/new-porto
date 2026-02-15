@@ -3,12 +3,7 @@
 import { motion } from 'framer-motion';
 import SkillIcon from '@/components/SkillIcon';
 import { containerVariants, itemVariants } from '@/utils/animation';
-
-interface Skill {
-  name: string;
-  category: string;
-  icon_key: string;
-}
+import { Skill } from '@/types/skill';
 
 interface SkillsTabProps {
   skills: Skill[];
