@@ -10,14 +10,32 @@ import ServicesTab from './Tabs/ServicesTab';
 import MouseFollower from './MouseFollower';
 import { containerVariants, tabVariants, entryVariants } from '@/utils/animation';
 
-const tabs = [
-  { id: 'skills', label: 'Skills', component: SkillsTab },
-  { id: 'experience', label: 'Experience', component: ExperienceTab },
-  { id: 'services', label: 'Services', component: ServicesTab },
-];
+interface AboutSectionProps {
+  experiences: any[];
+  skills: any[];
+}
 
-export default function AboutSection() {
+export default function AboutSection({ experiences, skills }: AboutSectionProps) {
   const [activeTab, setActiveTab] = useState('skills');
+
+  const tabs = [
+    { id: 'skills', label: 'Skills' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'services', label: 'Services' },
+  ];
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'skills':
+        return <SkillsTab skills={skills} />;
+      case 'experience':
+        return <ExperienceTab experiences={experiences} />;
+      case 'services':
+        return <ServicesTab />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-gray-50/50 dark:bg-gray-900/50">
@@ -98,10 +116,7 @@ export default function AboutSection() {
                   exit="exit"
                   className="w-full"
                 >
-                  {(() => {
-                    const ActiveComponent = tabs.find((t) => t.id === activeTab)?.component;
-                    return ActiveComponent ? <ActiveComponent /> : null;
-                  })()}
+                  {renderTabContent()}
                 </motion.div>
               </AnimatePresence>
             </div>
