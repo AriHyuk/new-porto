@@ -1,6 +1,7 @@
 import { getProjects } from '@/app/actions/get-projects';
 import { getCertificates } from '@/app/actions/get-certificates';
-import { getExperiences, getSkills } from '@/app/actions/get-about-data';
+import { getExperiences } from '@/app/actions/get-experiences';
+import { getSkills } from '@/app/actions/get-about-data';
 import ProjectList from '@/components/ProjectList';
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
