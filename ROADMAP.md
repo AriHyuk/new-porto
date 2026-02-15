@@ -124,8 +124,8 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 | Phase | Progress | Status |
 |-------|----------|--------|
 | Phase 1: Infrastructure | ✅ 100% | v0.1.0 |
-| Phase 2: Public Interface | 🚧 90% | v0.8.1 (Workspace Sync) |
-| Phase 3: Admin Dashboard | ⏳ 0% | Planned |
+| Phase 2: Public Interface | ✅ 100% | v0.8.1 |
+| Phase 3: Admin Dashboard | 🚧 50% | v0.9.0 (Auth & Shell) |
 | Phase 4: Deployment | ⏳ 0% | Planned |
 
 ---
@@ -140,4 +140,4 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-15 | **Current Version:** v0.8.1
+**Last Updated:** 2026-02-15 | **Current Version:** v0.9.0
