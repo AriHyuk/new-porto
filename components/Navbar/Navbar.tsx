@@ -11,6 +11,7 @@ import Link from 'next/link';
 import NavLink from './NavLink';
 import ContactSection from '../Contact/ContactSection';
 import dynamic from 'next/dynamic';
+import BrandLogo from './BrandLogo';
 
 const MobileMenu = dynamic(() => import('./MobileMenu'), {
   ssr: false,
@@ -78,10 +79,7 @@ export default function Navbar() {
     }
   };
 
-  // Brand parts consolidated
-  const brandParts = [
-    { text: "AriHyuk", isSup: false }
-  ];
+
 
   return (
     <>
@@ -100,63 +98,7 @@ export default function Navbar() {
         >
           <div className="flex justify-between items-center">
             {/* Animated Brand Name */}
-            <Link 
-              href="/"
-              className="text-2xl font-black cursor-pointer relative group flex items-center gap-1.5"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              <div className="flex items-baseline py-1">
-                {brandParts.map((part, partIndex) => (
-                  <div key={`part-${partIndex}`} className="flex items-baseline">
-                    {part.text.split("").map((char, charIndex) => (
-                      <motion.span 
-                        key={`${partIndex}-${charIndex}`}
-                        className="inline-block transition-colors duration-300 text-blue-600 dark:text-blue-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        whileHover={{ 
-                          y: -8,
-                          transition: { 
-                            type: 'spring', 
-                            stiffness: 400, 
-                            damping: 10,
-                          }
-                        }}
-                      >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </div>
-                ))}
-                
-                {/* Logo Icon */}
-                <motion.span 
-                  className="ml-1 text-blue-600 dark:text-blue-500 font-mono text-base font-bold transition-colors duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-                  whileHover={{ 
-                    y: -8,
-                    rotate: [0, -10, 10, 0],
-                    transition: { 
-                      type: 'spring', 
-                      stiffness: 400, 
-                      damping: 10,
-                      rotate: { duration: 0.4, ease: "easeInOut" }
-                    } 
-                  }}
-                >
-                  &lt;/&gt;
-                </motion.span>
-              </div>
-              
-              {/* Subtle Shimmer Line Underneath */}
-              <motion.div 
-                className="absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full"
-                initial={{ width: 0 }}
-                variants={{
-                  hovered: { width: '100%', transition: { duration: 0.3 } }
-                }}
-              />
-            </Link>
+            <BrandLogo />
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">

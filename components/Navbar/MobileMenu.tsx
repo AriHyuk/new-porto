@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import NavLink from './NavLink';
+import BrandLogo from './BrandLogo';
 import { clsx } from 'clsx';
 
 interface MobileMenuProps {
@@ -40,9 +41,13 @@ export default function MobileMenu({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 h-full w-[280px] bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden flex flex-col p-8"
+            className="fixed top-0 right-0 h-full w-[280px] bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden flex flex-col p-8 pt-10"
           >
-            <div className="flex flex-col gap-6 mt-16">
+            <div className="mb-4">
+              <BrandLogo onClick={onClose} />
+            </div>
+
+            <div className="flex flex-col gap-6 mt-8">
               {navLinks.map((link) => (
                 <NavLink
                   key={link.id}

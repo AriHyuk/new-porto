@@ -9,6 +9,7 @@ const CollaborationSchema = z.object({
   category: z.string().min(1, 'Please select a category'),
   budget: z.string().min(1, 'Budget is required'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
+  _honeypot: z.string().optional(),
 });
 
 export type CollaborationFormData = z.infer<typeof CollaborationSchema>;
@@ -17,6 +18,12 @@ export async function sendMessage(formData: CollaborationFormData) {
   try {
     // Validate data using Zod
     const validatedData = CollaborationSchema.parse(formData);
+
+    // Honeypot check: If filled, it's likely a bot
+    if (validatedData._honeypot) {
+      // Return success to deceive bot, but do nothing
+      return { success: true, message: 'Your request has been sent successfully!' };
+    }
 
     const supabase = await createClient();
 

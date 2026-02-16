@@ -21,6 +21,7 @@ export default function ContactForm() {
     category: '',
     budget: '',
     message: '',
+    _honeypot: '',
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof CollaborationFormData, string>>>({});
@@ -43,7 +44,7 @@ export default function ContactForm() {
 
     if (result.success) {
       toast.success(result.message);
-      setFormData({ name: '', email: '', category: '', budget: '', message: '' });
+      setFormData({ name: '', email: '', category: '', budget: '', message: '', _honeypot: '' });
     } else {
       if (result.errors) {
         const fieldErrors: any = {};
@@ -67,6 +68,18 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Honeypot Field - Hidden from humans, caught by bots */}
+      <div className="hidden pointer-events-none opacity-0" aria-hidden="true">
+        <input
+          type="text"
+          name="_honeypot"
+          value={formData._honeypot}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-3">
           <label htmlFor="name" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">

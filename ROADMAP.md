@@ -136,6 +136,13 @@ Portfolio v2.1 (Domain Patch) - Next.js 15 with Supabase & Docker
 
 ---
 
+## 🚀 Release v1.1.2 (UI & Security Refinement)
+- [x] Fix: Synchronize "AriHyuk" logo animation across Desktop & Mobile
+- [x] Feat: Extracted `BrandLogo` component for code reusability
+- [x] Feat: Added Honeypot security to `ContactForm` for spam prevention
+- [x] Style: Refined MobileMenu layout and spacing
+- [x] Chore: Bump version to v1.1.2
+
 ## 🚀 Release v1.1.1 (Domain & Metadata Patch)
 - [x] Fix: Update metadataBase and OpenGraph URLs to `ariawaludin.my.id`
 - [x] Fix: Update sitemap.ts and robots.ts with the new domain
@@ -162,4 +169,4 @@ Portfolio v2.1 (Domain Patch) - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-16 | **Current Version:** v1.1.1
+**Last Updated:** 2026-02-16 | **Current Version:** v1.1.2
