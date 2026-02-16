@@ -40,7 +40,8 @@ const contentVariants: Variants = {
 };
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
-  // ... existing useEffects ...
+  // ... (useEffects can stay logic-wise, but I will include them to be safe if I'm replacing the whole component body)
+  
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -67,10 +68,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             variants={overlayVariants}
             initial="hidden"
             animate="visible"
@@ -80,103 +81,108 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
           {/* Modal Content */}
           <motion.div
-            className="relative w-full max-w-4xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-white/20 dark:border-white/10"
+            className="relative w-full max-w-5xl bg-[#0f1115] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] border border-white/10"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            layoutId={`project-card-${project.id}`} // Match the card's layoutId
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full transition-colors backdrop-blur-md"
+              className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-all border border-white/10 backdrop-blur-md group"
               aria-label="Close modal"
             >
-              <FaTimes className="text-xl" />
+              <FaTimes className="text-lg group-hover:rotate-90 transition-transform duration-300" />
             </button>
 
-            {/* Image Header */}
-            <div className="relative h-64 md:h-80 w-full flex-shrink-0 bg-gray-200 dark:bg-zinc-800 overflow-hidden">
-              <motion.div
-                className="relative w-full h-full"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 5, ease: "linear" }}
-              >
-                {/* Shimmer Overlay */}
-                <div className="absolute inset-0 bg-shimmer z-0" />
-                
-                <Image
+            {/* Immersive Image Sidebar (Left/Top) */}
+            <motion.div 
+                className="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-900 group"
+                layoutId={`project-content-${project.id}`} // Optional: separate ID for image morph
+            >
+               <Image
                   src={project.image_url || "/images/projects/placeholder.png"}
                   alt={project.title}
                   fill
-                  className="object-cover z-10"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1024px"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   priority
                 />
-              </motion.div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end">
-                <div className="p-6 md:p-8 w-full">
-                  <motion.h2 
-                    className="text-3xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg"
-                    variants={contentVariants}
-                  >
-                    {project.title}
-                  </motion.h2>
-                  <motion.div 
-                    className="flex flex-wrap gap-2"
-                    variants={contentVariants}
-                  >
-                     {project.tech_stack?.map((tech, i) => (
-                      <span 
-                        key={i} 
-                        className="text-xs md:text-sm bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full border border-white/10 shadow-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </motion.div>
-                </div>
-              </div>
-            </div>
+                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-transparent to-transparent opacity-60" />
+            </motion.div>
 
-            {/* Content Body */}
-            <div className="p-6 md:p-8 overflow-y-auto custom-scrollbar">
-              <motion.div 
-                className="prose dark:prose-invert max-w-none"
+            {/* Content Body (Right/Bottom) */}
+            <div className="w-full md:w-1/2 flex flex-col p-8 md:p-10 overflow-y-auto custom-scrollbar relative bg-[#0f1115]">
+              {/* Category & Date (Mock) */}
+              <div className="flex items-center gap-3 mb-6">
+                <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest">
+                  {project.tech_stack?.[0] || 'Showcase'}
+                </span>
+                <span className="w-1 h-1 rounded-full bg-gray-700" />
+                <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">
+                  2023 - Present
+                </span>
+              </div>
+
+              <motion.h2 
+                className="text-4xl md:text-5xl font-black text-white mb-6 leading-[1.1] tracking-tight"
                 variants={contentVariants}
               >
-                <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed whitespace-pre-line">
+                {project.title}
+              </motion.h2>
+
+              <motion.div 
+                className="prose prose-invert max-w-none mb-8"
+                variants={contentVariants}
+              >
+                <p className="text-gray-400 text-lg leading-relaxed font-light">
                   {project.description}
                 </p>
               </motion.div>
 
-              {/* Action Buttons */}
-              <motion.div 
-                className="mt-8 flex flex-wrap gap-4 pt-6 border-t border-gray-200/50 dark:border-white/10"
-                variants={contentVariants}
-              >
+              {/* Tech Stack Grid */}
+              <div className="mb-8 p-6 rounded-2xl bg-white/5 border border-white/5">
+                <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">
+                  Technologies
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech_stack?.map((tech, i) => (
+                    <span 
+                      key={i} 
+                      className="text-sm text-gray-300 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto pt-6 flex gap-4">
                 {project.demo_url && (
-                  <a
+                   <a
                     href={project.demo_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[160px] flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5"
+                    className="flex-1 py-4 flex items-center justify-center gap-2 bg-white text-black rounded-xl font-bold hover:bg-gray-200 transition-colors"
                   >
-                    <FaExternalLinkAlt /> Live Demo
+                    <FaExternalLinkAlt className="text-sm" /> Live Demo
                   </a>
                 )}
-                {project.repo_url && (
-                  <a
+                 {project.repo_url && (
+                   <a
                     href={project.repo_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[160px] flex items-center justify-center gap-2 px-6 py-4 bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-white rounded-xl font-bold hover:bg-gray-200 dark:hover:bg-zinc-700 transition-all hover:shadow-lg hover:-translate-y-0.5 border border-transparent dark:border-white/10"
+                    className="flex-1 py-4 flex items-center justify-center gap-2 bg-white/5 text-white rounded-xl font-bold hover:bg-white/10 transition-colors border border-white/10"
                   >
-                    <FaGithub /> Source Code
+                    <FaGithub className="text-lg" /> Code
                   </a>
                 )}
-              </motion.div>
+              </div>
+
             </div>
           </motion.div>
         </div>

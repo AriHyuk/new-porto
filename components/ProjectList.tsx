@@ -17,102 +17,121 @@ interface ProjectListProps {
 
 export default function ProjectList({ projects }: ProjectListProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // Empty state component
-  if (projects.length === 0) {
-    return (
-      <motion.div
-        className="flex flex-col items-center justify-center min-h-[400px] px-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="text-center max-w-md">
-          {/* Empty state icon */}
-          <motion.div
-            className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 flex items-center justify-center"
-            animate={{
-              scale: [1, 1.1, 1],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
-            <svg
-              className="w-12 h-12 text-blue-600 dark:text-blue-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-              />
-            </svg>
-          </motion.div>
+  const ITEMS_PER_PAGE = 6;
 
-          {/* Empty state text */}
-          <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-            No Projects Found
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            There are no projects to display at the moment. Check back soon for exciting new work!
-          </p>
+  // Filter Logic (Search Only)
+  const filteredProjects = projects.filter((project) => {
+    // Explicitly return all projects if search is empty
+    if (!searchQuery) return true;
 
-          {/* Decorative elements */}
-          <div className="flex justify-center gap-2">
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400"
-                animate={{
-                  y: [0, -10, 0],
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
+    const matchesSearch =
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tech_stack?.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
 
-  // Projects grid with stagger animation
+    return matchesSearch || false;
+  });
+
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const paginatedProjects = filteredProjects.slice(0, page * ITEMS_PER_PAGE);
+  const hasMore = page < totalPages;
+
+  // Mouse tracking for spotlight effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    // ... existing mouse tracking logic
+    for (const card of document.getElementsByClassName('group') as HTMLCollectionOf<HTMLElement>) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    }
+  };
+
   return (
-    <>
+    <div onMouseMove={handleMouseMove} className="w-full">
+      {/* Controls: Search Bar Only (Centered) */}
+      <div className="flex justify-center mb-12">
+        <div className="relative w-full max-w-md group">
+           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+           </div>
+           <input
+              type="text"
+              placeholder="Search projects by name or technology..."
+              value={searchQuery}
+              onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
+              className="block w-full pl-12 pr-4 py-3 border border-gray-200 dark:border-white/10 rounded-full leading-5 bg-white dark:bg-white/5 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm hover:shadow-md transition-all duration-300"
+           />
+        </div>
+      </div>
+
+      {/* Projects Grid */}
       <AnimatePresence mode="wait">
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          key="project-grid"
-        >
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={() => setSelectedProject(project)}
-            />
-          ))}
-        </motion.div>
+        {paginatedProjects.length > 0 ? (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-[450px]"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            key={`project-grid-${page}`}
+          >
+            {paginatedProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                className="col-span-1"
+                layoutId={`project-card-${project.id}`}
+              >
+                <ProjectCard
+                  project={project}
+                  onClick={() => setSelectedProject(project)}
+                  layoutId={`project-content-${project.id}`}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          /* Empty State */
+           <motion.div
+            className="flex flex-col items-center justify-center min-h-[300px] text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+             <p className="text-gray-500 dark:text-gray-400 text-lg">No projects match "{searchQuery}"</p>
+             <button
+               onClick={() => { setSearchQuery(''); }}
+               className="mt-4 text-blue-600 dark:text-blue-400 hover:underline font-medium"
+             >
+               Clear Search
+             </button>
+           </motion.div>
+        )}
       </AnimatePresence>
+      
+      {/* Load More Button */}
+      {hasMore && (
+        <div className="flex justify-center mt-12">
+            <button
+                onClick={() => setPage(prev => prev + 1)}
+                className="group relative px-8 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95"
+            >
+                <span className="text-sm font-bold text-gray-300 group-hover:text-white uppercase tracking-widest">
+                    Load More Projects
+                </span>
+            </button>
+        </div>
+      )}
 
       <ProjectModal
         project={selectedProject}
         isOpen={!!selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-    </>
+    </div>
   );
 }
