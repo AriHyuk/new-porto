@@ -2,10 +2,18 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { Certificate } from '@/types/certificate';
-import CertificateSlider from './CertificateSlider';
-import CertificateModal from './CertificateModal';
 import { entryVariants } from '@/utils/animation';
+
+const CertificateSlider = dynamic(() => import('./CertificateSlider'), {
+  loading: () => <div className="w-full h-40 bg-shimmer rounded-xl" />,
+  ssr: false
+});
+
+const CertificateModal = dynamic(() => import('./CertificateModal'), {
+  ssr: false
+});
 
 interface CertificateSectionProps {
   certificates: Certificate[];

@@ -136,6 +136,13 @@ Portfolio v2.1 (Domain Patch) - Next.js 15 with Supabase & Docker
 
 ---
 
+## 🚀 Release v1.2.0 (Ultimate Image Optimization)
+- [x] Feat: Integrated `sharp` for high-performance image processing
+- [x] Feat: Implemented Static Imports & `placeholder="blur"` for Profile images
+- [x] Feat: Added custom Shimmer placeholders for Projects & Certificates
+- [x] Refactor: Optimized `sizes` attributes for responsive LCP
+- [x] Chore: Bump version to v1.2.0
+
 ## 🚀 Release v1.1.2 (UI & Security Refinement)
 - [x] Fix: Synchronize "AriHyuk" logo animation across Desktop & Mobile
 - [x] Feat: Extracted `BrandLogo` component for code reusability
@@ -169,4 +176,4 @@ Portfolio v2.1 (Domain Patch) - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-16 | **Current Version:** v1.1.2
+**Last Updated:** 2026-02-16 | **Current Version:** v1.2.0

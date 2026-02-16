@@ -1,4 +1,4 @@
-# Portfolio v1.1.2
+# Portfolio v1.2.0
 
 🚀 **Live Site**: [https://ariawaludin.my.id](https://ariawaludin.my.id)
 

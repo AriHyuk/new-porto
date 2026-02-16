@@ -37,3 +37,4 @@ gcloud run deploy $SERVICE `
   --platform managed
 
 Write-Host "--- 🎉 Deployment Selesai! ---" -ForegroundColor Green
+Write-Host "🌐 Live at: https://ariawaludin.my.id" -ForegroundColor Blue

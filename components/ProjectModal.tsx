@@ -97,18 +97,21 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </button>
 
             {/* Image Header */}
-            <div className="relative h-64 md:h-80 w-full flex-shrink-0 bg-gray-100 dark:bg-zinc-800 overflow-hidden">
+            <div className="relative h-64 md:h-80 w-full flex-shrink-0 bg-gray-200 dark:bg-zinc-800 overflow-hidden">
               <motion.div
                 className="relative w-full h-full"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 5, ease: "linear" }}
               >
+                {/* Shimmer Overlay */}
+                <div className="absolute inset-0 bg-shimmer z-0" />
+                
                 <Image
                   src={project.image_url || "/images/projects/placeholder.png"}
                   alt={project.title}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                  className="object-cover z-10"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1024px"
                   priority
                 />
               </motion.div>

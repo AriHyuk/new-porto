@@ -75,14 +75,17 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
           </div>
         )}
 
-        {/* Optimized Image */}
-        <div className="relative w-full h-full">
+        {/* Optimized Image with Shimmer Placeholder */}
+        <div className="relative w-full h-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          {/* Shimmer Overlay */}
+          <div className="absolute inset-0 bg-shimmer z-0" />
+          
           <Image
             src={project.image_url || '/images/projects/placeholder.png'}
             alt={project.title}
             fill
-            className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transform group-hover:scale-110 transition-transform duration-500 z-10"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={false}
             onError={(e) => {
               const target = e.target as HTMLImageElement;

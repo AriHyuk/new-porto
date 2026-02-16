@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { socialLinks, contactInfo } from '@/constants/about';
 import { cardVariants, buttonVariants, profileVariants } from '@/utils/animation';
+import profileAvatar from '@/public/images/profile/avatar.jpeg';
 
 export default function ProfileCard() {
   return (
@@ -32,12 +33,13 @@ export default function ProfileCard() {
             whileHover="hover"
           >
             <Image
-              src="/images/profile/avatar.jpeg"
+              src={profileAvatar}
               alt="Ari Awaludin"
               fill
               className="object-cover"
               sizes="160px"
               priority
+              placeholder="blur"
             />
           </motion.div>
         </div>

@@ -36,14 +36,19 @@ export default function CertificateCard({ certificate, onClick }: CertificateCar
         }
       }}
     >
-      <Image
-        src={imgSrc}
-        alt={certificate.name}
-        fill
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
-        onError={() => setImgSrc('https://via.placeholder.com/600x400?text=Certificate')}
-        sizes="(max-width: 768px) 288px, 288px"
-      />
+      <div className="relative w-full h-full bg-gray-100 dark:bg-gray-700">
+        {/* Shimmer Overlay */}
+        <div className="absolute inset-0 bg-shimmer z-0" />
+        
+        <Image
+          src={imgSrc}
+          alt={certificate.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110 z-10"
+          onError={() => setImgSrc('https://via.placeholder.com/600x400?text=Certificate')}
+          sizes="(max-width: 768px) 288px, 320px"
+        />
+      </div>
       
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">

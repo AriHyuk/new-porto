@@ -32,3 +32,4 @@ gcloud run deploy $SERVICE \
   --platform managed
 
 echo "--- 🎉 Deployment Selesai! ---"
+echo "🌐 Live at: https://ariawaludin.my.id"

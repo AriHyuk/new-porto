@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     // Optimize imports to reduce bundle size
     optimizePackageImports: ['lucide-react', 'date-fns', 'framer-motion', 'react-icons'],
   },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,

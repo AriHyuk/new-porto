@@ -10,6 +10,7 @@ import BackgroundShapes from './BackgroundShapes';
 import TechPill from './TechPill';
 import ScrollIndicator from './ScrollIndicator';
 import { SiNextdotjs, SiReact, SiTypescript} from 'react-icons/si';
+import profileAvatar from '@/public/images/profile/avatar.jpeg';
 
 export default function Hero() {
   return (
@@ -180,14 +181,13 @@ function ProfileImage() {
     >
       <div className="relative w-full h-full bg-white dark:bg-gray-950/80 rounded-[2.3rem] md:rounded-[3.3rem] overflow-hidden">
         <Image
-          src="/images/profile/avatar.jpeg"
+          src={profileAvatar}
           alt="Ari Hyuk Profile"
           fill
           priority
-          // @ts-ignore - fetchPriority is supported in React Doms but typescript might complain in older versions
-          fetchPriority="high"
+          placeholder="blur"
           className="object-cover scale-105"
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 450px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";

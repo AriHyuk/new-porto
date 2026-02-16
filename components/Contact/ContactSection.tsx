@@ -1,9 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import ContactForm from './ContactForm';
+import dynamic from 'next/dynamic';
 import ContactInfo from './ContactInfo';
 import { entryVariants } from '@/utils/animation';
+
+const ContactForm = dynamic(() => import('./ContactForm'), {
+  loading: () => <div className="w-full h-[400px] bg-shimmer rounded-2xl" />,
+  ssr: false // Form interaction is client-side only
+});
 
 export default function ContactSection() {
   return (
