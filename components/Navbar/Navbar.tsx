@@ -7,9 +7,14 @@ import { clsx } from 'clsx';
 import { navVariants, letterVariants } from '@/utils/animation';
 import { useTheme } from 'next-themes';
 import ThemeToggle from './ThemeToggle';
+import Link from 'next/link';
 import NavLink from './NavLink';
-import MobileMenu from './MobileMenu';
 import ContactSection from '../Contact/ContactSection';
+import dynamic from 'next/dynamic';
+
+const MobileMenu = dynamic(() => import('./MobileMenu'), {
+  ssr: false,
+});
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -95,9 +100,13 @@ export default function Navbar() {
         >
           <div className="flex justify-between items-center">
             {/* Animated Brand Name */}
-            <motion.div 
+            <Link 
+              href="/"
               className="text-2xl font-black cursor-pointer relative group flex items-center gap-1.5"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             >
               <div className="flex items-baseline py-1">
                 {brandParts.map((part, partIndex) => (
@@ -147,7 +156,7 @@ export default function Navbar() {
                   hovered: { width: '100%', transition: { duration: 0.3 } }
                 }}
               />
-            </motion.div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
@@ -167,12 +176,16 @@ export default function Navbar() {
 
               <ThemeToggle />
 
-              <button
-                onClick={() => handleLinkClick('contact')}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick('contact');
+                }}
                 className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold shadow-md hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105"
               >
                 Hire me
-              </button>
+              </a>
             </div>
 
             {/* Mobile Toggle & Icons */}

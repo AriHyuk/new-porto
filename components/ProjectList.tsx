@@ -2,10 +2,14 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import ProjectCard from './ProjectCard';
-import ProjectModal from './ProjectModal';
 import type { Project } from '@/types';
 import { containerVariants } from '@/utils/animation';
+
+const ProjectModal = dynamic(() => import('./ProjectModal'), {
+  ssr: false,
+});
 
 interface ProjectListProps {
   projects: Project[];

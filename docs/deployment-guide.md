@@ -11,6 +11,12 @@ Agar image Docker kecil dan efisien, kita menggunakan fitur **Standalone Output*
 ### `next.config.ts`
 Pastikan `output: 'standalone'` aktif. Fitur ini akan mem-bundle hanya file yang benar-benar dibutuhkan untuk menjalankan server, menghapus `node_modules` raksasa dan file dev.
 
+**Update v1.0.1 (Image Optimization & Code Splitting):**
+1. **Image Optimization:** Konfigurasi `images` untuk format modern (AVIF/WebP) dan strict sizing.
+2. **Code Splitting (Lazy Loading):** Komponen berat seperti `MeshBackground` (Animasi) dan `ProjectModal` (Interaksi) sekarang di-load menggunakan `next/dynamic`. Ini membuang "Unused JavaScript" dari main bundle dan mempercepat TTI (Time to Interactive).
+3. **Legacy JS Removed:** Build target diubah ke `ES2022` dan `browserslist` di-update. Browser modern tidak perlu polyfill jadul yang memberatkan.
+4. **DOM Size Optimized:** `SkillsTab` dan `SkillIcon` di-refactor. Menghapus wrapper div yang tidak perlu dan menggunakan pseudo-elements (`::before`/`::after`) untuk dekorasi. Mengaktifkan `content-visibility: auto` agar browser skip rendering elemen di luar viewport.
+
 ### `Dockerfile` (Multi-stage)
 Kita menggunakan 3 stage:
 1. **deps**: Install semua dependencies.
@@ -119,6 +125,47 @@ Perhatikan kenapa saya tulis `COPY package.json ...` **SEBELUM** `COPY . .`?
 
 5. **Resource Limits**
    Set `cpu` dan `memory` serendah mungkin tapi aplikasi tetap jalan. Start dengan `512Mi` RAM. Kalau sering kena `OOM (Out Of Memory)` baru naikkan ke `1Gi`. Ini kunci hemat billing!
+
+---
+
+## ⚡ Automation Scripts (The Pro Way)
+
+Untuk mempermudah update berkala, gunakan script otomatis yang sudah saya buatkan:
+
+### Windows (PowerShell)
+Jalankan perintah ini di PowerShell:
+```powershell
+./deploy.ps1
+```
+
+### Linux / Mac / Git Bash
+Jalankan perintah ini:
+```bash
+chmod +x deploy.sh
+./deploy.sh
+```
+
+---
+
+## 🌐 Custom Domain & Branding (Premium URL)
+
+URL bawaan Google Cloud (`.a.run.app`) kurang profesional untuk portfolio. Berikut cara mengubahnya menjadi `nama-kamu.com`:
+
+### 1. Hubungkan Domain di GCP
+1. Buka [Google Cloud Console](https://console.cloud.google.com/run).
+2. Pilih service `new-porto-service`.
+3. Klik **Manage Custom Domains** di bar atas.
+4. Klik **Add Mapping**.
+5. Pilih domain yang sudah kamu beli (kamu mungkin perlu verifikasi kepemilikan via Google Search Console).
+
+### 2. Update DNS Records
+Setelah mapping ditambahkan, Google akan memberikan **DNS Records** (Tipe `A` atau `CNAME`).
+- Masuk ke panel dashboard tempat kamu beli domain (Niagahoster, Namecheap, dll).
+- Tambahkan record yang diberikan Google.
+
+### 3. HTTPS Otomatis
+- Google akan mengurus sertifikat SSL (HTTPS) secara otomatis melalui Let's Encrypt.
+- Proses propagasi DNS dan SSL biasanya memakan waktu **15 menit - 24 jam**.
 
 ---
 *Dibuat dengan 🔥 oleh Antigravity untuk Ari Awaludin.*

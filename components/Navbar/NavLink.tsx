@@ -18,6 +18,7 @@ export default function NavLink({ to, label, isActive, onClick, onSetActive }: N
     <div className="relative group">
       <ScrollLink
         to={to}
+        href={`#${to}`}
         spy={true}
         smooth={true}
         duration={500}

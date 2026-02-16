@@ -26,6 +26,15 @@ export default function CertificateCard({ certificate, onClick }: CertificateCar
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ duration: 0.2 }}
       onClick={() => onClick(certificate)}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${certificate.name} certificate`}
+      aria-haspopup="dialog"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick(certificate);
+        }
+      }}
     >
       <Image
         src={imgSrc}

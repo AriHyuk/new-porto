@@ -16,21 +16,21 @@ import {
   SiLaravel
 } from 'react-icons/si';
 
-const icons: Record<string, React.ReactNode> = {
-  react: <SiReact />,
-  node: <SiNodedotjs />,
-  mongodb: <SiMongodb />,
-  express: <SiExpress />,
-  nextjs: <SiNextdotjs />,
-  typescript: <SiTypescript />,
-  javascript: <SiJavascript />,
-  tailwindcss: <SiTailwindcss />,
-  supabase: <SiSupabase />,
-  postgresql: <SiPostgresql />,
-  docker: <SiDocker />,
-  go: <SiGo />,
-  kotlin: <SiKotlin />,
-  laravel: <SiLaravel />
+const icons: Record<string, React.ElementType> = {
+  react: SiReact,
+  node: SiNodedotjs,
+  mongodb: SiMongodb,
+  express: SiExpress,
+  nextjs: SiNextdotjs,
+  typescript: SiTypescript,
+  javascript: SiJavascript,
+  tailwindcss: SiTailwindcss,
+  supabase: SiSupabase,
+  postgresql: SiPostgresql,
+  docker: SiDocker,
+  go: SiGo,
+  kotlin: SiKotlin,
+  laravel: SiLaravel
 };
 
 interface SkillIconProps {
@@ -39,15 +39,11 @@ interface SkillIconProps {
 }
 
 const SkillIcon = ({ iconKey, className }: SkillIconProps) => {
-  const icon = icons[iconKey.toLowerCase()];
+  const IconComponent = icons[iconKey.toLowerCase()];
   
-  if (!icon) return null;
+  if (!IconComponent) return null;
 
-  return (
-    <div className={className}>
-      {icon}
-    </div>
-  );
+  return <IconComponent className={className} />;
 };
 
 export default SkillIcon;

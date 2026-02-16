@@ -27,8 +27,8 @@ export default function BackgroundShapes() {
       <motion.div
         className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/5 dark:bg-blue-400/5 blur-[120px] z-0"
         style={{
-          left: spotlightX,
-          top: spotlightY,
+          x: spotlightX,
+          y: spotlightY,
           translateX: '-50%',
           translateY: '-50%',
         }}

@@ -66,43 +66,85 @@ export default function ContactForm() {
   `;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Full Name</label>
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-3">
+          <label htmlFor="name" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+            Full Name
+          </label>
           <input
+            id="name"
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Ari Hyuk"
+            required
+            aria-required="true"
+            aria-invalid={!!errors.name}
             className={inputClasses('name')}
           />
-          {errors.name && <p className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"><FaExclamationCircle /> {errors.name}</p>}
+          <AnimatePresence>
+            {errors.name && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+              >
+                <FaExclamationCircle /> {errors.name}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Email Address</label>
+        <div className="space-y-3">
+          <label htmlFor="email" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+            Email Address
+          </label>
           <input
+            id="email"
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             placeholder="aria@example.com"
+            required
+            aria-required="true"
+            aria-invalid={!!errors.email}
             className={inputClasses('email')}
           />
-          {errors.email && <p className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"><FaExclamationCircle /> {errors.email}</p>}
+          <AnimatePresence>
+            {errors.email && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+              >
+                <FaExclamationCircle /> {errors.email}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Project Category</label>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-3">
+          <label htmlFor="category" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+            Project Category
+          </label>
           <div className="relative">
             <select
+              id="category"
               name="category"
               value={formData.category}
               onChange={handleChange}
+              required
+              aria-required="true"
               className={`${inputClasses('category')} appearance-none pr-12`}
             >
               <option value="" disabled>Select a category</option>
@@ -112,16 +154,31 @@ export default function ContactForm() {
                 </option>
               ))}
             </select>
-            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-              ▼
+            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
             </div>
           </div>
-          {errors.category && <p className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"><FaExclamationCircle /> {errors.category}</p>}
+          <AnimatePresence>
+            {errors.category && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+              >
+                <FaExclamationCircle /> {errors.category}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Budget Range (USD)</label>
+        <div className="space-y-3">
+          <label htmlFor="budget" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            Budget Range
+          </label>
           <input
+            id="budget"
             type="text"
             name="budget"
             value={formData.budget}
@@ -129,39 +186,57 @@ export default function ContactForm() {
             placeholder="e.g. $1,000 - $5,000"
             className={inputClasses('budget')}
           />
-          {errors.budget && <p className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"><FaExclamationCircle /> {errors.budget}</p>}
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Project Details</label>
+      <div className="space-y-3">
+        <label htmlFor="message" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+          Project Details
+        </label>
         <textarea
+          id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
           rows={5}
+          required
+          aria-required="true"
+          aria-invalid={!!errors.message}
           placeholder="Describe your vision, timeline, and goals..."
           className={`${inputClasses('message')} resize-none`}
         />
-        {errors.message && <p className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"><FaExclamationCircle /> {errors.message}</p>}
+        <AnimatePresence>
+          {errors.message && (
+            <motion.p 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+            >
+              <FaExclamationCircle /> {errors.message}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
 
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        whileHover={{ scale: 1.01 }}
+        whileHover={{ scale: 1.01, boxShadow: '0 20px 25px -5px rgba(59, 130, 246, 0.2)' }}
         whileTap={{ scale: 0.98 }}
-        className="w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-lg shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:grayscale"
+        className="group w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-lg shadow-xl shadow-blue-500/10 hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:grayscale relative overflow-hidden"
       >
+        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
         {isSubmitting ? (
           <>
-            <div className="w-5 h-5 border-3 border-white/50 border-t-white rounded-full animate-spin" />
-            Sending Proposal...
+            <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+            <span className="animate-pulse">Sending Proposal...</span>
           </>
         ) : (
           <>
-            <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            Request for Meeting
+            <FaPaperPlane className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+            <span>Request for Meeting</span>
           </>
         )}
       </motion.button>

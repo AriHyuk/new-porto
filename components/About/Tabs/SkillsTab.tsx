@@ -20,7 +20,7 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
 
   return (
     <motion.div
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 content-visibility-auto contain-strict"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -32,21 +32,26 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
         return (
           <motion.div
             key={index}
-            className="group relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg overflow-hidden flex flex-col justify-between min-h-[160px]"
+            className="group relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg overflow-hidden flex flex-col justify-between min-h-[160px]
+            before:absolute before:inset-0 before:opacity-[0.03] before:dark:opacity-[0.05] before:group-hover:opacity-10 before:transition-opacity before:duration-500
+            after:absolute after:inset-0 after:bg-gradient-to-br after:from-white/50 after:to-transparent after:dark:from-white/5 after:dark:to-transparent after:pointer-events-none"
             variants={itemVariants}
             whileHover={{ y: -5 }}
+            style={{ 
+              // @ts-ignore
+              '--skill-color': displayColor 
+            }}
           >
-            {/* Background Accent */}
-            <div 
-              className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-10 transition-opacity duration-500"
-              style={{ backgroundColor: displayColor }}
-            />
+            {/* Background Accent via pseudo-element referencing CSS var */}
+            <style jsx>{`
+              .group::before {
+                background-color: var(--skill-color);
+              }
+            `}</style>
             
-            <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent dark:from-white/5 dark:to-transparent" />
-
-            <div className="relative z-10">
+            <div className="relative z-10 text-center">
               <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-sm"
+                className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-sm"
                 style={{ 
                   backgroundColor: `${displayColor}15`,
                   color: displayColor 
@@ -64,12 +69,6 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
                 </p>
               </div>
             </div>
-
-            {/* Hover Glow */}
-            <div 
-              className="absolute -bottom-10 -right-10 w-32 h-32 blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
-              style={{ backgroundColor: displayColor }}
-            />
           </motion.div>
         );
       })}

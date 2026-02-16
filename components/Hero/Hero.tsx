@@ -2,6 +2,7 @@
 
 import { Link as ScrollLink } from 'react-scroll';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { useRef } from 'react';
 import Image from 'next/image';
 import { textVariants, buttonVariants } from '@/utils/animation';
 import AnimatedText from './AnimatedText';
@@ -76,9 +77,12 @@ export default function Hero() {
             
             <ScrollLink
               to="portfolio"
+              href="#portfolio"
               smooth={true}
               duration={500}
               offset={-70}
+              aria-haspopup="dialog"
+              aria-label="View portfolio projects"
               className="relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-xl font-black overflow-hidden flex items-center justify-center cursor-pointer transition-all duration-300 border border-white/10 dark:border-black/5 shadow-2xl"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -130,12 +134,25 @@ export default function Hero() {
 function ProfileImage() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
 
   const rotateX = useSpring(useTransform(y, [-100, 100], [15, -15]), { stiffness: 100, damping: 30 });
   const rotateY = useSpring(useTransform(x, [-100, 100], [-15, 15]), { stiffness: 100, damping: 30 });
 
+  // Optimization: Cache rect on mouse enter to avoid layout thrashing (forced reflow)
+  // during the animation loop.
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      rectRef.current = containerRef.current.getBoundingClientRect();
+    }
+  };
+
   function handleMouse(e: React.MouseEvent) {
-    const rect = e.currentTarget.getBoundingClientRect();
+    if (!rectRef.current) return;
+    
+    // Use cached rect
+    const rect = rectRef.current;
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     x.set(e.clientX - centerX);
@@ -145,21 +162,21 @@ function ProfileImage() {
   function handleMouseLeave() {
     x.set(0);
     y.set(0);
+    rectRef.current = null; // Clear cache
   }
 
   return (
     <motion.div 
+      ref={containerRef}
       className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px] bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] p-1 shadow-[0_0_50px_rgba(59,130,246,0.3)] dark:shadow-[0_0_50px_rgba(59,130,246,0.1)] border border-white/20 overflow-hidden cursor-none"
       style={{
         perspective: 1000,
         rotateX,
         rotateY,
       }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, ease: 'easeOut' }}
     >
       <div className="relative w-full h-full bg-white dark:bg-gray-950/80 rounded-[2.3rem] md:rounded-[3.3rem] overflow-hidden">
         <Image
@@ -167,8 +184,10 @@ function ProfileImage() {
           alt="Ari Hyuk Profile"
           fill
           priority
+          // @ts-ignore - fetchPriority is supported in React Doms but typescript might complain in older versions
+          fetchPriority="high"
           className="object-cover scale-105"
-          sizes="(max-width: 768px) 300px, 450px"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 450px"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";

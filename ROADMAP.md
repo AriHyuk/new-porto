@@ -130,6 +130,13 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ---
 
+## 🚀 Release v1.1.0 (Stable Release)
+- [x] Fix: Turbopack build errors in `layout.tsx`
+- [x] Refactor: Restructure public routes and move decorative components to Client Components
+- [x] Refactor: Clean up legacy reference files
+- [x] Feature: Add Supabase environment variables support in Dockerfile
+- [x] UI: Enhance `ServicesTab`, `SkillsTab`, and `ContactForm` aesthetics
+
 ## 🚀 Release v1.0.0 (Stable Release)
 
 ## 📝 Notes
@@ -142,4 +149,4 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-15 | **Current Version:** v1.0.0
+**Last Updated:** 2026-02-16 | **Current Version:** v1.1.0

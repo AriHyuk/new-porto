@@ -20,6 +20,15 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Build arguments for Supabase
+# These are needed at build time for Next.js to inject them into the client-side bundle
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+ENV NEXT_PUBLIC_SUPABASE_URL $NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY $NEXT_PUBLIC_SUPABASE_ANON_KEY
+
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm run build

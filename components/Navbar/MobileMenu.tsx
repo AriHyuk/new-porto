@@ -54,12 +54,16 @@ export default function MobileMenu({
                 />
               ))}
               
-              <button
-                onClick={() => onLinkClick('contact')}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onLinkClick('contact');
+                }}
                 className="mt-4 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold text-lg shadow-md hover:from-blue-700 hover:to-blue-900 transition-all text-center"
               >
                 Hire me
-              </button>
+              </a>
             </div>
           </motion.div>
         </>

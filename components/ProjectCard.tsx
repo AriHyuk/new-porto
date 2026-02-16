@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import type { Project } from '@/types';
 import { itemVariants, buttonVariants } from '@/utils/animation';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface ProjectCardProps {
   project: Project;
@@ -15,13 +15,13 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
-  const router = useRouter();
+  // If no onClick is provided, we default to a no-op since the explicit pages are removed.
+  // We prioritize the modal interaction.
   
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default if wrapped in a link
     if (onClick) {
       onClick();
-    } else if (project.slug) {
-      router.push(`/projects/${project.slug}`);
     }
   };
 
@@ -37,9 +37,9 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         'relative flex flex-col h-full cursor-pointer'
       )}
       variants={itemVariants}
-      onClick={handleClick}
       role="article"
       aria-label={`Project: ${project.title}`}
+      onClick={handleClick}
     >
       {/* Image Section */}
       <div className="relative overflow-hidden h-48">
@@ -116,15 +116,11 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         )}
 
         {/* View Details Button */}
-        <motion.button
+        <button
           className="w-full py-2 text-center font-medium text-blue-600 dark:text-blue-400 border border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-300"
-          whileHover="hover"
-          whileTap="tap"
-          variants={buttonVariants}
-          aria-label={`View details for ${project.title}`}
         >
           View Details
-        </motion.button>
+        </button>
       </div>
     </motion.div>
   );
