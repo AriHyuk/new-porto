@@ -8,17 +8,27 @@ import AboutSection from '@/components/About/AboutSection';
 import CertificateSection from '@/components/Certificates/CertificateSection';
 import ContactSection from '@/components/Contact/ContactSection';
 
+import { skills as staticSkills } from '@/constants/about';
+
 // Configure caching: revalidate every 1 hour (3600 seconds)
 // Configure dynamic rendering for debugging
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-  const [projects, certificates, experiences, skills] = await Promise.all([
+  const [projects, certificates, experiences, dbSkills] = await Promise.all([
     getProjects(),
     getCertificates(),
     getExperiences(),
     getSkills(),
   ]);
+
+  // Combine or fallback to static skills if DB is empty
+  const skills = dbSkills && dbSkills.length > 0 ? dbSkills : staticSkills.map((s, idx) => ({
+    id: `static-${idx}`,
+    name: s.name,
+    category: s.category,
+    icon_key: s.name.toLowerCase().replace(/\./g, '') // Normalize key
+  }));
 
   return (
     <>

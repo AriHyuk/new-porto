@@ -8,7 +8,18 @@
     100% { background-position: 200% 0; }
   }
   
+  @keyframes border-rotate {
+    from { --border-angle: 0deg; }
+    to { --border-angle: 360deg; }
+  }
+
   --animate-shimmer: shimmer 3s infinite linear;
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 @utility animate-shimmer {

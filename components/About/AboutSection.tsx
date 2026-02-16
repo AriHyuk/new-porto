@@ -54,13 +54,13 @@ export default function AboutSection({ experiences, skills }: AboutSectionProps)
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-black mb-4">
+          <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">
             About <span className="text-blue-600 dark:text-blue-400">Me</span>
           </h2>
-          <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8" />
-          <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
-            I am a passionate Full-Stack Developer dedicated to building high-quality web applications. 
-            My journey in tech is driven by curiosity and a commitment to continuous learning and innovation.
+          <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8 shadow-[0_0_15px_rgba(37,99,235,0.4)]" />
+          <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 leading-relaxed text-lg font-medium">
+            Engineering scalable, high-performance web solutions with a focus on clean architecture and modern developer experience. 
+            Expertise in building seamless digital ecosystems from inception to deployment.
           </p>
         </motion.div>
 
