@@ -1,6 +1,6 @@
 # 🗺️ DEVELOPMENT ROADMAP
 
-Portfolio v2 - Next.js 15 with Supabase & Docker
+Portfolio v2.1 (Domain Patch) - Next.js 15 with Supabase & Docker
 
 **Vision:** Modern portfolio with Admin CMS, inspired by old portfolio design.
 
@@ -24,22 +24,25 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 **Goal:** Website bisa dilihat publik dengan desain mirip Portfolio lama.
 
 ### Database Layer
+
 - [x] Setup Supabase Client & Environment Variables
 - [x] Create Table `projects` & RLS Policies
 - [x] Seed initial project data
 - [x] Migrate static About data (Experience & Skills) to DB
 
 ### Backend Layer
+
 - [x] Server Actions: `getProjects()` (Read Only)
 - [x] Server Actions: `getProjectBySlug()` (Detail Page)
 
 ### Frontend Layer
+
 - [x] Component: `ProjectCard` (Porting style dari repo lama)
 - [x] Component: `ProjectList` (Grid layout wrapper)
 - [x] Page: Landing Page (Hero, Navbar, Footer)
   - [x] Hero Section (CTA, animations)
   - [x] Navbar (Desktop & Mobile responsive)
-  - [ ] Footer (Social links, copyright)
+  - [x] Footer (Social links, copyright)
 - [x] Page: `/projects` (Projects showcase page)
 - [x] Page: `/projects/[slug]` (Project detail page)
 
@@ -57,29 +60,32 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 **Goal:** Halaman login untuk manajemen konten tanpa coding.
 
 ### Authentication
-- [ ] Setup Supabase Auth (Email/Password)
-- [ ] Create Login Page (`/admin/login`)
-- [ ] Implement logout functionality
-- [ ] Session management & refresh tokens
+
+- [x] Setup Supabase Auth (Email/Password)
+- [x] Create Login Page (`/admin/login`)
+- [x] Implement logout functionality
+- [x] Session management & refresh tokens
 
 ### Security & Middleware
-- [ ] Next.js Middleware (Protect `/admin/*` routes)
-- [ ] RLS Policies for admin operations (INSERT, UPDATE, DELETE)
-- [ ] Role-based access control (admin role check)
+
+- [x] Next.js Middleware (Protect `/admin/*` routes)
+- [x] RLS Policies for admin operations (INSERT, UPDATE, DELETE)
+- [x] Role-based access control (admin role check)
 
 ### Admin Dashboard UI
-- [ ] Dashboard Layout (Sidebar, Header, Content)
-- [ ] Dashboard Home (`/admin`)
-  - [ ] Stats overview (Total projects, messages)
-  - [ ] Recent activity feed
-- [ ] Projects Management (`/admin/projects`)
-  - [ ] List all projects (Table view with search/filter)
-  - [ ] Create new project form
-  - [ ] Edit existing project form
-  - [ ] Delete project (with confirmation)
-  - [ ] Image upload (Supabase Storage integration)
-  - [ ] Rich text editor for description
-  - [ ] Slug auto-generation from title
+
+- [x] Dashboard Layout (Sidebar, Header, Content)
+- [x] Dashboard Home (`/admin`)
+  - [x] Stats overview (Total projects, messages)
+  - [x] Recent activity feed
+- [x] Projects Management (`/admin/projects`)
+  - [x] List all projects (Table view with search/filter)
+  - [x] Create new project form
+  - [x] Edit existing project form
+  - [x] Delete project (with confirmation)
+  - [x] Image upload (Supabase Storage integration)
+  - [x] Rich text editor for description
+  - [x] Slug auto-generation from title
 - [x] Contact Messages (`/admin/messages`)
   - [x] Inbox viewer (List all contact form submissions)
   - [x] Mark as read/unread
@@ -100,22 +106,22 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 **Goal:** Deploy to production dengan budget $5.
 
 ### Cloud Run Setup
-- [ ] Configure Cloud Run deployment ($5 budget)
-- [ ] Set environment variables (Supabase keys)
-- [ ] Verify Docker image optimization
-- [ ] Configure custom domain (optional)
+- [x] Configure Cloud Run deployment ($5 budget)
+- [x] Set environment variables (Supabase keys)
+- [x] Verify Docker image optimization
+- [x] Configure custom domain (`ariawaludin.my.id`)
 
 ### CI/CD
 - [ ] Setup GitHub Actions for auto-deploy (optional)
 - [ ] Automated testing before deploy
 
 ### Monitoring & Optimization
-- [ ] Setup basic logging (Cloud Logging)
-- [ ] Monitor resource usage (stay under budget)
-- [ ] Performance optimization (Lighthouse score)
-- [ ] SSL certificate verification
+- [x] Setup basic logging (Cloud Logging)
+- [x] Monitor resource usage (stay under budget)
+- [x] Performance optimization (Lighthouse score)
+- [x] SSL certificate verification
 
-**Status:** ⏳ **PLANNED**
+**Status:** ✅ **COMPLETED** (v1.1.0 - Domain Active)
 
 ---
 
@@ -129,6 +135,13 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 | Phase 4: Deployment | ✅ 100% | v1.0.0 (Live) |
 
 ---
+
+## 🚀 Release v1.1.1 (Domain & Metadata Patch)
+- [x] Fix: Update metadataBase and OpenGraph URLs to `ariawaludin.my.id`
+- [x] Fix: Update sitemap.ts and robots.ts with the new domain
+- [x] Docs: Finalize deployment guide with custom domain instructions
+- [x] Docs: Fix linting issues in README and ROADMAP
+- [x] Chore: Bump version to v1.1.1
 
 ## 🚀 Release v1.1.0 (Stable Release)
 - [x] Fix: Turbopack build errors in `layout.tsx`
@@ -149,4 +162,4 @@ Portfolio v2 - Next.js 15 with Supabase & Docker
 
 ---
 
-**Last Updated:** 2026-02-16 | **Current Version:** v1.1.0
+**Last Updated:** 2026-02-16 | **Current Version:** v1.1.1

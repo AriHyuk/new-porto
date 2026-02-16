@@ -50,7 +50,7 @@ We inject JSON-LD structured data to help search engines understand the content 
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Ari Awaludin',
-      url: 'https://new-porto-service-247210283088.us-central1.run.app',
+      url: 'https://ariawaludin.my.id',
       sameAs: [
         'https://github.com/arihyuk',
         'https://linkedin.com/in/arihyuk',

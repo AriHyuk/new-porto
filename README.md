@@ -1,4 +1,6 @@
-# Portfolio v1.1.0
+# Portfolio v1.1.1
+
+🚀 **Live Site**: [https://ariawaludin.my.id](https://ariawaludin.my.id)
 
 Portfolio website built with Next.js 15, TypeScript, and Tailwind CSS v4.
 
@@ -67,7 +69,7 @@ docker run -p 3000:3000 new-porto
 
 ## Project Structure
 
-```
+```text
 new-porto/
 ├── app/                # Next.js App Router
 │   ├── projects/       # Projects dynamic routes

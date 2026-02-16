@@ -149,14 +149,14 @@ chmod +x deploy.sh
 
 ## 🌐 Custom Domain & Branding (Premium URL)
 
-URL bawaan Google Cloud (`.a.run.app`) kurang profesional untuk portfolio. Berikut cara mengubahnya menjadi `nama-kamu.com`:
+URL bawaan Google Cloud (`.a.run.app`) kurang profesional untuk portfolio. Web ini sudah menggunakan domain kustom: **[https://ariawaludin.my.id](https://ariawaludin.my.id)**. Berikut cara settingnya:
 
 ### 1. Hubungkan Domain di GCP
 1. Buka [Google Cloud Console](https://console.cloud.google.com/run).
 2. Pilih service `new-porto-service`.
 3. Klik **Manage Custom Domains** di bar atas.
 4. Klik **Add Mapping**.
-5. Pilih domain yang sudah kamu beli (kamu mungkin perlu verifikasi kepemilikan via Google Search Console).
+5. Pilih domain yang sudah kamu beli (Contoh: `ariawaludin.my.id`). Kamu perlu verifikasi kepemilikan via Google Search Console.
 
 ### 2. Update DNS Records
 Setelah mapping ditambahkan, Google akan memberikan **DNS Records** (Tipe `A` atau `CNAME`).

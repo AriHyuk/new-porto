@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://new-porto-service-247210283088.us-central1.run.app';
+  const baseUrl = 'https://ariawaludin.my.id';
 
   return [
     {

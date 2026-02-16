@@ -12,11 +12,11 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Ari Awaludin | Senior Software Engineer',
   description: 'Portfolio of Ari Awaludin, a Senior Software Engineer specializing in modern web technologies.',
-  metadataBase: new URL('https://new-porto-service-247210283088.us-central1.run.app'),
+  metadataBase: new URL('https://ariawaludin.my.id'),
   openGraph: {
     title: 'Ari Awaludin | Senior Software Engineer',
     description: 'Portfolio of Ari Awaludin, a Senior Software Engineer specializing in modern web technologies.',
-    url: 'https://new-porto-service-247210283088.us-central1.run.app',
+    url: 'https://ariawaludin.my.id',
     siteName: 'Ari Awaludin Portfolio',
     images: [
       {
