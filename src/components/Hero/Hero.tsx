@@ -10,7 +10,7 @@ import BackgroundShapes from './BackgroundShapes';
 import TechPill from './TechPill';
 import ScrollIndicator from './ScrollIndicator';
 import { SiNextdotjs, SiReact, SiTypescript} from 'react-icons/si';
-import profileAvatar from '@/public/images/profile/avatar.jpeg';
+import profileAvatar from '../../../public/images/profile/avatar.jpeg';
 
 export default function Hero() {
   return (

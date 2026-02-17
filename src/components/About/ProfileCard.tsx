@@ -116,7 +116,7 @@ export default function ProfileCard() {
             className="w-full mt-8 py-5 px-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-black rounded-[1.5rem] shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all relative overflow-hidden group/btn"
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => window.open('/cv_ari_awaludin.pdf', '_blank')}
+            onClick={() => window.open('files/cv_ari_awaludin.pdf', '_blank')}
           >
             <span className="relative z-10 flex items-center justify-center gap-3 tracking-tight">
               Review Full Resume <FaDownload className="text-lg animate-bounce" />
