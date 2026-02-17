@@ -11,26 +11,76 @@ import {
   FaPlus, 
   FaArrowRight 
 } from 'react-icons/fa';
-import { getProjects } from '@/app/admin/projects/actions';
-import { getAdminSkills } from '@/app/admin/skills/actions';
-import { getAdminExperiences } from '@/app/admin/experiences/actions';
-import { getAdminCertificates } from '@/app/admin/certificates/actions';
+import { unstable_cache } from 'next/cache';
+import { createClient, createStaticClient, createAdminClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  // Fetch data in parallel
-  const [projects, skills, experiences, certificates] = await Promise.all([
-    getProjects(),
-    getAdminSkills(),
-    getAdminExperiences(),
-    getAdminCertificates(),
-  ]);
+  // 1. Initial Auth Check (Dynamic)
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // 2. Fetch data in parallel with fallback for missing Admin Key
+  const fetchCounts = async () => {
+    // Fallback: If no Admin Key, fetch dynamically with user session
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      const [p, s, e, c] = await Promise.all([
+        supabase.from('projects').select('*', { count: 'exact', head: true }),
+        supabase.from('skills').select('*', { count: 'exact', head: true }),
+        supabase.from('experiences').select('*', { count: 'exact', head: true }),
+        supabase.from('certificates').select('*', { count: 'exact', head: true }),
+      ]);
+      return [p.count || 0, s.count || 0, e.count || 0, c.count || 0];
+    }
+
+    // Elite mode: Use unstable_cache with Admin Client
+    return Promise.all([
+      unstable_cache(
+        async () => {
+          const client = createAdminClient();
+          const { count } = await client.from('projects').select('*', { count: 'exact', head: true });
+          return count || 0;
+        },
+        ['admin-projects-count'],
+        { revalidate: 60, tags: ['projects'] }
+      )(),
+      unstable_cache(
+        async () => {
+          const client = createAdminClient();
+          const { count } = await client.from('skills').select('*', { count: 'exact', head: true });
+          return count || 0;
+        },
+        ['admin-skills-count'],
+        { revalidate: 60, tags: ['skills'] }
+      )(),
+      unstable_cache(
+        async () => {
+          const client = createAdminClient();
+          const { count } = await client.from('experiences').select('*', { count: 'exact', head: true });
+          return count || 0;
+        },
+        ['admin-exp-count'],
+        { revalidate: 60, tags: ['experiences'] }
+      )(),
+      unstable_cache(
+        async () => {
+          const client = createAdminClient();
+          const { count } = await client.from('certificates').select('*', { count: 'exact', head: true });
+          return count || 0;
+        },
+        ['admin-cert-count'],
+        { revalidate: 60, tags: ['certificates'] }
+      )(),
+    ]);
+  };
+
+  const [projectsCount, skillsCount, experiencesCount, certificatesCount] = await fetchCounts();
 
   const stats = [
     {
       label: 'Projects',
-      value: projects.length,
+      value: projectsCount,
       icon: FaProjectDiagram,
       href: '/admin/projects',
       color: 'text-blue-600',
@@ -38,7 +88,7 @@ export default async function AdminDashboardPage() {
     },
     {
       label: 'Skills',
-      value: skills.length,
+      value: skillsCount,
       icon: FaCode,
       href: '/admin/skills',
       color: 'text-emerald-600',
@@ -46,7 +96,7 @@ export default async function AdminDashboardPage() {
     },
     {
       label: 'Experiences',
-      value: experiences.length,
+      value: experiencesCount,
       icon: FaBriefcase,
       href: '/admin/experiences',
       color: 'text-purple-600',
@@ -54,7 +104,7 @@ export default async function AdminDashboardPage() {
     },
     {
       label: 'Certificates',
-      value: certificates.length,
+      value: certificatesCount,
       icon: FaAward,
       href: '/admin/certificates',
       color: 'text-amber-600',

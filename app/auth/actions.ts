@@ -23,7 +23,7 @@ export async function login(formData: FormData) {
     return redirect("/login?error=Invalid credentials");
   }
 
-  revalidatePath("/", "layout");
+  revalidatePath("/");
   redirect("/admin");
 }
 
@@ -35,6 +35,6 @@ export async function logout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
 
-  revalidatePath("/", "layout");
+  revalidatePath("/");
   redirect("/login");
 }

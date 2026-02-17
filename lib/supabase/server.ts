@@ -44,3 +44,28 @@ export function createStaticClient() {
     }
   );
 }
+
+// Admin client for bypass RLS in unstable_cache context
+export function createAdminClient() {
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!serviceKey) {
+    console.warn('⚠️ SUPABASE_SERVICE_ROLE_KEY is missing. Falling back to static client (RLS may apply).');
+    return createStaticClient();
+  }
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    serviceKey,
+    {
+      cookies: {
+        getAll() {
+          return [];
+        },
+        setAll() {
+          // No-op for service role
+        },
+      },
+    }
+  );
+}

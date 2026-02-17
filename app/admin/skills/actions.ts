@@ -1,12 +1,12 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { skillSchema, type SkillFormData } from '@/lib/validations/skill';
 import { Skill } from '@/types/skill';
 
 export type ActionState = {
+  success?: boolean;
   errors?: {
     name?: string[];
     category?: string[];
@@ -19,11 +19,8 @@ export type ActionState = {
 export async function createSkill(prevState: ActionState, formData: FormData): Promise<ActionState> {
   const supabase = await createClient();
   
-  // Check authentication
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return { message: 'Unauthorized' };
-  }
+  if (!user) return { success: false, message: 'Unauthorized' };
 
   const rawData: SkillFormData = {
     name: formData.get('name') as string,
@@ -35,35 +32,30 @@ export async function createSkill(prevState: ActionState, formData: FormData): P
 
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Skill.',
+      message: 'Invalid input fields.',
     };
   }
 
-  const { error } = await supabase
-    .from('skills')
-    .insert([validatedFields.data]);
+  const { error } = await supabase.from('skills').insert([validatedFields.data]);
 
   if (error) {
-    console.error('Database Error:', error);
-    return {
-      message: 'Database Error: Failed to Create Skill.',
-    };
+    console.error('DB Error:', error);
+    return { success: false, message: 'Failed to create skill.' };
   }
 
-  revalidatePath('/admin/skills');
-  revalidatePath('/about'); // Revalidate public about page
-  redirect('/admin/skills');
+  revalidatePath('/admin/skills', 'page');
+  revalidatePath('/about', 'page');
+  revalidateTag('skills', 'default');
+  return { success: true, message: 'Skill created successfully!' };
 }
 
 export async function updateSkill(id: string, prevState: ActionState, formData: FormData): Promise<ActionState> {
   const supabase = await createClient();
   
-  // Check authentication
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return { message: 'Unauthorized' };
-  }
+  if (!user) return { success: false, message: 'Unauthorized' };
 
   const rawData: SkillFormData = {
     name: formData.get('name') as string,
@@ -75,8 +67,9 @@ export async function updateSkill(id: string, prevState: ActionState, formData: 
 
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Skill.',
+      message: 'Invalid input fields.',
     };
   }
 
@@ -86,68 +79,54 @@ export async function updateSkill(id: string, prevState: ActionState, formData: 
     .eq('id', id);
 
   if (error) {
-    console.error('Database Error:', error);
-    return {
-      message: 'Database Error: Failed to Update Skill.',
-    };
+    console.error('DB Error:', error);
+    return { success: false, message: 'Failed to update skill.' };
   }
 
-  revalidatePath('/admin/skills');
-  revalidatePath('/about');
-  redirect('/admin/skills');
+  revalidatePath('/admin/skills', 'page');
+  revalidatePath('/about', 'page');
+  revalidateTag('skills', 'default');
+  return { success: true, message: 'Skill updated successfully!' };
 }
 
 export async function deleteSkill(id: string) {
   const supabase = await createClient();
   
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    throw new Error('Unauthorized');
-  }
+  if (!user) return { success: false, message: 'Unauthorized' };
 
-  const { error } = await supabase
-    .from('skills')
-    .delete()
-    .eq('id', id);
+  const { error } = await supabase.from('skills').delete().eq('id', id);
 
   if (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to delete skill');
+    console.error('DB Error:', error);
+    return { success: false, message: 'Failed to delete skill.' };
   }
 
-  revalidatePath('/admin/skills');
-  revalidatePath('/about');
+  revalidatePath('/admin/skills', 'page');
+  revalidatePath('/about', 'page');
+  revalidateTag('skills', 'default');
+  return { success: true, message: 'Skill deleted successfully.' };
 }
 
 export async function getAdminSkills() {
   const supabase = await createClient();
-  
   const { data, error } = await supabase
     .from('skills')
     .select('*')
     .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching skills:', error);
-    return [];
-  }
-
+  if (error) return [];
   return data as Skill[];
 }
 
 export async function getSkillById(id: string) {
   const supabase = await createClient();
-  
   const { data, error } = await supabase
     .from('skills')
     .select('*')
     .eq('id', id)
     .single();
 
-  if (error) {
-    console.error('Error fetching skill:', error);
-    return null;
-  }
-
+  if (error) return null;
   return data as Skill;
 }

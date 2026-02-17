@@ -121,9 +121,9 @@ export default function ContactSection() {
                     </motion.div>
 
                     <motion.div 
-                        animate={{ y: [0, -15, 0], x: [0, -5, 0], rotateY: [-5, -15, -5] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className="absolute bottom-10 -left-6 w-36 md:w-44 p-4 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-xl"
+                        animate={{ y: [0, 15, 0], x: [0, 5, 0], rotateY: [-5, -15, -5] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                        className="absolute bottom-4 -left-6 w-36 md:w-44 p-4 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-xl"
                     >
                         <div className="flex gap-1.5 mb-2">
                              <div className="w-2 h-2 rounded-full bg-red-400" />

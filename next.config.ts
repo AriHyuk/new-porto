@@ -8,10 +8,9 @@ const nextConfig: NextConfig = {
     },
     // Optimize imports to reduce bundle size
     optimizePackageImports: ['lucide-react', 'date-fns', 'framer-motion', 'react-icons'],
-    // @ts-ignore - Experimental turbopack property
-    turbopack: {
-      root: '.',
-    },
+  },
+  turbopack: {
+    root: '.',
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

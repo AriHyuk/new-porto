@@ -6,7 +6,7 @@ import { FaGithub, FaExternalLinkAlt, FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaF
 import { 
   SiNextdotjs, SiTailwindcss, SiTypescript, SiJavascript, SiSupabase, SiPostgresql, SiMongodb, SiFirebase, 
   SiAdobephotoshop, SiAdobeillustrator, SiExpress, SiPrisma, SiVercel, SiNetlify, SiHeroku, SiDigitalocean,
-  SiGooglecloud, SiGo, SiRust, SiKotlin, SiSwift, SiDart, SiFlutter, SiAndroid, SiIos,
+  SiGooglecloud, SiGo, SiRust, SiKotlin, SiSwift, SiDart, SiFlutter, SiAndroid, SiIos, SiLaravel,
   SiBootstrap, SiSass, SiLess, SiChakraui, SiMui, SiRadixui, SiShadcnui, SiFramer, SiThreedotjs, SiGreensock,
   SiStripe, SiClerk, SiAuth0, SiRedux, SiRecoil, SiReactquery, SiAxios, SiGraphql, SiApollographql,
   SiMysql, SiSqlite, SiRedis, SiPlanetscale, SiDrizzle, SiSanity, SiStrapi, SiWordpress, SiShopify
@@ -80,6 +80,7 @@ const getTechIcon = (tech: string) => {
     nodejs: <FaNodeJs className="text-[#339933]" />,
     express: <SiExpress className="text-black dark:text-white" />,
     expressjs: <SiExpress className="text-black dark:text-white" />,
+    laravel: <SiLaravel className="text-[#FF2D20]" />,
     wordpress: <SiWordpress className="text-[#21759B]" />,
     shopify: <SiShopify className="text-[#96BF48]" />,
     sanity: <SiSanity className="text-[#F03E2F]" />,

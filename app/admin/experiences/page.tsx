@@ -7,20 +7,23 @@ export default async function AdminExperiencesPage() {
   const experiences = await getAdminExperiences();
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Experiences</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Manage your professional background
+    <div className="max-w-5xl mx-auto space-y-8 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+            Professional Legacy
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Document your career milestones and achievements.
           </p>
         </div>
+
         <Link
           href="/admin/experiences/new"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/25"
+          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 transition-all hover:bg-indigo-700 active:scale-95 dark:bg-indigo-500 dark:hover:bg-indigo-600"
         >
-          <FaPlus className="w-4 h-4" />
-          <span>Add Experience</span>
+          <FaPlus className="text-xs" />
+          Record New Chapter
         </Link>
       </div>
 

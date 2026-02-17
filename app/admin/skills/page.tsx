@@ -7,18 +7,23 @@ export default async function AdminSkillsPage() {
   const skills = await getAdminSkills();
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Skills</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Manage your technical skills and expertise</p>
+    <div className="max-w-5xl mx-auto space-y-8 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+            Technical Arsenal
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Manage your technology stacks and professional expertise.
+          </p>
         </div>
+
         <Link
           href="/admin/skills/new"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 active:scale-95 dark:bg-blue-500 dark:hover:bg-blue-600"
         >
-          <FaPlus className="w-4 h-4" />
-          <span>Add Skill</span>
+          <FaPlus className="text-xs" />
+          Register New Talent
         </Link>
       </div>
 
