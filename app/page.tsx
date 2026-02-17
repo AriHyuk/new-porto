@@ -11,8 +11,7 @@ import ContactSection from '@/components/Contact/ContactSection';
 import { skills as staticSkills } from '@/constants/about';
 
 // Configure caching: revalidate every 1 hour (3600 seconds)
-// Configure dynamic rendering for debugging
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 export default async function Page() {
   const [projects, certificates, experiences, dbSkills] = await Promise.all([

@@ -31,7 +31,14 @@ export async function proxy(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  // Optimization: Skip session refresh for public landing pages to reduce latency.
+  // Only use this if you have specific /admin or /protected routes.
+  const isPublicRoute = request.nextUrl.pathname === '/' || 
+                       request.nextUrl.pathname.startsWith('/projects');
+
+  if (!isPublicRoute) {
+    await supabase.auth.getUser();
+  }
 
   return response;
 }

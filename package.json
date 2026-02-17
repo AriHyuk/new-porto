@@ -1,6 +1,6 @@
 {
   "name": "new-porto",
-  "version": "1.4.0",
+  "version": "1.8.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc",
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.95.3",
     "clsx": "^2.1.1",
@@ -22,6 +23,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-hook-form": "^7.71.1",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-scroll": "^1.9.3",

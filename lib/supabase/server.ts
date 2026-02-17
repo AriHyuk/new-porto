@@ -27,3 +27,20 @@ export async function createClient() {
     }
   );
 }
+// Static client for ISR/Static data fetching (No cookies)
+export function createStaticClient() {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return [];
+        },
+        setAll() {
+          // No-op for static rendering
+        },
+      },
+    }
+  );
+}

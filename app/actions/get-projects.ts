@@ -1,49 +1,34 @@
 'use server';
 
-import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/server';
 import type { Project } from '@/types';
+import { unstable_cache } from 'next/cache';
 
 /**
- * Fetch all projects from Supabase
- * 
- * @returns Array of projects, or empty array if error occurs
- * 
- * @example
- * ```tsx
- * // In a Server Component
- * import { getProjects } from '@/app/actions/get-projects';
- * 
- * export default async function ProjectsPage() {
- *   const projects = await getProjects();
- *   
- *   return (
- *     <div>
- *       {projects.map(project => (
- *         <div key={project.id}>{project.title}</div>
- *       ))}
- *     </div>
- *   );
- * }
- * ```
+ * Fetch all projects from Supabase (Cached)
  */
-export async function getProjects(): Promise<Project[]> {
-  try {
-    const supabase = await createClient();
+export const getProjects = unstable_cache(
+  async (): Promise<Project[]> => {
+    try {
+      const supabase = createStaticClient();
 
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('created_at', { ascending: false });
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Error fetching projects:', error);
+      if (error) {
+        console.error('Error fetching projects:', error);
+        return [];
+      }
+
+      return data || [];
+    } catch (error) {
+      console.error('Unexpected error fetching projects:', error);
       return [];
     }
-
-    return data || [];
-  } catch (error) {
-    console.error('Unexpected error fetching projects:', error);
-    return [];
-  }
-}
+  },
+  ['projects-list'],
+  { revalidate: 3600, tags: ['projects'] }
+);
 

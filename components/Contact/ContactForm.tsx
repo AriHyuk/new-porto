@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { sendMessage, CollaborationFormData } from '@/app/actions/send-message';
+import { sendMessage } from '@/app/actions/send-message';
+import { CollaborationSchema, type CollaborationFormData } from '@/lib/validations/contact';
 import { toast } from 'react-hot-toast';
 import { FaPaperPlane, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 
@@ -14,69 +17,89 @@ const categories = [
 ];
 
 export default function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState<CollaborationFormData>({
-    name: '',
-    email: '',
-    category: '',
-    budget: '',
-    message: '',
-    _honeypot: '',
+  const [isSuccess, setIsSuccess] = useState(false);
+  
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors, isSubmitting }, 
+    reset 
+  } = useForm<CollaborationFormData>({
+    resolver: zodResolver(CollaborationSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      category: '',
+      budget: '',
+      message: '',
+      _honeypot: '',
+    }
   });
 
-  const [errors, setErrors] = useState<Partial<Record<keyof CollaborationFormData, string>>>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when typing
-    if (errors[name as keyof CollaborationFormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setErrors({});
-
-    const result = await sendMessage(formData);
-
-    if (result.success) {
-      toast.success(result.message);
-      setFormData({ name: '', email: '', category: '', budget: '', message: '', _honeypot: '' });
-    } else {
-      if (result.errors) {
-        const fieldErrors: any = {};
-        Object.entries(result.errors).forEach(([key, value]) => {
-          fieldErrors[key] = value[0];
-        });
-        setErrors(fieldErrors);
+  const onSubmit: SubmitHandler<CollaborationFormData> = async (data) => {
+    try {
+      const result = await sendMessage(data);
+      
+      if (result.success) {
+        setIsSuccess(true);
+        reset();
+        toast.success(result.message);
+      } else {
+        toast.error(result.message || 'Something went wrong');
       }
-      toast.error(result.message);
+    } catch (error) {
+        console.error(error);
+        toast.error('Failed to send message');
     }
-    setIsSubmitting(false);
   };
 
-  const inputClasses = (fieldName: keyof CollaborationFormData) => `
-    w-full px-5 py-4 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border-2 transition-all duration-300
-    ${errors[fieldName] 
+  const inputClasses = (hasError: boolean) => `
+    w-full px-4 py-3.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border-2 transition-all duration-300
+    ${hasError 
       ? 'border-red-500/50 focus:border-red-500 ring-red-500/10' 
       : 'border-transparent focus:border-blue-500 dark:focus:border-blue-400 ring-blue-500/10'}
-    focus:ring-4 outline-none text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600
+    focus:ring-4 outline-none text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500
   `;
 
+  if (isSuccess) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        className="flex flex-col items-center justify-center py-12 px-4 text-center h-full min-h-[400px]"
+      >
+        <motion.div 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, damping: 10 }}
+          className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 mb-8"
+        >
+          <FaCheckCircle className="text-white text-5xl" />
+        </motion.div>
+        <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-4">Message Sent!</h3>
+        <p className="text-gray-500 dark:text-gray-400 max-w-md text-lg mb-8">
+          Thank you for reaching out. I'll review your project details and get back to you within 24 hours.
+        </p>
+        <button 
+          onClick={() => setIsSuccess(false)}
+          className="px-8 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-bold transition-all duration-300 hover:scale-105"
+        >
+          Send Another Message
+        </button>
+      </motion.div>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
       {/* Honeypot Field - Hidden from humans, caught by bots */}
       <div className="hidden pointer-events-none opacity-0" aria-hidden="true">
         <input
           type="text"
-          name="_honeypot"
-          value={formData._honeypot}
-          onChange={handleChange}
           tabIndex={-1}
           autoComplete="off"
+          {...register('_honeypot')}
         />
       </div>
 
@@ -89,14 +112,9 @@ export default function ContactForm() {
           <input
             id="name"
             type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
             placeholder="Ari Hyuk"
-            required
-            aria-required="true"
-            aria-invalid={!!errors.name}
-            className={inputClasses('name')}
+            className={inputClasses(!!errors.name)}
+            {...register('name')}
           />
           <AnimatePresence>
             {errors.name && (
@@ -106,7 +124,7 @@ export default function ContactForm() {
                 exit={{ opacity: 0, y: -10 }}
                 className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
               >
-                <FaExclamationCircle /> {errors.name}
+                <FaExclamationCircle /> {errors.name.message}
               </motion.p>
             )}
           </AnimatePresence>
@@ -120,14 +138,9 @@ export default function ContactForm() {
           <input
             id="email"
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
             placeholder="aria@example.com"
-            required
-            aria-required="true"
-            aria-invalid={!!errors.email}
-            className={inputClasses('email')}
+            className={inputClasses(!!errors.email)}
+            {...register('email')}
           />
           <AnimatePresence>
             {errors.email && (
@@ -137,7 +150,7 @@ export default function ContactForm() {
                 exit={{ opacity: 0, y: -10 }}
                 className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
               >
-                <FaExclamationCircle /> {errors.email}
+                <FaExclamationCircle /> {errors.email.message}
               </motion.p>
             )}
           </AnimatePresence>
@@ -153,12 +166,8 @@ export default function ContactForm() {
           <div className="relative">
             <select
               id="category"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-              aria-required="true"
-              className={`${inputClasses('category')} appearance-none pr-12`}
+              className={`${inputClasses(!!errors.category)} appearance-none pr-12`}
+              {...register('category')}
             >
               <option value="" disabled>Select a category</option>
               {categories.map(cat => (
@@ -167,7 +176,7 @@ export default function ContactForm() {
                 </option>
               ))}
             </select>
-            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
             </div>
           </div>
@@ -179,7 +188,7 @@ export default function ContactForm() {
                 exit={{ opacity: 0, y: -10 }}
                 className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
               >
-                <FaExclamationCircle /> {errors.category}
+                <FaExclamationCircle /> {errors.category.message}
               </motion.p>
             )}
           </AnimatePresence>
@@ -193,12 +202,22 @@ export default function ContactForm() {
           <input
             id="budget"
             type="text"
-            name="budget"
-            value={formData.budget}
-            onChange={handleChange}
             placeholder="e.g. $1,000 - $5,000"
-            className={inputClasses('budget')}
+            className={inputClasses(!!errors.budget)}
+            {...register('budget')}
           />
+           <AnimatePresence>
+            {errors.budget && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+              >
+                <FaExclamationCircle /> {errors.budget.message}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
@@ -209,15 +228,10 @@ export default function ContactForm() {
         </label>
         <textarea
           id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
           rows={5}
-          required
-          aria-required="true"
-          aria-invalid={!!errors.message}
           placeholder="Describe your vision, timeline, and goals..."
-          className={`${inputClasses('message')} resize-none`}
+          className={`${inputClasses(!!errors.message)} resize-none`}
+          {...register('message')}
         />
         <AnimatePresence>
           {errors.message && (
@@ -227,7 +241,7 @@ export default function ContactForm() {
               exit={{ opacity: 0, y: -10 }}
               className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
             >
-              <FaExclamationCircle /> {errors.message}
+              <FaExclamationCircle /> {errors.message.message}
             </motion.p>
           )}
         </AnimatePresence>

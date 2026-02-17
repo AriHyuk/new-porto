@@ -2,20 +2,37 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import { headers } from 'next/headers';
 
-const CollaborationSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  category: z.string().min(1, 'Please select a category'),
-  budget: z.string().min(1, 'Budget is required'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-  _honeypot: z.string().optional(),
-});
+import { CollaborationSchema } from '@/lib/validations/contact';
+import type { CollaborationFormData } from '@/lib/validations/contact';
 
-export type CollaborationFormData = z.infer<typeof CollaborationSchema>;
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
+const LIMIT = 3; // requests
+const WINDOW = 60 * 1000; // 1 minute
 
 export async function sendMessage(formData: CollaborationFormData) {
   try {
+    // Rate Limiting Logic
+    const headersList = await headers();
+    const ip = headersList.get('x-forwarded-for') || 'unknown';
+    const now = Date.now();
+
+    const record = rateLimitMap.get(ip) || { count: 0, lastReset: now };
+
+    if (now - record.lastReset > WINDOW) {
+      record.count = 0;
+      record.lastReset = now;
+    }
+
+    if (record.count >= LIMIT) {
+      return { success: false, message: 'Too many requests. Please try again later.' };
+    }
+
+    record.count += 1;
+    rateLimitMap.set(ip, record);
+
     // Validate data using Zod
     const validatedData = CollaborationSchema.parse(formData);
 
