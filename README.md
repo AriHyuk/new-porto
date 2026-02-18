@@ -1,19 +1,29 @@
-# Portfolio v1.2.0
+# Ari Hyuk Portfolio v2.0.2
 
 🚀 **Live Site**: [https://ariawaludin.my.id](https://ariawaludin.my.id)
 
-Portfolio website built with Next.js 15, TypeScript, and Tailwind CSS v4.
+Modern portfolio website built with **Next.js 16**, **TypeScript**, and **Tailwind CSS v4**. Dirancang untuk performa tinggi, desain premium, dan kemudahan manajemen konten melalui dashboard Admin.
+
+## Key Features
+
+- **🚀 Next.js 16 (App Router)**: Memanfaatkan fitur terbaru untuk rendering yang cepat.
+- **🎨 Tailwind CSS v4**: Styling modern dengan performa optimal.
+- **⚡ Framer Motion**: Animasi yang smooth dan interaktif.
+- **🔐 Admin Dashboard**: Fitur manajemen project, pengalaman, dan sertifikat secara langsung.
+- **📡 Supabase Integration**: Database real-time dan autentikasi yang aman.
+- **📱 Responsive Design**: Tampilan optimal di semua perangkat (Desktop, Tablet, Mobile).
+- **🐳 Dockerized**: Siap dideploy menggunakan Docker Container.
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
-- **Package Manager**: pnpm
-- **Database/Auth**: Supabase
 - **Animations**: Framer Motion
-- **Icons**: React Icons
-- **Deployment**: Docker (Multi-stage build)
+- **Database/Auth**: Supabase (PostgreSQL)
+- **Form Handling**: React Hook Form + Zod
+- **Icons**: React Icons & HugeIcons
+- **Deployment**: Local Docker / Google Cloud Run
 
 ## Getting Started
 
@@ -21,7 +31,7 @@ Portfolio website built with Next.js 15, TypeScript, and Tailwind CSS v4.
 
 - Node.js 22+
 - pnpm 10+
-- Docker (optional, for containerized deployment)
+- Docker (Opsional)
 
 ### Development
 
@@ -29,83 +39,45 @@ Portfolio website built with Next.js 15, TypeScript, and Tailwind CSS v4.
 # Install dependencies
 pnpm install
 
+# Setup Environment Variables
+cp .env.example .env.local
+
 # Run development server
 pnpm dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see the app.
 
-### Build
-
-```bash
-# Build for production
-pnpm build
-
-# Start production server
-pnpm start
-```
-
-## Docker Deployment
-
-### Using Docker Compose (Recommended)
-
-```bash
-# Build and run
-docker compose up -d --build
-
-# Stop
-docker compose down
-```
-
-### Using Docker CLI
-
-```bash
-# Build image
-docker build -t new-porto .
-
-# Run container
-docker run -p 3000:3000 new-porto
-```
-
 ## Project Structure
 
 ```text
-new-porto/
-├── app/                # Next.js App Router
-│   ├── projects/       # Projects dynamic routes
-│   │   └── [slug]/     # Project detail page
-│   ├── actions/        # Server Actions (Supabase interactions)
-│   ├── layout.tsx      # Root layout
-│   ├── page.tsx        # Home page
-│   └── globals.css     # Global styles
+src/
+├── app/                # Next.js App Router & Server Actions
+│   ├── (public)/       # Landing page sections
+│   ├── admin/          # Dashboard Admin routes
+│   ├── actions/        # Server Actions (CRUD Operations)
+│   ├── api/            # API Route handlers
+│   └── globals.css     # Tailwind v4 configuration
 ├── components/         # Reusable UI components
-├── lib/                # Utility libraries (Supabase, etc)
-├── types/              # TypeScript interfaces
-├── utils/              # Helper utilities (animations, etc)
-├── supabase/           # Migrations and seed data
-├── public/             # Static assets
-├── Dockerfile          # Multi-stage Docker build
-├── docker-compose.yml  # Docker Compose config
-├── next.config.ts      # Next.js configuration
-├── tsconfig.json       # TypeScript configuration
-└── ROADMAP.md          # Project development roadmap
+│   ├── UI/             # Base UI elements
+│   ├── Navbar/         # Navigation components
+│   └── Footer/         # Footer components
+├── lib/                # Shared logic & Supabase client
+├── types/              # TypeScript definitions
+├── utils/              # Helper functions & animations
+└── public/             # Static assets (Images, SVGs)
 ```
 
-## Scripts
+## Deployment
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
+Projek ini sudah dikonfigurasi untuk deployment menggunakan Docker.
 
-## Deployment Notes
-
-- **Budget**: Optimized for Google Cloud Free Tier ($5 limit)
-- **Region**: `us-central1` (lowest cost)
-- **Memory**: 512MiB recommended
-- **CPU**: Allocated only during request processing
-- **Max Instances**: 1 (to prevent cost overrun)
+```bash
+# Build & Run with Docker Compose
+docker compose up -d --build
+```
 
 ## License
 
-ISC
+ISC © 2026 Ari Hyuk
+
