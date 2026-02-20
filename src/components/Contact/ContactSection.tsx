@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { entryVariants } from '@/utils/animation';
+import ContactInfo from './ContactInfo';
+
 const ContactForm = dynamic(() => import('./ContactForm'), {
   loading: () => <div className="w-full h-[400px] bg-gray-100 dark:bg-gray-800 animate-pulse rounded-2xl" />,
   ssr: false
@@ -49,111 +51,73 @@ export default function ContactSection() {
         </motion.div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-10 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20 md:mb-32"
           variants={entryVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <span className="inline-block px-4 py-1.5 mb-4 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest border border-blue-100 dark:border-blue-800">
-            Let's Build The Future
-          </span>
-          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent tracking-tighter">
-            Turn Your Vision Into <span className="text-blue-600 dark:text-blue-500">Reality</span>
+          <span className="text-blue-500 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block">Elite Interaction</span>
+          <h2 className="text-4xl md:text-7xl font-black mb-10 bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-600 bg-clip-text text-transparent tracking-tighter leading-[0.9]">
+            Let&apos;s Talk <br className="md:hidden" /> <span className="text-blue-600 dark:text-blue-500">Business</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
-            Have a game-changing idea? I'm ready to provide the technical expertise to make it happen. 
-            Let's discuss how we can create something extraordinary together.
+          <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-lg font-medium leading-relaxed">
+            Have a game-changing idea? I&apos;m ready to provide the technical expertise to make it happen. 
+            Let&apos;s discuss how we can create something extraordinary together.
           </p>
         </motion.div>
 
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-2xl shadow-blue-500/5 overflow-hidden border border-gray-100 dark:border-gray-800/50">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row bg-white dark:bg-[#0A0C10] rounded-[3rem] shadow-2xl dark:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden border border-gray-100 dark:border-white/5 transition-colors duration-500">
           {/* Visual Side - Elite Presentation */}
-          <div className="lg:w-[45%] bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-12 md:p-16 flex flex-col justify-center relative overflow-hidden group">
-            {/* Mesh Gradient / Animated Decor */}
+          <div className="lg:w-[40%] bg-gradient-to-br from-blue-50 dark:from-blue-900/20 via-white dark:via-[#0A0C10] to-indigo-50 dark:to-indigo-950/20 p-8 md:p-12 lg:p-16 flex flex-col justify-center relative overflow-hidden group">
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-5" />
+            
+            {/* Mesh Gradient */}
             <motion.div 
               animate={{ 
-                rotate: [0, 90, 180, 270, 360],
-                scale: [1, 1.1, 1]
+                rotate: [0, 360],
+                scale: [1, 1.2, 1]
               }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-1/4 -right-1/4 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05)_0%,_transparent_70%)] pointer-events-none"
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="absolute -top-1/2 -right-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.1)_0%,_transparent_70%)] pointer-events-none"
             />
             
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:scale-125 transition-transform duration-1000" />
-            
-            <div className="relative z-10 text-white">
+            <div className="relative z-10">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
               >
-                <h3 className="text-4xl md:text-5xl font-black mb-6 leading-[1.05] tracking-tight">
-                  Ready to start a <br />
-                  <span className="text-blue-200">New Project?</span>
+                <div className="w-16 h-1 bg-blue-600 rounded-full mb-10" />
+                <h3 className="text-5xl md:text-6xl font-black mb-8 leading-[1] tracking-tight text-gray-900 dark:text-white">
+                  Design. <br />
+                  Build. <br />
+                  <span className="text-blue-600 dark:text-blue-400">Scale.</span>
                 </h3>
-                <p className="text-blue-100/70 text-lg font-medium max-w-sm mb-12">
+                <p className="text-gray-500 dark:text-gray-400 text-lg font-medium max-w-sm mb-12 leading-relaxed">
                   Drop your details and I&apos;ll get back to you with a tailored technical strategy.
                 </p>
                 
-                {/* 3D Floating Collaboration Visual */}
-                <div className="relative w-full aspect-square max-w-[320px] perspective-1000">
-                    <motion.div 
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute inset-0 bg-white/5 rounded-3xl backdrop-blur-md border border-white/10 shadow-2xl overflow-hidden"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
-                    </motion.div>
-
-                    {/* Floating Component Cards */}
-                    <motion.div 
-                        animate={{ y: [0, 15, 0], x: [0, 5, 0], rotateX: [5, 15, 5] }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute -top-4 -right-4 w-32 md:w-40 p-4 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-xl"
-                    >
-                        <div className="w-8 h-1.5 bg-blue-400 rounded-full mb-2" />
-                        <div className="w-full h-1 bg-white/10 rounded-full mb-1" />
-                        <div className="w-2/3 h-1 bg-white/10 rounded-full" />
-                        <p className="text-[10px] font-black text-blue-200 uppercase mt-2">Performance</p>
-                    </motion.div>
-
-                    <motion.div 
-                        animate={{ y: [0, 15, 0], x: [0, 5, 0], rotateY: [-5, -15, -5] }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className="absolute bottom-4 -left-6 w-36 md:w-44 p-4 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-xl"
-                    >
-                        <div className="flex gap-1.5 mb-2">
-                             <div className="w-2 h-2 rounded-full bg-red-400" />
-                             <div className="w-2 h-2 rounded-full bg-yellow-400" />
-                             <div className="w-2 h-2 rounded-full bg-green-400" />
-                        </div>
-                        <div className="w-full h-8 bg-black/20 rounded-lg flex items-center px-2">
-                            <div className="w-1/2 h-1 bg-blue-400/50 rounded-full" />
-                        </div>
-                        <p className="text-[10px] font-black text-indigo-200 uppercase mt-2">Scalable Systems</p>
-                    </motion.div>
-
-                    <motion.div 
-                        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl"
-                    >
-                       ✨
-                    </motion.div>
+                {/* Contact Info Items moved here for better desktop layout balance */}
+                <div className="mt-auto w-full">
+                    <ContactInfo />
                 </div>
               </motion.div>
             </div>
           </div>
 
           {/* Form Side */}
-          <div className="lg:w-[55%] p-12 md:p-16 bg-white dark:bg-gray-900 relative">
-            <div className="mb-12">
-              <span className="text-blue-600 font-black text-xs uppercase tracking-widest mb-2 block">Inquiry Phase</span>
-              <h3 className="text-4xl font-black dark:text-white mb-2 tracking-tight">Collaboration Form</h3>
-              <p className="text-gray-500 dark:text-gray-400 font-medium text-lg">I&apos;m currently accepting new projects for 2026.</p>
+          <div className="lg:w-[60%] p-8 md:p-12 lg:p-20 bg-gray-50/50 dark:bg-[#0D0F14] relative border-l border-gray-100 dark:border-white/5 transition-colors duration-500">
+            <div className="mb-16">
+              <div className="flex items-center gap-4 mb-4">
+                 <span className="w-10 h-[1px] bg-blue-500/30" />
+                 <span className="text-blue-600 dark:text-blue-500 font-black text-[10px] uppercase tracking-[0.4em]">Inquiry Phase</span>
+              </div>
+              <h3 className="text-5xl font-black text-gray-900 dark:text-white mb-4 tracking-tighter">Collaboration Form</h3>
+              <p className="text-gray-500 dark:text-gray-500 font-medium text-lg leading-relaxed px-1">I&apos;m currently accepting elit-tier projects for 2026.</p>
             </div>
             
             <ContactForm />

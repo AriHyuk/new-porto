@@ -53,12 +53,18 @@ export default function ContactForm() {
     }
   };
 
+  const inputContainerClasses = (hasError: boolean) => `
+    relative group transition-all duration-300
+    ${hasError ? 'text-red-500' : 'text-gray-400 focus-within:text-blue-500'}
+  `;
+
   const inputClasses = (hasError: boolean) => `
-    w-full px-4 py-3.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border-2 transition-all duration-300
+    w-full px-5 py-4 rounded-2xl bg-gray-100/50 dark:bg-black/40 border-2 transition-all duration-500
     ${hasError 
       ? 'border-red-500/50 focus:border-red-500 ring-red-500/10' 
-      : 'border-transparent focus:border-blue-500 dark:focus:border-blue-400 ring-blue-500/10'}
-    focus:ring-4 outline-none text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500
+      : 'border-white/5 focus:border-blue-500/50 dark:focus:border-blue-400/50 ring-blue-500/5'}
+    focus:ring-4 outline-none text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-600 font-medium
+    backdrop-blur-xl hover:bg-white dark:hover:bg-white/5
   `;
 
   if (isSuccess) {
@@ -73,17 +79,17 @@ export default function ContactForm() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 mb-8"
+          className="w-24 h-24 bg-gradient-to-tr from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 mb-8"
         >
           <FaCheckCircle className="text-white text-5xl" />
         </motion.div>
-        <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-4">Message Sent!</h3>
-        <p className="text-gray-500 dark:text-gray-400 max-w-md text-lg mb-8">
+        <h3 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Message Sent!</h3>
+        <p className="text-gray-500 dark:text-gray-400 max-w-md text-lg mb-8 leading-relaxed font-medium">
           Thank you for reaching out. I'll review your project details and get back to you within 24 hours.
         </p>
         <button 
           onClick={() => setIsSuccess(false)}
-          className="px-8 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-bold transition-all duration-300 hover:scale-105"
+          className="px-10 py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-gray-900 dark:text-white rounded-2xl font-black uppercase tracking-widest text-xs transition-all duration-300 hover:scale-105"
         >
           Send Another Message
         </button>
@@ -92,8 +98,8 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-      {/* Honeypot Field - Hidden from humans, caught by bots */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      {/* Honeypot Field */}
       <div className="hidden pointer-events-none opacity-0" aria-hidden="true">
         <input
           type="text"
@@ -103,10 +109,10 @@ export default function ContactForm() {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-3">
-          <label htmlFor="name" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+        <div className={inputContainerClasses(!!errors.name)}>
+          <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
             Full Name
           </label>
           <input
@@ -122,7 +128,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.name.message}
               </motion.p>
@@ -130,9 +136,9 @@ export default function ContactForm() {
           </AnimatePresence>
         </div>
 
-        <div className="space-y-3">
-          <label htmlFor="email" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+        <div className={inputContainerClasses(!!errors.email)}>
+          <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
             Email Address
           </label>
           <input
@@ -148,7 +154,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.email.message}
               </motion.p>
@@ -157,26 +163,26 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-3">
-          <label htmlFor="category" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+        <div className={inputContainerClasses(!!errors.category)}>
+          <label htmlFor="category" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
             Project Category
           </label>
-          <div className="relative">
+          <div className="relative group/select">
             <select
               id="category"
-              className={`${inputClasses(!!errors.category)} appearance-none pr-12`}
+              className={`${inputClasses(!!errors.category)} appearance-none pr-10 cursor-pointer text-sm md:text-base`}
               {...register('category')}
             >
-              <option value="" disabled>Select a category</option>
+              <option value="" disabled className="bg-white dark:bg-[#0D0F14]">Select Category</option>
               {categories.map(cat => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.icon} {cat.label}
+                <option key={cat.value} value={cat.value} className="bg-white dark:bg-[#0D0F14]">
+                  {cat.label}
                 </option>
               ))}
             </select>
-            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 group-focus-within/select:text-blue-400 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
             </div>
           </div>
@@ -186,7 +192,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.category.message}
               </motion.p>
@@ -194,9 +200,9 @@ export default function ContactForm() {
           </AnimatePresence>
         </div>
 
-        <div className="space-y-3">
-          <label htmlFor="budget" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+        <div className={inputContainerClasses(!!errors.budget)}>
+          <label htmlFor="budget" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Budget Range
           </label>
           <input
@@ -212,7 +218,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.budget.message}
               </motion.p>
@@ -221,9 +227,9 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="space-y-3">
-        <label htmlFor="message" className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1 flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+      <div className={inputContainerClasses(!!errors.message)}>
+        <label htmlFor="message" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
           Project Details
         </label>
         <textarea
@@ -239,7 +245,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1"
+              className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
             >
               <FaExclamationCircle /> {errors.message.message}
             </motion.p>
@@ -250,20 +256,22 @@ export default function ContactForm() {
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        whileHover={{ scale: 1.01, boxShadow: '0 20px 25px -5px rgba(59, 130, 246, 0.2)' }}
+        whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.98 }}
-        className="group w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-lg shadow-xl shadow-blue-500/10 hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:grayscale relative overflow-hidden"
+        className="group w-full py-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all flex items-center justify-center gap-4 disabled:opacity-70 disabled:grayscale relative overflow-hidden active:scale-95"
       >
         <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+        
         {isSubmitting ? (
           <>
-            <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
-            <span className="animate-pulse">Sending Proposal...</span>
+            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            <span className="animate-pulse">Broadcasting Signal...</span>
           </>
         ) : (
           <>
-            <FaPaperPlane className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
-            <span>Request for Meeting</span>
+            <FaPaperPlane className="text-sm group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+            <span>Initiate Collaboration</span>
           </>
         )}
       </motion.button>
