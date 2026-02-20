@@ -19,20 +19,23 @@ export default function ProjectList({ projects }: ProjectListProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
 
-  const ITEMS_PER_PAGE = 6;
+  const ITEMS_PER_PAGE = 3;
 
-  // Filter Logic (Search Only)
+  // Extract unique categories
+  const categories = ['All', ...new Set(projects.map(p => p.category).filter(Boolean) as string[])];
+
+  // Filter Logic (Search + Category)
   const filteredProjects = projects.filter((project) => {
-    // Explicitly return all projects if search is empty
-    if (!searchQuery) return true;
-
-    const matchesSearch =
+    const matchesSearch = !searchQuery || 
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.tech_stack?.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    return matchesSearch || false;
+    const matchesCategory = activeCategory === 'All' || project.category === activeCategory;
+
+    return matchesSearch && matchesCategory;
   });
 
   const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
@@ -40,21 +43,14 @@ export default function ProjectList({ projects }: ProjectListProps) {
   const hasMore = page < totalPages;
 
   // Mouse tracking for spotlight effect
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // ... existing mouse tracking logic
-    for (const card of document.getElementsByClassName('group') as HTMLCollectionOf<HTMLElement>) {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    }
-  };
+  // Mouse tracking moved to individual ProjectCard components for performance
+  const handleMouseMove = () => {};
 
   return (
     <div onMouseMove={handleMouseMove} className="w-full">
-      {/* Controls: Search Bar Only (Centered) */}
-      <div className="flex justify-center mb-12">
+      {/* Search & Category Filter */}
+      <div className="flex flex-col items-center gap-8 mb-16">
+        {/* Search Bar */}
         <div className="relative w-full max-w-md group">
            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -63,11 +59,31 @@ export default function ProjectList({ projects }: ProjectListProps) {
            </div>
            <input
               type="text"
-              placeholder="Search projects by name or technology..."
+              placeholder="Search projects..."
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
               className="block w-full pl-12 pr-4 py-3 border border-gray-200 dark:border-white/10 rounded-full leading-5 bg-white dark:bg-white/5 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm hover:shadow-md transition-all duration-300"
            />
+        </div>
+
+        {/* Categories Filter Bar */}
+        <div className="flex flex-col items-center gap-4">
+           <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-2">Filter by Category</h3>
+           <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => { setActiveCategory(cat); setPage(1); }}
+                  className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
+                    activeCategory === cat
+                      ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] scale-105'
+                      : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/30'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+           </div>
         </div>
       </div>
 
@@ -79,20 +95,19 @@ export default function ProjectList({ projects }: ProjectListProps) {
             initial="hidden"
             animate="visible"
             variants={containerVariants}
-            key={`project-grid-${page}`}
+            key={`project-grid-${activeCategory}-${searchQuery}-${page}`}
           >
             {paginatedProjects.map((project) => (
-              <motion.div
+              <div
                 key={project.id}
                 className="col-span-1"
-                layoutId={`project-card-${project.id}`}
               >
                 <ProjectCard
                   project={project}
                   onClick={() => setSelectedProject(project)}
-                  layoutId={`project-content-${project.id}`}
+                  layoutId={`project-card-${project.id}`}
                 />
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         ) : (
@@ -102,12 +117,12 @@ export default function ProjectList({ projects }: ProjectListProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-             <p className="text-gray-500 dark:text-gray-400 text-lg">No projects match "{searchQuery}"</p>
+             <p className="text-gray-500 dark:text-gray-400 text-lg">No projects match your criteria</p>
              <button
-               onClick={() => { setSearchQuery(''); }}
+               onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}
                className="mt-4 text-blue-600 dark:text-blue-400 hover:underline font-medium"
              >
-               Clear Search
+               Clear Filters
              </button>
            </motion.div>
         )}
@@ -115,14 +130,15 @@ export default function ProjectList({ projects }: ProjectListProps) {
       
       {/* Load More Button */}
       {hasMore && (
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-16">
             <button
                 onClick={() => setPage(prev => prev + 1)}
-                className="group relative px-8 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95"
+                className="group relative px-10 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.1)]"
             >
-                <span className="text-sm font-bold text-gray-300 group-hover:text-white uppercase tracking-widest">
-                    Load More Projects
+                <span className="text-xs font-black text-gray-400 group-hover:text-white uppercase tracking-[0.2em]">
+                    Discover More Projects
                 </span>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
         </div>
       )}

@@ -1,0 +1,11 @@
+ M src/app/admin/projects/actions.ts
+ M src/components/Admin/ProjectForm.tsx
+ M src/components/ProjectCard.tsx
+ M src/components/ProjectList.tsx
+ M src/components/ProjectModal.tsx
+ M src/lib/validations/project.ts
+ M src/types/index.ts
+?? git_status.txt
+?? supabase/migrations/007_update_projects_storytelling.sql
+?? supabase/migrations/008_add_category_to_projects.sql
+?? supabase/migrations/009_seed_dummy_projects.sql

@@ -6,7 +6,7 @@ import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { FaSave, FaTimes, FaCloudUploadAlt, FaCode, FaLink, FaGithub, FaHeading, FaAlignLeft } from "react-icons/fa";
+import { FaSave, FaTimes, FaCloudUploadAlt, FaCode, FaLink, FaGithub, FaHeading, FaAlignLeft, FaLightbulb, FaTag } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 interface ProjectFormProps {
@@ -93,6 +93,20 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
 
             <div className="space-y-5">
               <div>
+                <label htmlFor="category" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                  <span className="text-indigo-500/50">#</span> Project Category
+                </label>
+                <input
+                  type="text"
+                  name="category"
+                  id="category"
+                  defaultValue={project?.category || ""}
+                  placeholder="e.g., Back-End, Full-Stack, Cloud"
+                  className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-indigo-500 dark:focus:bg-zinc-900"
+                />
+              </div>
+
+              <div>
                 <label htmlFor="title" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
                   <FaHeading className="text-indigo-500/50" /> Project Title
                 </label>
@@ -114,9 +128,66 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                 <textarea
                   name="description"
                   id="description"
-                  rows={6}
+                  rows={4}
                   defaultValue={project?.description || ""}
-                  placeholder="Describe your masterpiece..."
+                  placeholder="The full description of your project..."
+                  className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-indigo-500 dark:focus:bg-zinc-900"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="summary" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                  <FaAlignLeft className="text-indigo-500/50" /> Summary
+                </label>
+                <textarea
+                  name="summary"
+                  id="summary"
+                  rows={2}
+                  defaultValue={project?.summary || ""}
+                  placeholder="Brief summary for the card view..."
+                  className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-indigo-500 dark:focus:bg-zinc-900"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="challenge" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                    <FaLightbulb className="text-amber-500/50" /> The Challenge
+                  </label>
+                  <textarea
+                    name="challenge"
+                    id="challenge"
+                    rows={4}
+                    defaultValue={project?.challenge || ""}
+                    placeholder="What was the hardest part?"
+                    className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-indigo-500 dark:focus:bg-zinc-900"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contribution" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                    <FaCode className="text-purple-500/50" /> My Contribution
+                  </label>
+                  <textarea
+                    name="contribution"
+                    id="contribution"
+                    rows={4}
+                    defaultValue={project?.contribution || ""}
+                    placeholder="Your specific role and impact..."
+                    className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-indigo-500 dark:focus:bg-zinc-900"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="key_features" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                  <FaHeading className="text-emerald-500/50" /> Key Features (One per line)
+                </label>
+                <textarea
+                  name="key_features"
+                  id="key_features"
+                  rows={4}
+                  defaultValue={project?.key_features?.join("\n")}
+                  placeholder="Real-time Chat&#10;Stripe Integration&#10;Google Cloud Deploy"
                   className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-indigo-500 dark:focus:bg-zinc-900"
                 />
               </div>
