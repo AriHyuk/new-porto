@@ -23,12 +23,12 @@ export default function AboutStats() {
         <motion.div
           key={index}
           variants={itemVariants}
-          className="bg-white/50 dark:bg-gray-800/40 backdrop-blur-md p-6 rounded-[2rem] border border-gray-100 dark:border-gray-700/50 flex flex-col items-center justify-center text-center group hover:bg-white dark:hover:bg-gray-800 transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+          className="bg-gray-100/50 dark:bg-black/20 backdrop-blur-3xl p-4 md:p-5 rounded-2xl border border-gray-200 dark:border-white/5 flex flex-col items-center justify-center text-center group hover:bg-white dark:hover:bg-blue-600/10 transition-all duration-500 shadow-xl hover:-translate-y-1"
         >
-          <div className="text-3xl font-black text-gray-900 dark:text-white mb-1 tracking-tighter group-hover:text-blue-600 transition-colors">
-            {stat.value}<span className="text-sm font-bold text-blue-600 dark:text-blue-400 ml-0.5">{stat.suffix}</span>
+          <div className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-1 tracking-tighter group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-none">
+            {stat.value}<span className="text-[10px] md:text-xs font-black text-blue-600 dark:text-blue-500 ml-0.5">{stat.suffix}</span>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+          <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-gray-500 group-hover:text-blue-500 dark:group-hover:text-gray-300 transition-colors">
             {stat.label}
           </p>
         </motion.div>

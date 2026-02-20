@@ -1,54 +1,74 @@
 'use client';
 
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { socialLinks, contactInfo } from '@/constants/about';
-import { cardVariants, buttonVariants } from '@/utils/animation';
 import { FaDownload } from 'react-icons/fa';
+import { useRef } from 'react';
 
 export default function ProfileCard() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(y, [-100, 100], [10, -10]), { stiffness: 100, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-100, 100], [-10, 10]), { stiffness: 100, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    mouseX.set(x);
-    mouseY.set(y);
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set(e.clientX - centerX);
+    y.set(e.clientY - centerY);
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    cardRef.current.style.setProperty("--mouse-x", `${mouseX}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${mouseY}px`);
   };
 
   const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
+    x.set(0);
+    y.set(0);
   };
 
-  const imgX = useTransform(mouseX, [-200, 200], [15, -15]);
-  const imgY = useTransform(mouseY, [-200, 200], [15, -15]);
+  const imgX = useTransform(x, [-100, 100], [10, -10]);
+  const imgY = useTransform(y, [-100, 100], [10, -10]);
 
   return (
     <motion.div
-      className="w-full lg:w-1/3 relative"
-      variants={cardVariants}
-      whileHover="hover"
+      ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, perspective: 1000 }}
+      className="w-full lg:w-1/3 relative group"
     >
-      {/* Glassmorphism Card */}
-      <div className="bg-white/70 dark:bg-gray-800/60 backdrop-blur-2xl p-8 rounded-[2rem] shadow-xl border border-white/20 dark:border-gray-700/30 h-full relative overflow-hidden z-10">
+      {/* Spotlight effect for the whole card */}
+      <div className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-20 rounded-[2.5rem]" 
+           style={{ 
+             background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59,130,246,0.1), transparent 40%)` 
+           }} 
+      />
+
+      {/* Cyber Glass Card */}
+      <div className="bg-white/80 dark:bg-[#0A0C10] backdrop-blur-3xl p-6 md:p-8 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5 group-hover:border-blue-500/30 transition-all duration-500 h-full relative overflow-hidden z-10">
         
-        {/* Profile Image - Clean & Simple */}
-        <div className="relative w-40 h-40 mx-auto mb-6">
+        {/* Animated Background Mesh */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(59,130,246,0.05),_transparent_50%)]" />
+
+        {/* Profile Image with Parallax */}
+        <div className="relative w-32 h-32 md:w-36 md:h-36 mx-auto mb-6 md:mb-8">
           <motion.div
-            className="w-full h-full rounded-full overflow-hidden border-[3px] border-white dark:border-gray-700 shadow-lg relative z-10 bg-gray-100 dark:bg-gray-900"
+            className="w-full h-full rounded-[1.5rem] overflow-hidden border-2 border-white dark:border-white/10 shadow-2xl relative z-10 bg-gray-100 dark:bg-gray-900"
             style={{ x: imgX, y: imgY }}
           >
             <Image
               src="/images/profile/avatar.jpeg"
               alt="Ari Awaludin"
               fill
-              className="object-cover"
-              sizes="160px"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
+              sizes="(max-width: 768px) 128px, 144px"
               priority
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -56,41 +76,47 @@ export default function ProfileCard() {
               }}
             />
           </motion.div>
+          {/* Decorative Ring */}
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            className="absolute -inset-4 border border-dashed border-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+          />
         </div>
 
         <div className="text-center relative z-10">
-          <h2 className="text-3xl font-black bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 dark:from-white dark:via-gray-300 dark:to-white bg-clip-text text-transparent mb-1 tracking-tighter">
+          <h2 className="text-2xl md:text-3xl font-black bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-600 bg-clip-text text-transparent mb-2 md:mb-3 tracking-tighter leading-[0.9]">
             Ari Awaludin
           </h2>
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="w-8 h-[2px] bg-blue-600/30 rounded-full" />
-            <p className="text-blue-600 dark:text-blue-400 font-black text-xs uppercase tracking-[0.3em]">
+          
+          <div className="flex items-center justify-center gap-3 md:gap-4 mb-4 md:mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+            <p className="text-blue-600 dark:text-blue-500 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em]">
               Software Engineer
             </p>
-            <span className="w-8 h-[2px] bg-blue-600/30 rounded-full" />
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
           </div>
 
-          {/* Social Links */}
-          <div className="flex justify-center flex-wrap gap-3 mb-8">
+          {/* Social Links - Cyber Style */}
+          <div className="flex justify-center flex-wrap gap-2 md:gap-3 mb-6 md:mb-8">
             {socialLinks.map((link, index) => (
               <motion.a
                 key={index}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-12 h-12 rounded-2xl bg-white/50 dark:bg-gray-700/30 flex items-center justify-center text-gray-600 dark:text-gray-300 transition-all ${link.color} shadow-sm border border-white dark:border-gray-600/30 backdrop-blur-md`}
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
+                className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gray-100/50 dark:bg-white/5 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white hover:bg-white dark:hover:bg-blue-600/30 transition-all border border-gray-200 dark:border-white/5 hover:border-blue-400/30 backdrop-blur-xl shadow-lg"
+                whileHover={{ y: -5, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 title={link.label}
               >
-                <link.icon className="text-xl" />
+                <link.icon className="text-base md:text-lg" />
               </motion.a>
             ))}
           </div>
 
-          {/* Contact Details */}
-          <div className="space-y-4 text-left bg-gray-100/50 dark:bg-gray-900/40 p-5 rounded-3xl border border-white/10 dark:border-gray-700/50 backdrop-blur-md">
+          {/* Contact Details - Standardized DNS */}
+          <div className="space-y-2 md:space-y-3 text-left bg-gray-50/50 dark:bg-black/20 p-4 md:p-5 rounded-[1.5rem] border border-gray-200 dark:border-white/5 backdrop-blur-md">
             {contactInfo.map((item, index) => (
               <a 
                 key={index}
@@ -99,12 +125,12 @@ export default function ProfileCard() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex-shrink-0 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover/item:bg-blue-600 group-hover/item:text-white transition-all duration-300 shadow-sm">
-                  <item.icon className="text-base" />
+                <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-blue-500/10 flex-shrink-0 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover/item:bg-blue-600 group-hover/item:text-white transition-all duration-500 shadow-xl border border-blue-500/10 dark:border-white/5">
+                  <item.icon className="text-xs md:text-sm" />
                 </div>
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-[9px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-[0.2em] leading-tight mb-0.5">{item.label}</span>
-                  <span className="text-sm font-bold text-gray-700 dark:text-gray-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors truncate">
+                  <span className="text-[7px] md:text-[8px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-[0.3em] leading-tight mb-0.5">{item.label}</span>
+                  <span className="text-[11px] md:text-xs font-black text-gray-700 dark:text-gray-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors truncate tracking-tight">
                     {item.value}
                   </span>
                 </div>
@@ -112,37 +138,35 @@ export default function ProfileCard() {
             ))}
           </div>
 
-          {/* Key Certifications */}
-          <div className="mt-6 space-y-3">
-             <div className="flex items-center gap-2 px-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Top Credentials</span>
-                <div className="h-[1px] flex-1 bg-gray-100 dark:bg-gray-800" />
+          {/* Key Certifications - Premium Layout */}
+          <div className="mt-5 md:mt-6 space-y-3 md:space-y-4">
+             <div className="flex items-center gap-4 px-2">
+                <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500">Credentials</span>
+                <div className="h-[1px] flex-1 bg-gray-100 dark:bg-white/5" />
              </div>
-             <div className="grid grid-cols-2 gap-2">
-                <div className="bg-blue-50/50 dark:bg-blue-900/20 p-3 rounded-2xl border border-blue-100/50 dark:border-blue-800/30 text-left">
-                  <p className="text-[8px] font-black uppercase text-blue-600 dark:text-blue-400 mb-1">BNSP Certification</p>
-                  <p className="text-[10px] font-bold text-gray-700 dark:text-gray-300 leading-tight">Certified Programmer</p>
+             <div className="grid grid-cols-2 gap-2 md:gap-3">
+                <div className="bg-blue-500/5 p-3 rounded-xl border border-blue-500/10 dark:border-white/5 text-left group/cred hover:bg-blue-600/10 transition-colors">
+                  <p className="text-[6px] md:text-[7px] font-black uppercase text-blue-600 dark:text-blue-500 mb-1 tracking-widest">BNSP</p>
+                  <p className="text-[8px] md:text-[9px] font-black text-gray-800 dark:text-white leading-tight">Certified <br />Programmer</p>
                 </div>
-                <div className="bg-purple-50/50 dark:bg-purple-900/20 p-3 rounded-2xl border border-purple-100/50 dark:border-purple-800/30 text-left">
-                  <p className="text-[8px] font-black uppercase text-purple-600 dark:text-purple-400 mb-1">Language Proof</p>
-                  <p className="text-[10px] font-bold text-gray-700 dark:text-gray-300 leading-tight">TOEFL ITP Certified</p>
+                <div className="bg-purple-500/5 p-3 rounded-xl border border-purple-500/10 dark:border-white/5 text-left group/cred hover:bg-purple-600/10 transition-colors">
+                  <p className="text-[6px] md:text-[7px] font-black uppercase text-purple-600 dark:text-purple-500 mb-1 tracking-widest">TOEFL</p>
+                  <p className="text-[8px] md:text-[9px] font-black text-gray-800 dark:text-white leading-tight">ITP <br />Certified</p>
                 </div>
              </div>
           </div>
 
+          {/* Download Button - Elitist Style */}
           <motion.button
-            className="w-full mt-8 py-5 px-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-black rounded-[1.5rem] shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all relative overflow-hidden group/btn"
-            whileHover={{ scale: 1.02, y: -2 }}
+            className="w-full mt-6 md:mt-8 py-4 md:py-5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-xl shadow-2xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all relative overflow-hidden group/btn"
+            whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => window.open('files/cv_ari_awaludin.pdf', '_blank')}
           >
-            <span className="relative z-10 flex items-center justify-center gap-3 tracking-tight">
-              Review Full Resume <FaDownload className="text-lg animate-bounce" />
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
-            
-            {/* Inner Light Effect */}
-            <div className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover/btn:left-full transition-all duration-1000" />
+            <div className="relative z-10 flex items-center justify-center gap-2 md:gap-3 text-[8px] md:text-[9px] uppercase tracking-[0.3em]">
+              Access Dossier <FaDownload className="text-[10px] md:text-xs group-hover:translate-y-1 transition-transform" />
+            </div>
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
           </motion.button>
         </div>
       </div>

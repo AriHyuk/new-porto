@@ -38,33 +38,47 @@ export default function AboutSection({ experiences, skills }: AboutSectionProps)
   };
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-gray-50/50 dark:bg-gray-900/50">
+    <section id="about" className="py-20 md:py-32 relative overflow-hidden bg-gray-50/50 dark:bg-[#050608] transition-colors duration-500">
       <MouseFollower />
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[100px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[100px] animate-pulse delay-1000" />
+      {/* Background Decorative Mesh */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,_rgba(59,130,246,0.08),_transparent_40%)]" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.1, 1, 1.1],
+            opacity: [0.1, 0.3, 0.1]
+          }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,_rgba(139,92,246,0.08),_transparent_40%)]" 
+        />
       </div>
 
       <div className="container mx-auto px-4 md:px-10 relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-16 md:mb-24"
           variants={entryVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">
-            About <span className="text-blue-600 dark:text-blue-400">Me</span>
+          <span className="text-blue-500 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-4 md:mb-6 block">Biography Phase</span>
+          <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-8 bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-600 bg-clip-text text-transparent tracking-tighter leading-[0.9]">
+            The Engineer <br className="md:hidden" /> <span className="text-blue-600 dark:text-blue-500">Behind</span>
           </h2>
-          <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8 shadow-[0_0_15px_rgba(37,99,235,0.4)]" />
-          <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 leading-relaxed text-lg font-medium">
+          <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-base md:text-lg font-medium leading-relaxed px-4">
             Engineering scalable, high-performance web solutions with a focus on clean architecture and modern developer experience. 
             Expertise in building seamless digital ecosystems from inception to deployment.
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-stretch">
+        <div className="flex flex-col lg:flex-row gap-10 md:gap-12 items-stretch">
           {/* Left: Profile Card */}
           <ProfileCard />
 
@@ -77,27 +91,27 @@ export default function AboutSection({ experiences, skills }: AboutSectionProps)
             viewport={{ once: true }}
           >
             {/* Stats Grid */}
-            <div className="mb-12">
+            <div className="mb-8 md:mb-10">
               <AboutStats />
             </div>
 
-            {/* Tabs Navigation */}
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md p-2 rounded-2xl border border-gray-100 dark:border-gray-700 flex flex-wrap gap-2 mb-8 shadow-sm">
+            {/* Tabs Navigation - Cyber Polish */}
+            <div className="bg-gray-100/50 dark:bg-black/40 backdrop-blur-3xl p-1.5 md:p-2 rounded-2xl border border-gray-200 dark:border-white/5 flex flex-wrap gap-1.5 md:gap-2 mb-8 md:mb-10 shadow-2xl">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 py-3 px-6 rounded-xl font-bold transition-all relative ${
+                  className={`flex-1 py-3 md:py-4 px-4 md:px-6 rounded-xl font-black text-[8px] md:text-[10px] uppercase tracking-[0.3em] transition-all relative ${
                     activeTab === tab.id
-                      ? 'text-white'
-                      : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                      ? 'text-blue-600 dark:text-white'
+                      : 'text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white'
                   }`}
                 >
                   <span className="relative z-10">{tab.label}</span>
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-blue-600 rounded-xl shadow-lg shadow-blue-500/30"
+                      className="absolute inset-0 bg-blue-600/5 dark:bg-blue-600/20 border border-blue-500/20 dark:border-blue-500/30 rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.1)]"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
