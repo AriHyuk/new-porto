@@ -16,7 +16,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col md:flex-row items-center justify-between px-4 md:px-10 h-[100dvh] max-h-[1080px] overflow-hidden bg-white dark:bg-gray-900 transition-colors pt-32 md:pt-20"
+      className="relative flex flex-col md:flex-row items-center justify-between px-4 md:px-10 h-[100dvh] max-h-[1080px] overflow-hidden bg-white dark:bg-[#0A0C10] transition-colors pt-32 md:pt-20"
     >
       {/* Background visual components */}
       <BackgroundShapes />
@@ -27,28 +27,29 @@ export default function Hero() {
           variants={textVariants}
           initial="hidden"
           animate="visible"
-          className="text-gray-500 dark:text-gray-400 text-lg font-medium flex items-center justify-center md:justify-start gap-2"
+          className="text-blue-600 dark:text-blue-500 text-[10px] font-black uppercase tracking-[0.3em] flex items-center justify-center md:justify-start gap-3"
         >
-          Hello, I'm Ari <code className="bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded text-blue-600 dark:text-blue-400 font-mono text-sm border border-blue-100 dark:border-blue-800">&lt;/&gt;</code>
+          <span className="w-8 h-[1px] bg-blue-600/30 hidden md:block" />
+          Hello, I&apos;m Ari <code className="bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded text-blue-600 dark:text-blue-400 font-mono text-xs border border-blue-100 dark:border-blue-800">&lt;/&gt;</code>
         </motion.p>
 
         {/* Hero Headlines */}
-        <div className="flex flex-col relative w-full lg:w-[120%]">
+        <div className="flex flex-col relative w-full lg:w-[110%] xl:w-[120%]">
           <AnimatedText 
             text="Cloud-Native"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-gray-100 tracking-tight leading-none relative z-10 whitespace-nowrap"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-[0.85] relative z-20 whitespace-nowrap"
           />
           <div className="relative">
              <AnimatedText 
               text="Software Engineer"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tight leading-[1.2] pb-2 whitespace-nowrap"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tighter leading-[1.1] pb-2 whitespace-nowrap z-20"
             />
             {/* Creative Underline/Decor */}
             <motion.div 
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
               transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-              className="absolute -bottom-1 left-0 w-24 h-1.5 bg-blue-600 rounded-full hidden md:block" 
+              className="absolute -bottom-1 left-0 w-32 h-2 bg-blue-600 rounded-full hidden md:block z-10" 
             />
           </div>
         </div>
@@ -57,10 +58,10 @@ export default function Hero() {
           variants={textVariants}
           initial="hidden"
           animate="visible"
-          className="text-gray-600 dark:text-gray-400 text-base md:text-lg max-w-xl mb-6 leading-relaxed mx-auto md:mx-0 font-medium"
+          className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-xl mb-8 leading-relaxed mx-auto md:mx-0 font-medium"
         >
           Engineering scalable web ecosystems and intelligent AI agents on Google Cloud. 
-          Specializing in high-performance Fullstack development with a focus on Clean Architecture and Modern DX.
+          Specializing in high-performance Fullstack development with a focus on Clean Architecture.
         </motion.p>
         
         {/* Call to Actions */}
@@ -74,7 +75,7 @@ export default function Hero() {
             className="relative group"
           >
             {/* Animated border glow */}
-            <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 rounded-xl blur-sm opacity-25 group-hover:opacity-100 group-hover:blur-md transition duration-500 animate-shimmer" />
+            <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 rounded-2xl blur-sm opacity-25 group-hover:opacity-100 group-hover:blur-md transition duration-500 animate-shimmer" />
             
             <ScrollLink
               to="portfolio"
@@ -82,14 +83,12 @@ export default function Hero() {
               smooth={true}
               duration={500}
               offset={-70}
-              aria-haspopup="dialog"
-              aria-label="View portfolio projects"
-              className="relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-xl font-black overflow-hidden flex items-center justify-center cursor-pointer transition-all duration-300 border border-white/10 dark:border-black/5 shadow-2xl"
+              className="relative px-10 py-5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-2xl font-black uppercase tracking-[0.2em] text-xs overflow-hidden flex items-center justify-center cursor-pointer transition-all duration-300 border border-white/10 dark:border-black/5 shadow-2xl"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center gap-3">
                 View My Work
-                <svg className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                <svg className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </span>
             </ScrollLink>
           </motion.div>
