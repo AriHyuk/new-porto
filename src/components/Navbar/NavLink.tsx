@@ -30,7 +30,7 @@ export default function NavLink({ to, label, isActive, onClick, onSetActive }: N
         onClick={onClick}
         onSetActive={() => onSetActive(to)}
       >
-        <span className="capitalize">{label}</span>
+        <span className="transition-all duration-300">{label}</span>
         
         {/* Mobile Rocket - Only visible when active on mobile */}
         {isActive && (

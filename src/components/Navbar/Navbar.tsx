@@ -33,9 +33,9 @@ export default function Navbar() {
   
   // Dynamic background based on theme
   const isDark = mounted && resolvedTheme === 'dark';
-  const bgColorStart = isDark ? 'rgba(17, 24, 39, 0)' : 'rgba(255, 255, 255, 0)';
-  const bgColorEnd = isDark ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)';
-  const borderColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+  const bgColorStart = isDark ? 'rgba(10, 12, 16, 0)' : 'rgba(255, 255, 255, 0)';
+  const bgColorEnd = isDark ? 'rgba(11, 13, 18, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+  const borderColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
 
   // Transform values based on scroll position
   const navWidth = useTransform(scrollY, [0, 100], ['100%', '85%']);
@@ -63,9 +63,9 @@ export default function Navbar() {
 
   const navLinks = [
     { id: 'hero', label: 'Hero' },
-    { id: 'about', label: 'about' },
-    { id: 'portfolio', label: 'projects' },
-    { id: 'certificates', label: 'Certify' }
+    { id: 'about', label: 'About' },
+    { id: 'portfolio', label: 'Projects' },
+    { id: 'certificates', label: 'Certificates' }
   ];
 
   const handleLinkClick = (section: string) => {
@@ -78,8 +78,6 @@ export default function Navbar() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-
 
   return (
     <>
@@ -94,7 +92,7 @@ export default function Navbar() {
             border: navBorder,
             boxShadow: navShadow,
           }}
-          className="pointer-events-auto px-4 md:px-8 py-3 md:py-4 transition-colors max-w-7xl mx-auto dark:bg-gray-900/80"
+          className="pointer-events-auto px-4 md:px-8 py-3 md:py-4 transition-all duration-500 max-w-7xl mx-auto dark:bg-[#0B0D12]/80"
         >
           <div className="flex justify-between items-center">
             {/* Animated Brand Name */}
