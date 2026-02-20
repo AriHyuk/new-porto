@@ -112,6 +112,24 @@ export default function ProfileCard() {
             ))}
           </div>
 
+          {/* Key Certifications */}
+          <div className="mt-6 space-y-3">
+             <div className="flex items-center gap-2 px-2">
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Top Credentials</span>
+                <div className="h-[1px] flex-1 bg-gray-100 dark:bg-gray-800" />
+             </div>
+             <div className="grid grid-cols-2 gap-2">
+                <div className="bg-blue-50/50 dark:bg-blue-900/20 p-3 rounded-2xl border border-blue-100/50 dark:border-blue-800/30 text-left">
+                  <p className="text-[8px] font-black uppercase text-blue-600 dark:text-blue-400 mb-1">BNSP Certification</p>
+                  <p className="text-[10px] font-bold text-gray-700 dark:text-gray-300 leading-tight">Certified Programmer</p>
+                </div>
+                <div className="bg-purple-50/50 dark:bg-purple-900/20 p-3 rounded-2xl border border-purple-100/50 dark:border-purple-800/30 text-left">
+                  <p className="text-[8px] font-black uppercase text-purple-600 dark:text-purple-400 mb-1">Language Proof</p>
+                  <p className="text-[10px] font-bold text-gray-700 dark:text-gray-300 leading-tight">TOEFL ITP Certified</p>
+                </div>
+             </div>
+          </div>
+
           <motion.button
             className="w-full mt-8 py-5 px-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-black rounded-[1.5rem] shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all relative overflow-hidden group/btn"
             whileHover={{ scale: 1.02, y: -2 }}

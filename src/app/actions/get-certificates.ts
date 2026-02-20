@@ -32,7 +32,7 @@ export const getCertificates = unstable_cache(
           name: "Mock Certificate 1",
           issuer: "Coursera",
           issued_at: "2023-01-01",
-          image_url: "https://via.placeholder.com/600x400?text=Certificate+1", 
+          image_url: "https://placehold.co/600x400?text=Certificate+1", 
           certificate_url: "#",
         },
         {
@@ -40,7 +40,7 @@ export const getCertificates = unstable_cache(
           name: "Mock Certificate 2",
           issuer: "Udemy",
           issued_at: "2023-02-01",
-          image_url: "https://via.placeholder.com/600x400?text=Certificate+2",
+          image_url: "https://placehold.co/600x400?text=Certificate+2",
           certificate_url: "#",
         }
       ];

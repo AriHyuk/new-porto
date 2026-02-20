@@ -9,7 +9,7 @@ import AnimatedText from './AnimatedText';
 import BackgroundShapes from './BackgroundShapes';
 import TechPill from './TechPill';
 import ScrollIndicator from './ScrollIndicator';
-import { SiNextdotjs, SiReact, SiTypescript} from 'react-icons/si';
+import { SiNextdotjs, SiReact, SiGooglecloud } from 'react-icons/si';
 import profileAvatar from '../../../public/images/profile/avatar.jpeg';
 
 export default function Hero() {
@@ -33,22 +33,22 @@ export default function Hero() {
         </motion.p>
 
         {/* Hero Headlines */}
-        <div className="flex flex-col relative">
+        <div className="flex flex-col relative w-full lg:w-[120%]">
           <AnimatedText 
-            text="Software"
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-black text-gray-900 dark:text-gray-100 tracking-tighter leading-none relative z-10"
+            text="Cloud-Native"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-gray-100 tracking-tight leading-none relative z-10 whitespace-nowrap"
           />
           <div className="relative">
              <AnimatedText 
-              text="Engineer"
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tighter leading-none pb-2"
+              text="Software Engineer"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tight leading-[1.2] pb-2 whitespace-nowrap"
             />
             {/* Creative Underline/Decor */}
             <motion.div 
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
               transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-              className="absolute -bottom-2 left-0 w-24 h-2 bg-blue-600 rounded-full hidden md:block" 
+              className="absolute -bottom-1 left-0 w-24 h-1.5 bg-blue-600 rounded-full hidden md:block" 
             />
           </div>
         </div>
@@ -57,10 +57,10 @@ export default function Hero() {
           variants={textVariants}
           initial="hidden"
           animate="visible"
-          className="text-gray-600 dark:text-gray-400 text-base md:text-lg max-w-xl mb-8 leading-relaxed mx-auto md:mx-0"
+          className="text-gray-600 dark:text-gray-400 text-base md:text-lg max-w-xl mb-6 leading-relaxed mx-auto md:mx-0 font-medium"
         >
-          Engineering scalable, high-performance web solutions with a focus on clean architecture and modern developer experience. 
-          Expertise in building seamless digital ecosystems from inception to deployment.
+          Engineering scalable web ecosystems and intelligent AI agents on Google Cloud. 
+          Specializing in high-performance Fullstack development with a focus on Clean Architecture and Modern DX.
         </motion.p>
         
         {/* Call to Actions */}
@@ -108,8 +108,8 @@ export default function Hero() {
             delay={1.5}
           />
           <TechPill 
-            icon={<SiTypescript />} 
-            label="TypeScript" 
+            icon={<SiGooglecloud />} 
+            label="GCP" 
             className="top-1/4 -right-6 md:-right-16 animate-bounce-slow delay-700 z-20" 
             delay={1.8}
           />
@@ -141,8 +141,6 @@ function ProfileImage() {
   const rotateX = useSpring(useTransform(y, [-100, 100], [15, -15]), { stiffness: 100, damping: 30 });
   const rotateY = useSpring(useTransform(x, [-100, 100], [-15, 15]), { stiffness: 100, damping: 30 });
 
-  // Optimization: Cache rect on mouse enter to avoid layout thrashing (forced reflow)
-  // during the animation loop.
   const handleMouseEnter = (e: React.MouseEvent) => {
     if (containerRef.current) {
       rectRef.current = containerRef.current.getBoundingClientRect();
@@ -152,7 +150,6 @@ function ProfileImage() {
   function handleMouse(e: React.MouseEvent) {
     if (!rectRef.current) return;
     
-    // Use cached rect
     const rect = rectRef.current;
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -163,7 +160,7 @@ function ProfileImage() {
   function handleMouseLeave() {
     x.set(0);
     y.set(0);
-    rectRef.current = null; // Clear cache
+    rectRef.current = null;
   }
 
   return (

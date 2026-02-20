@@ -29,7 +29,7 @@ export interface Experience {
   role: string;
   company: string;
   description: string;
-  type: 'Fulltime' | 'Freelance' | 'Project' | 'Academic';
+  type: 'Fulltime' | 'Freelance' | 'Project' | 'Academic' | 'Organization';
   brandColor: string;
 }
 
@@ -91,62 +91,83 @@ export const skills: Skill[] = [
   { name: 'Framer Motion', icon: SiFramer, icon_key: 'framer', category: 'Frontend', color: '#E91E63' },
   { name: 'Node.js', icon: SiNodedotjs, icon_key: 'node', category: 'Backend', color: '#339933' },
   { name: 'Go', icon: SiGo, icon_key: 'go', category: 'Language', color: '#00ADD8' },
-  { name: 'Kotlin', icon: SiKotlin, icon_key: 'kotlin', category: 'Language', color: '#7F52FF' },
   { name: 'Laravel', icon: SiLaravel, icon_key: 'laravel', category: 'Backend', color: '#FF2D20' },
   { name: 'Supabase', icon: SiSupabase, icon_key: 'supabase', category: 'Database', color: '#3ECF8E' },
   { name: 'PostgreSQL', icon: SiPostgresql, icon_key: 'postgresql', category: 'Database', color: '#4169E1' },
   { name: 'GCP', icon: SiGooglecloud, icon_key: 'gcp', category: 'Cloud & AI', color: '#4285F4' },
   { name: 'Vertex AI', icon: SiGooglecloud, icon_key: 'gcp', category: 'Cloud & AI', color: '#4285F4' },
-  { name: 'Playwright', icon: TbTestPipe, icon_key: 'playwright', category: 'Engineering', color: '#2EAD33' },
-  { name: 'Jest', icon: VscBeaker, icon_key: 'jest', category: 'Engineering', color: '#C21325' },
-  { name: 'Notion', icon: SiNotion, icon_key: 'notion', category: 'Management', color: '#ffffff' },
-  { name: 'Jira', icon: SiJira, icon_key: 'jira', category: 'Management', color: '#0052CC' },
-  { name: 'Trello', icon: SiTrello, icon_key: 'trello', category: 'Management', color: '#0079BF' },
+  { name: 'Agile/Scrum', icon: VscChecklist, icon_key: 'agile', category: 'Engineering', color: '#0052CC' },
+  { name: 'Testing', icon: TbTestPipe, icon_key: 'playwright', category: 'Engineering', color: '#2EAD33' },
   { name: 'Docker', icon: SiDocker, icon_key: 'docker', category: 'Tools', color: '#2496ED' },
+  { name: 'Management', icon: SiJira, icon_key: 'jira', category: 'Management', color: '#0052CC' },
 ];
 
 export const experienceData: Experience[] = [
   {
-    period: '2020 - Present',
-    role: 'Software Engineer',
-    company: 'Freelance',
-    type: 'Freelance',
+    period: '2025 - Present',
+    role: 'Software Engineer (Skripsi)',
+    company: 'Universitas Pamulang',
+    type: 'Academic',
     brandColor: '#3B82F6',
-    description: 'Engineering scalable web solutions and high-performance applications. Focused on clean architecture, seamless user experiences, and modern backend integration.',
+    description: 'Developing a high-performance Multi-Vendor Marketplace platform with PWA architecture. Focus on decoupled architecture (Laravel API & React.js) and AI integration with Google Vertex AI.',
   },
   {
-    period: '2019 - 2020',
-    role: 'Web Developer Intern',
-    company: 'Tech Solutions',
-    type: 'Fulltime',
+    period: 'Aug 2025 - Jan 2026',
+    role: 'Fullstack Developer (Freelance)',
+    company: 'Ecommerce Project',
+    type: 'Freelance',
     brandColor: '#10B981',
-    description: 'Assisted in building responsive websites and implementing UI/UX designs. Gained experience in modern frontend workflows.',
+    description: 'Architecting and building an end-to-end E-Commerce mobile-first application using Laravel. Managing relational database design and large-scale product inventories.',
+  },
+  {
+    period: 'Feb 2024 - Feb 2026',
+    role: 'Wakil Kepala Departemen Riset',
+    company: 'HIMA TI Unpam',
+    type: 'Organization',
+    brandColor: '#8B5CF6',
+    description: 'Leading research teams to explore emerging technologies and organizing technical workshops to upskill fellow students in modern engineering practices.',
+  },
+  {
+    period: '2024 - Present',
+    role: 'Active Member',
+    company: 'GDG On Campus',
+    type: 'Organization',
+    brandColor: '#EA4335',
+    description: 'Collaborating in international developer forums and staying at the forefront of Google Cloud and Web Technology advancements.',
+  },
+  {
+    period: 'Mar 2025 - Jun 2025',
+    role: 'Fullstack Developer (Intern)',
+    company: 'Company Profile Project',
+    type: 'Project',
+    brandColor: '#F59E0B',
+    description: 'Developed a custom CMS-driven corporate website with optimized SEO and performance metrics for high-speed content delivery.',
   },
 ];
 
 export const servicesData: Service[] = [
   {
-    title: 'Web Development',
-    description: 'Custom website development tailored to your business needs using modern technologies.',
+    title: 'High-Scale Web Development',
+    description: 'Engineering resilient, lightning-fast web applications using Next.js and high-performance backend systems.',
     iconKey: 'web',
-    features: ['Next.js 15 App Router', 'Server-Side Rendering', 'SEO Optimization', 'Responsive Design'],
+    features: ['Next.js 15 PWA Architecture', 'Decoupled API Design', 'SEO & Core Web Vitals Focus', 'High Scalability'],
   },
   {
-    title: 'UI/UX Design',
-    description: 'Designing intuitive and aesthetically pleasing user interfaces that provide great user experiences.',
-    iconKey: 'design',
-    features: ['Premium Aesthetics', 'Micro-interactions', 'Dark Mode support', 'Mobile First'],
-  },
-  {
-    title: 'Backend Systems',
-    description: 'Building robust and scalable backend architectures, APIs, and database solutions.',
-    iconKey: 'backend',
-    features: ['Go / Node.js APIs', 'Supabase Integration', 'Reliable DB Design', 'High Security'],
-  },
-  {
-    title: 'Cloud & AI Solutions',
-    description: 'Leveraging cloud infrastructure and AI to supercharge your applications.',
+    title: 'Cloud & AI Integration',
+    description: 'Supercharging products with intelligent AI agents and scalable cloud infrastructure on GCP.',
     iconKey: 'cloud',
-    features: ['GCP Deployment', 'Vertex AI Integration', 'Auto Scaling', 'Cost Efficiency'],
+    features: ['GCP / Vertex AI Agents', 'Serverless Deployments', 'Cloud Cost Management', 'Infrastructure as Code'],
+  },
+  {
+    title: 'Fullstack Systems',
+    description: 'Building end-to-end solutions from complex database schemas to interactive user interfaces.',
+    iconKey: 'backend',
+    features: ['Laravel / Go Microservices', 'Relational DB Design', 'Secure Auth Ecosystems', 'Real-time Features'],
+  },
+  {
+    title: 'Strategic Mentorship',
+    description: 'Leading teams and workshops to bridge the gap between academic learning and industry standards.',
+    iconKey: 'design',
+    features: ['Technical Workshops', 'Engineering Best Practices', 'Agile Methodologies', 'Leadership & Research'],
   },
 ];

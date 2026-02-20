@@ -45,7 +45,7 @@ export default function CertificateCard({ certificate, onClick }: CertificateCar
           alt={certificate.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110 z-10"
-          onError={() => setImgSrc('https://via.placeholder.com/600x400?text=Certificate')}
+          onError={() => setImgSrc('https://placehold.co/600x400?text=Certificate')}
           sizes="(max-width: 768px) 288px, 320px"
         />
       </div>
