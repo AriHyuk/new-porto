@@ -37,14 +37,15 @@ export default async function Page() {
       {/* About Section */}
       <AboutSection experiences={experiences} skills={skills} />
 
-      {/* Projects Section */}
-      <section id="portfolio" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
-              My <span className="text-blue-600 dark:text-blue-500">Projects</span>
+      {/* Projects Section - Cyber Polish */}
+      <section id="portfolio" className="py-20 md:py-32 relative overflow-hidden bg-gray-50/30 dark:bg-[#050608] transition-colors duration-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 md:mb-32">
+            <span className="text-blue-500 font-black uppercase tracking-[0.5em] text-[9px] md:text-[10px] mb-4 md:mb-6 block">Production Archive</span>
+            <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-10 bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-600 bg-clip-text text-transparent tracking-tighter leading-[0.9]">
+              Featured <br className="md:hidden" /> <span className="text-blue-600 dark:text-blue-500">Solutions</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-base md:text-lg font-medium leading-relaxed px-4">
               A showcase of my recent work and side projects. Built with modern technologies and best practices.
             </p>
           </div>
