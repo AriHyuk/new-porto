@@ -136,6 +136,14 @@ export const experienceData: Experience[] = [
     description: 'Collaborating in international developer forums and staying at the forefront of Google Cloud and Web Technology advancements.',
   },
   {
+    period: '2024 - Present',
+    role: 'Member',
+    company: 'GDGOC UIN Syarif Hidayatullah Jakarta',
+    type: 'Organization',
+    brandColor: '#4285F4',
+    description: 'Actively participating in intensive weekly classes and specialized bootcamp sessions focusing on modern web development and Google technologies.',
+  },
+  {
     period: 'Mar 2025 - Jun 2025',
     role: 'Fullstack Developer (Intern)',
     company: 'Company Profile Project',
