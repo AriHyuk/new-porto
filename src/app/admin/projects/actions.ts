@@ -24,6 +24,8 @@ export async function createProject(prevState: any, formData: FormData) {
     category: formData.get("category"),
     demo_url: formData.get("demo_url"),
     repo_url: formData.get("repo_url"),
+    sort_order: formData.get("sort_order"),
+    additional_images: formData.getAll("additional_images") as File[],
     image: formData.get("image") as File,
   };
 
