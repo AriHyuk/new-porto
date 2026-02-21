@@ -11,7 +11,7 @@ BEGIN
     IF v_user_id IS NOT NULL THEN
         -- Insert Project 1: Back-End focus
         INSERT INTO public.projects (
-            title, slug, description, summary, challenge, contribution, key_features, category, tech_stack, image_url, user_id
+            title, slug, description, summary, challenge, contribution, key_features, category, tech_stack, image_url, sort_order, user_id
         ) VALUES (
             'SkyScale API Gateway',
             'skyscale-api-gateway-' || floor(random()*1000),
@@ -23,12 +23,13 @@ BEGIN
             'Back-End',
             ARRAY['Go', 'Redis', 'PostgreSQL', 'Prometheus', 'Docker'],
             'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?w=800&auto=format&fit=crop',
+            10,
             v_user_id
         );
 
         -- Insert Project 2: Cloud focus
         INSERT INTO public.projects (
-            title, slug, description, summary, challenge, contribution, key_features, category, tech_stack, image_url, user_id
+            title, slug, description, summary, challenge, contribution, key_features, category, tech_stack, image_url, sort_order, user_id
         ) VALUES (
             'AutoOps K8s Cluster',
             'autoops-k8s-cluster-' || floor(random()*1000),
@@ -40,12 +41,13 @@ BEGIN
             'Cloud Infrastructure',
             ARRAY['Kubernetes', 'Terraform', 'ArgoCD', 'AWS', 'Grafana', 'Helm'],
             'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&auto=format&fit=crop',
+            20,
             v_user_id
         );
 
-        -- Insert Project 3: Full-Stack focus
+        -- Insert Project 2: Full-Stack focus
         INSERT INTO public.projects (
-            title, slug, description, summary, challenge, contribution, key_features, category, tech_stack, image_url, user_id
+            title, slug, description, summary, challenge, contribution, key_features, category, tech_stack, image_url, sort_order, user_id
         ) VALUES (
             'Nexus Dashboard',
             'nexus-dashboard-' || floor(random()*1000),
@@ -57,6 +59,7 @@ BEGIN
             'Full-Stack',
             ARRAY['Next.js', 'TypeScript', 'Tailwind', 'OpenAI', 'Supabase', 'D3.js'],
             'https://images.unsplash.com/photo-1551288049-bbbda536339a?w=800&auto=format&fit=crop',
+            30,
             v_user_id
         );
     END IF;
