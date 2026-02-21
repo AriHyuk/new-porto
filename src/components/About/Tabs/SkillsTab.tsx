@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import SkillIcon from '@/components/SkillIcon';
+import SkillIcon, { getSkillColor } from '@/components/SkillIcon';
 import { containerVariants, itemVariants } from '@/utils/animation';
 import { Skill } from '@/constants/about';
 import { useState, useMemo } from 'react';
@@ -139,9 +139,12 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
         animate="visible"
       >
         <AnimatePresence mode="popLayout">
-          {filteredSkills.map((skill) => (
-            <SkillCard key={skill.name} skill={skill} />
-          ))}
+          {filteredSkills.map((skill) => {
+            const brandColor = getSkillColor(skill.icon_key);
+            // Enrich skill with color for the card
+            const enrichedSkill = { ...skill, color: brandColor };
+            return <SkillCard key={skill.name} skill={enrichedSkill as any} />;
+          })}
         </AnimatePresence>
       </motion.div>
     </div>

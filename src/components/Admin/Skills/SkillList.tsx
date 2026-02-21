@@ -5,7 +5,7 @@ import { deleteSkill } from '@/app/admin/skills/actions';
 import Link from 'next/link';
 import { useTransition, useState } from 'react';
 import { FaEdit, FaTrash, FaLayerGroup } from 'react-icons/fa';
-import SkillIcon from '@/components/SkillIcon';
+import SkillIcon, { getSkillColor } from '@/components/SkillIcon';
 import toast from 'react-hot-toast';
 import Modal from '@/components/UI/Modal';
 
@@ -71,7 +71,10 @@ export default function SkillList({ skills }: SkillListProps) {
               <tr key={skill.id} className="group transition-all hover:bg-white dark:hover:bg-zinc-800/40">
                 <td className="px-8 py-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm border border-gray-100 dark:border-zinc-700 transition-transform group-hover:scale-110">
+                    <div 
+                      className="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 flex items-center justify-center shadow-sm border border-gray-100 dark:border-zinc-700 transition-transform group-hover:scale-110"
+                      style={{ color: getSkillColor(skill.icon_key) }}
+                    >
                       <SkillIcon iconKey={skill.icon_key} className="text-2xl" />
                     </div>
                   </div>

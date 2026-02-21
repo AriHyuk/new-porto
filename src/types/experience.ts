@@ -4,6 +4,8 @@ export interface Experience {
   company: string;
   period: string; // e.g., "Jan 2023 - Present"
   description: string;
+  type?: string;
+  brand_color?: string;
   sort_order: number;
   created_at?: string;
 }

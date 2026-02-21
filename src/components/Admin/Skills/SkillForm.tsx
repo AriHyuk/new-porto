@@ -21,10 +21,27 @@ const initialState: ActionState = {
   errors: {},
 };
 
-const ICON_OPTIONS = [
-  'react', 'node', 'mongodb', 'express', 'nextjs', 'typescript', 
-  'javascript', 'tailwindcss', 'supabase', 'postgresql', 'docker', 
-  'go', 'kotlin', 'laravel'
+const ICON_GROUPS = [
+  {
+    label: 'Core Development',
+    icons: ['react', 'nextjs', 'node', 'typescript', 'javascript', 'go', 'laravel', 'python', 'kotlin', 'tailwindcss']
+  },
+  {
+    label: 'Database & Backend',
+    icons: ['supabase', 'postgresql', 'mongodb', 'express', 'mysql', 'redis', 'graphql']
+  },
+  {
+    label: 'Testing & Engineering',
+    icons: ['testing', 'playwright', 'cypress', 'vitest', 'testing-library', 'docker', 'git', 'github']
+  },
+  {
+    label: 'Project Management',
+    icons: ['agile', 'jira', 'notion', 'trello', 'slack', 'discord']
+  },
+  {
+    label: 'Cloud & Design',
+    icons: ['gcp', 'vercel', 'firebase', 's3', 'figma', 'framer', 'photoshop', 'premiere']
+  }
 ];
 
 export default function SkillForm({ skill, mode }: SkillFormProps) {
@@ -47,7 +64,7 @@ export default function SkillForm({ skill, mode }: SkillFormProps) {
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl"
+        className="max-w-4xl"
     >
       <form action={formAction} className="space-y-6">
         <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-xl shadow-gray-100/20 dark:border-zinc-800 dark:bg-zinc-900 dark:shadow-none">
@@ -96,9 +113,11 @@ export default function SkillForm({ skill, mode }: SkillFormProps) {
                     <option value="Backend">Backend Architecture</option>
                     <option value="Database">Database Management</option>
                     <option value="DevOps">Cloud & DevOps</option>
-                    <option value="Mobile">Mobile Solutions</option>
+                    <option value="Engineering">Engineering & Practices</option>
+                    <option value="Management">Management & Agile</option>
+                    <option value="Machine Learning">AI & Machine Learning</option>
+                    <option value="Tools">Development Tools</option>
                     <option value="Language">Programming Language</option>
-                    <option value="Other">Specialities / Others</option>
                 </select>
                 {state.errors?.category && (
                   <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight">{state.errors.category[0]}</p>
@@ -106,27 +125,31 @@ export default function SkillForm({ skill, mode }: SkillFormProps) {
             </div>
           </div>
 
-          <div className="mt-10">
-            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
-               Visual Signature (Icon)
-            </label>
-            <div className="grid grid-cols-4 sm:grid-cols-7 gap-4">
-                {ICON_OPTIONS.map((icon) => (
-                    <label key={icon} className="group cursor-pointer">
-                        <input 
-                            type="radio" 
-                            name="icon_key" 
-                            value={icon} 
-                            defaultChecked={skill?.icon_key === icon}
-                            className="peer sr-only"
-                        />
-                        <div className="relative flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-transparent bg-gray-50 dark:bg-zinc-800/50 text-gray-400 transition-all group-hover:bg-gray-100 dark:group-hover:bg-zinc-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-500 peer-checked:shadow-lg peer-checked:shadow-blue-500/30">
-                            <SkillIcon iconKey={icon} className="text-2xl mb-1.5" />
-                            <span className="text-[8px] font-black uppercase tracking-tighter opacity-70 peer-checked:opacity-100">{icon}</span>
-                        </div>
-                    </label>
-                ))}
-            </div>
+          <div className="mt-12 space-y-10">
+            {ICON_GROUPS.map((group) => (
+              <div key={group.label}>
+                <label className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-6">
+                   {group.label}
+                </label>
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
+                    {group.icons.map((icon) => (
+                        <label key={icon} className="group cursor-pointer">
+                            <input 
+                                type="radio" 
+                                name="icon_key" 
+                                value={icon} 
+                                defaultChecked={skill?.icon_key === icon}
+                                className="peer sr-only"
+                            />
+                            <div className="relative flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-transparent bg-gray-50 dark:bg-zinc-800/50 text-gray-400 transition-all group-hover:bg-gray-100 dark:group-hover:bg-zinc-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-500 peer-checked:shadow-lg peer-checked:shadow-blue-500/30">
+                                <SkillIcon iconKey={icon} className="text-2xl mb-1.5" />
+                                <span className="text-[8px] font-black uppercase tracking-tighter opacity-70 peer-checked:opacity-100 truncate w-full text-center">{icon}</span>
+                            </div>
+                        </label>
+                    ))}
+                </div>
+              </div>
+            ))}
             {state.errors?.icon_key && (
               <p className="text-[10px] font-bold text-red-500 uppercase tracking-tight mt-4">{state.errors.icon_key[0]}</p>
             )}

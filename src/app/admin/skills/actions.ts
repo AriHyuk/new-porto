@@ -103,6 +103,7 @@ export async function deleteSkill(id: string) {
   }
 
   revalidatePath('/admin/skills', 'page');
+  revalidatePath('/', 'page');
   revalidatePath('/about', 'page');
   revalidateTag('skills', 'default');
   return { success: true, message: 'Skill deleted successfully.' };
