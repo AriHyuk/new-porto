@@ -27,5 +27,5 @@ export const getExperiences = unstable_cache(
     }
   },
   ['experiences-list'],
-  { revalidate: 3600, tags: ['experiences'] }
+  { revalidate: 1, tags: ['experiences'] }
 );

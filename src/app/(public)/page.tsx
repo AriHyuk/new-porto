@@ -8,20 +8,22 @@ import AboutSection from '@/components/About/AboutSection';
 import CertificateSection from '@/components/Certificates/CertificateSection';
 import ContactSection from '@/components/Contact/ContactSection';
 
-import { skills as staticSkills } from '@/constants/about';
+import { skills as staticSkills, experienceData as staticExperiences } from '@/constants/about';
 
-// Configure caching: revalidate every 1 hour (3600 seconds)
-export const revalidate = 3600;
+// Configure caching: Disable long-term cache to show admin updates immediately
+export const revalidate = 0;
 
 export default async function Page() {
-  const [projects, certificates, experiences, dbSkills] = await Promise.all([
+  const [projects, certificates, dbExperiences, dbSkills] = await Promise.all([
     getProjects(),
     getCertificates(),
     getExperiences(),
     getSkills(),
   ]);
 
-  // Combine or fallback to static skills if DB is empty
+  // Fallback to static data if DB is empty for both skills and experiences
+  const experiences = dbExperiences && dbExperiences.length > 0 ? dbExperiences : staticExperiences;
+  
   const skills = dbSkills && dbSkills.length > 0 ? dbSkills : staticSkills.map((s, idx) => ({
     id: `static-${idx}`,
     name: s.name,
