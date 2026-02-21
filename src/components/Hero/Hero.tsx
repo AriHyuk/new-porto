@@ -16,7 +16,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col md:flex-row items-center justify-between px-4 md:px-10 h-[100dvh] max-h-[1080px] overflow-hidden bg-white dark:bg-[#0A0C10] transition-colors pt-32 md:pt-20"
+      className="relative flex flex-col md:flex-row items-center justify-between px-4 md:px-10 h-[100dvh] max-h-[1080px] overflow-hidden bg-white dark:bg-[#0A0C10] transition-colors pt-24 md:pt-20"
     >
       {/* Background visual components */}
       <BackgroundShapes />
@@ -34,15 +34,15 @@ export default function Hero() {
         </motion.p>
 
         {/* Hero Headlines */}
-        <div className="flex flex-col relative w-full lg:w-[110%] xl:w-[120%]">
+        <div className="flex flex-col relative w-full lg:w-max">
           <AnimatedText 
             text="Cloud-Native"
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-[0.85] relative z-20 whitespace-nowrap"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-[0.85] relative z-20"
           />
           <div className="relative">
              <AnimatedText 
               text="Software Engineer"
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tighter leading-[1.1] pb-2 whitespace-nowrap z-20"
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tighter leading-[1.1] pb-2 z-20"
             />
             {/* Creative Underline/Decor */}
             <motion.div 
@@ -103,19 +103,19 @@ export default function Hero() {
           <TechPill 
             icon={<SiNextdotjs />} 
             label="Next.js" 
-            className="-top-6 -left-2 md:-top-10 md:-left-12 animate-bounce-slow z-20" 
+            className="-top-6 -left-2 md:-top-10 md:-left-12 animate-bounce-slow z-20 hidden sm:flex" 
             delay={1.5}
           />
           <TechPill 
             icon={<SiGooglecloud />} 
             label="GCP" 
-            className="top-1/4 -right-6 md:-right-16 animate-bounce-slow delay-700 z-20" 
+            className="top-1/4 -right-6 md:-right-16 animate-bounce-slow delay-700 z-20 hidden sm:flex" 
             delay={1.8}
           />
           <TechPill 
             icon={<SiReact />} 
             label="React" 
-            className="bottom-10 -left-6 md:bottom-20 md:-left-16 animate-bounce-slow delay-1000 z-20" 
+            className="bottom-10 -left-6 md:bottom-20 md:-left-16 animate-bounce-slow delay-1000 z-20 hidden sm:flex" 
             delay={2.1}
           />
           

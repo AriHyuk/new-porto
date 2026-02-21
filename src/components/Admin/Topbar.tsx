@@ -1,7 +1,7 @@
 "use client";
 
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import { logout } from "@/app/auth/actions";
+import { logout } from "@/actions/auth";
 
 interface TopbarProps {
   userEmail?: string;

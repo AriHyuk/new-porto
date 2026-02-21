@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { sendMessage } from '@/app/actions/send-message';
+import { sendMessage } from '@/actions/send-message';
 import { CollaborationSchema, type CollaborationFormData } from '@/lib/validations/contact';
 import { toast } from 'react-hot-toast';
 import { FaPaperPlane, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createSkill, updateSkill, type ActionState } from '@/app/admin/skills/actions';
 import { Skill } from '@/types/skill';
 import Link from 'next/link';
-import SkillIcon from '@/components/SkillIcon';
+import SkillIcon from '@/components/UI/SkillIcon';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { FaSave, FaTimes, FaLayerGroup, FaTags } from 'react-icons/fa';
@@ -21,27 +21,62 @@ const initialState: ActionState = {
   errors: {},
 };
 
-const ICON_GROUPS = [
-  {
-    label: 'Core Development',
-    icons: ['react', 'nextjs', 'node', 'typescript', 'javascript', 'go', 'laravel', 'python', 'kotlin', 'tailwindcss']
-  },
-  {
-    label: 'Database & Backend',
-    icons: ['supabase', 'postgresql', 'mongodb', 'express', 'mysql', 'redis', 'graphql']
-  },
-  {
-    label: 'Testing & Engineering',
-    icons: ['testing', 'playwright', 'cypress', 'vitest', 'testing-library', 'docker', 'git', 'github']
-  },
-  {
-    label: 'Project Management',
-    icons: ['agile', 'jira', 'notion', 'trello', 'slack', 'discord']
-  },
-  {
-    label: 'Cloud & Design',
-    icons: ['gcp', 'vercel', 'firebase', 's3', 'figma', 'framer', 'photoshop', 'premiere']
-  }
+const ICON_OPTIONS: Record<string, { label: string; group: string }> = {
+  // Core Development
+  react: { label: 'React', group: 'Core' },
+  nextjs: { label: 'Next.js', group: 'Core' },
+  node: { label: 'Node.js', group: 'Core' },
+  typescript: { label: 'TypeScript', group: 'Core' },
+  javascript: { label: 'JavaScript', group: 'Core' },
+  go: { label: 'Go', group: 'Core' },
+  laravel: { label: 'Laravel', group: 'Core' },
+  python: { label: 'Python', group: 'Core' },
+  kotlin: { label: 'Kotlin', group: 'Core' },
+  tailwindcss: { label: 'Tailwind CSS', group: 'Core' },
+  
+  // Database & Backend
+  supabase: { label: 'Supabase', group: 'Data' },
+  postgresql: { label: 'PostgreSQL', group: 'Data' },
+  mongodb: { label: 'MongoDB', group: 'Data' },
+  express: { label: 'Express', group: 'Data' },
+  mysql: { label: 'MySQL', group: 'Data' },
+  redis: { label: 'Redis', group: 'Data' },
+  graphql: { label: 'GraphQL', group: 'Data' },
+
+  // Engineering & Testing
+  docker: { label: 'Docker', group: 'Eng' },
+  testing: { label: 'Testing', group: 'Eng' },
+  playwright: { label: 'Playwright', group: 'Eng' },
+  cypress: { label: 'Cypress', group: 'Eng' },
+  vitest: { label: 'Vitest', group: 'Eng' },
+  git: { label: 'Git', group: 'Eng' },
+  github: { label: 'GitHub', group: 'Eng' },
+
+  // Management
+  agile: { label: 'Agile', group: 'Management' },
+  jira: { label: 'Jira', group: 'Management' },
+  notion: { label: 'Notion', group: 'Management' },
+  trello: { label: 'Trello', group: 'Management' },
+  slack: { label: 'Slack', group: 'Management' },
+  discord: { label: 'Discord', group: 'Management' },
+
+  // Cloud & Design
+  gcp: { label: 'GCP', group: 'Cloud & Design' },
+  vercel: { label: 'Vercel', group: 'Cloud & Design' },
+  firebase: { label: 'Firebase', group: 'Cloud & Design' },
+  s3: { label: 'AWS S3', group: 'Cloud & Design' },
+  figma: { label: 'Figma', group: 'Cloud & Design' },
+  framer: { label: 'Framer', group: 'Cloud & Design' },
+  photoshop: { label: 'Photoshop', group: 'Cloud & Design' },
+  premiere: { label: 'Premiere', group: 'Cloud & Design' },
+};
+
+const GROUPS = [
+    { id: 'Core', label: 'Core Development' },
+    { id: 'Data', label: 'Database & Backend' },
+    { id: 'Eng', label: 'Engineering & DevOps' },
+    { id: 'Management', label: 'Project Management' },
+    { id: 'Cloud & Design', label: 'Cloud & Visual Design' },
 ];
 
 export default function SkillForm({ skill, mode }: SkillFormProps) {
@@ -125,25 +160,31 @@ export default function SkillForm({ skill, mode }: SkillFormProps) {
             </div>
           </div>
 
-          <div className="mt-12 space-y-10">
-            {ICON_GROUPS.map((group) => (
-              <div key={group.label}>
-                <label className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-6">
+          <div className="mt-12 space-y-12">
+            {GROUPS.map((group) => (
+              <div key={group.id}>
+                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500 mb-8 border-l-4 border-blue-500 pl-4">
                    {group.label}
                 </label>
-                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
-                    {group.icons.map((icon) => (
-                        <label key={icon} className="group cursor-pointer">
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                    {Object.entries(ICON_OPTIONS)
+                      .filter(([_, info]) => info.group === group.id)
+                      .map(([key, info]) => (
+                        <label key={key} className="group cursor-pointer">
                             <input 
                                 type="radio" 
                                 name="icon_key" 
-                                value={icon} 
-                                defaultChecked={skill?.icon_key === icon}
+                                value={key} 
+                                defaultChecked={skill?.icon_key === key}
                                 className="peer sr-only"
                             />
-                            <div className="relative flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-transparent bg-gray-50 dark:bg-zinc-800/50 text-gray-400 transition-all group-hover:bg-gray-100 dark:group-hover:bg-zinc-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-500 peer-checked:shadow-lg peer-checked:shadow-blue-500/30">
-                                <SkillIcon iconKey={icon} className="text-2xl mb-1.5" />
-                                <span className="text-[8px] font-black uppercase tracking-tighter opacity-70 peer-checked:opacity-100 truncate w-full text-center">{icon}</span>
+                            <div className="relative flex flex-col items-center justify-center p-4 rounded-3xl border-2 border-dashed border-gray-100 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 text-gray-400 transition-all duration-300 group-hover:border-blue-500/30 group-hover:bg-blue-50/30 dark:group-hover:bg-blue-900/10 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 peer-checked:shadow-2xl peer-checked:shadow-blue-500/40 peer-checked:scale-105 peer-checked:border-solid">
+                                <SkillIcon iconKey={key} className="text-3xl mb-3 transition-transform duration-500 group-hover:scale-110" />
+                                <span className="text-[9px] font-bold uppercase tracking-widest opacity-60 peer-checked:opacity-100 truncate w-full text-center">
+                                    {info.label}
+                                </span>
+                                
+                                <div className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-blue-500 opacity-0 peer-checked:opacity-100 transition-opacity" />
                             </div>
                         </label>
                     ))}

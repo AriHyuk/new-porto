@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import SkillIcon, { getSkillColor } from '@/components/SkillIcon';
+import SkillIcon, { getSkillColor } from '@/components/UI/SkillIcon';
 import { containerVariants, itemVariants } from '@/utils/animation';
 import { Skill } from '@/constants/about';
 import { useState, useMemo } from 'react';

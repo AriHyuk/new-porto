@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Message } from '@/types/message';
-import { markAsRead, deleteMessage } from '@/app/actions/messages';
+import { markAsRead, deleteMessage } from '@/actions/messages';
 import { FaTrash, FaCheck, FaEnvelope, FaCalendarAlt, FaDollarSign, FaUser, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';

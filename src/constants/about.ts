@@ -98,8 +98,8 @@ export const skills: Skill[] = [
   { name: 'Vertex AI', icon: SiGooglecloud, icon_key: 'gcp', category: 'Cloud & AI', color: '#4285F4' },
   { name: 'Agile/Scrum', icon: VscChecklist, icon_key: 'agile', category: 'Engineering', color: '#0052CC' },
   { name: 'Testing', icon: TbTestPipe, icon_key: 'playwright', category: 'Engineering', color: '#2EAD33' },
+  { name: 'Management Project', icon: SiJira, icon_key: 'jira', category: 'Management', color: '#0052CC' },
   { name: 'Docker', icon: SiDocker, icon_key: 'docker', category: 'Tools', color: '#2496ED' },
-  { name: 'Management', icon: SiJira, icon_key: 'jira', category: 'Management', color: '#0052CC' },
 ];
 
 export const experienceData: Experience[] = [

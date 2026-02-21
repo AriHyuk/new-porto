@@ -1,0 +1,28 @@
+
+> new-porto@2.1.0 build
+> next build
+
+ΓÜá turbopack.root should be absolute, using: C:\Users\Ari Awaludin\Desktop\Developer\projects\new-porto
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+  ┬╖ serverActions
+
+ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 22.4s
+  Running TypeScript ...
+Failed to compile.
+
+./src/app/admin/certificates/actions.ts:62:5
+Type error: Expected 2 arguments, but got 1.
+
+  60 |     revalidatePath('/admin/certificates', 'page');
+  61 |     revalidatePath('/', 'page');
+> 62 |     revalidateTag('certificates');
+     |     ^
+  63 |     return { success: true, message: 'Certificate archived successfully!' };
+  64 |
+  65 |   } catch (error) {
+Next.js build worker exited with code: 1 and signal: null

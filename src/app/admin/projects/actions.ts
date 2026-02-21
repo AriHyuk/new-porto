@@ -107,7 +107,7 @@ export async function createProject(prevState: any, formData: FormData) {
 
     revalidatePath("/admin/projects", "page");
     revalidatePath("/projects", "page");
-    revalidateTag("projects", 'default');
+    revalidateTag("projects", "default");
     return { success: true, message: "Project created successfully!" };
 
   } catch (error) {
@@ -224,7 +224,7 @@ export async function updateProject(prevState: any, formData: FormData) {
 
     revalidatePath("/admin/projects", "page");
     revalidatePath("/projects", "page");
-    revalidateTag("projects", 'default');
+    revalidateTag("projects", "default");
     return { success: true, message: "Project updated masterfully!" };
 
   } catch (error) {
@@ -245,7 +245,7 @@ export async function deleteProject(id: string) {
 
     revalidatePath("/admin/projects", "page");
     revalidatePath("/projects", "page");
-    revalidateTag("projects", 'default');
+    revalidateTag("projects", "default");
     return { success: true, message: "Project deleted successfully." };
   } catch (error) {
     return { success: false, message: "Failed to perform deletion." };

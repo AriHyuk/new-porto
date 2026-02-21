@@ -1,4 +1,4 @@
-import { getMessages } from '@/app/actions/messages';
+import { getMessages } from '@/actions/messages';
 import MessageTable from '@/components/Admin/Messages/MessageTable';
 
 export default async function AdminMessagesPage() {

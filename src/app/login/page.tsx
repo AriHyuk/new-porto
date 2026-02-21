@@ -1,4 +1,4 @@
-import { login } from "@/app/auth/actions";
+import { login } from "@/actions/auth";
 import { FaLock, FaEnvelope } from "react-icons/fa";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";

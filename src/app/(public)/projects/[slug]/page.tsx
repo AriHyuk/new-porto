@@ -1,10 +1,10 @@
-import { getProjectBySlug } from '@/app/actions/get-project-by-slug';
+import { getProjectBySlug } from '@/actions/get-project-by-slug';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import TechStackBadge from '@/components/TechStackBadge';
-import ProjectLinks from '@/components/ProjectLinks';
+import TechStackBadge from '@/components/UI/TechStackBadge';
+import ProjectLinks from '@/components/Projects/ProjectLinks';
 import { FaArrowLeft } from 'react-icons/fa';
 
 // Cache for 1 hour

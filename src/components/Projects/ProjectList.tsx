@@ -91,7 +91,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
       <AnimatePresence mode="wait">
         {paginatedProjects.length > 0 ? (
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 auto-rows-[440px]"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
             initial="hidden"
             animate="visible"
             variants={containerVariants}

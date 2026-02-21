@@ -11,7 +11,8 @@ import {
   SiBootstrap, SiSass, SiLess, SiChakraui, SiMui, SiRadixui, SiShadcnui, SiFramer, SiThreedotjs, SiGreensock,
   SiStripe, SiClerk, SiAuth0, SiRedux, SiRecoil, SiReactquery, SiAxios, SiGraphql, SiApollographql,
   SiMysql, SiSqlite, SiRedis, SiPlanetscale, SiDrizzle, SiSanity, SiStrapi, SiWordpress, SiShopify,
-  SiKubernetes, SiTerraform, SiPrometheus, SiGrafana, SiHelm, SiArgo, SiJenkins, SiAnsible, SiNginx, SiApache
+  SiKubernetes, SiTerraform, SiPrometheus, SiGrafana, SiHelm, SiArgo, SiJenkins, SiAnsible, SiNginx, SiApache,
+  SiFastapi, SiGooglegemini, SiGooglesearchconsole
 } from 'react-icons/si';
 import { TbBrandFramer, TbBrandVscode, TbSdk, TbBrandAzure } from 'react-icons/tb';
 import clsx from 'clsx';
@@ -109,6 +110,16 @@ const getTechIcon = (tech: string) => {
     ansible: <SiAnsible className="text-[#EE0000]" />,
     nginx: <SiNginx className="text-[#009639]" />,
     apache: <SiApache className="text-[#D22128]" />,
+    // AI & ML
+    fastapi: <SiFastapi className="text-[#009688]" />,
+    vertexai: <SiGooglegemini className="text-[#886FBF]" />,
+    gemini: <SiGooglegemini className="text-[#886FBF]" />,
+    geminiflash: <SiGooglegemini className="text-[#886FBF]" />,
+    geminipro: <SiGooglegemini className="text-[#886FBF]" />,
+    cloudrun: <SiGooglecloud className="text-[#4285F4]" />,
+    googlecloudrun: <SiGooglecloud className="text-[#4285F4]" />,
+    googlesearchgrounding: <SiGooglesearchconsole className="text-[#EA4335]" />,
+    googlesearch: <SiGooglesearchconsole className="text-[#EA4335]" />,
   };
 
   return iconMap[normalized] || <TbSdk className="text-gray-400" />;

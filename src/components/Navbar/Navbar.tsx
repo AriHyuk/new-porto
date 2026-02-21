@@ -9,7 +9,6 @@ import { useTheme } from 'next-themes';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import NavLink from './NavLink';
-import ContactSection from '../Contact/ContactSection';
 import dynamic from 'next/dynamic';
 import BrandLogo from './BrandLogo';
 

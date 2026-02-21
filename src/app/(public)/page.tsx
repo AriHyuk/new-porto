@@ -1,8 +1,8 @@
-import { getProjects } from '@/app/actions/get-projects';
-import { getCertificates } from '@/app/actions/get-certificates';
-import { getExperiences } from '@/app/actions/get-experiences';
-import { getSkills } from '@/app/actions/get-about-data';
-import ProjectList from '@/components/ProjectList';
+import { getProjects } from '@/actions/get-projects';
+import { getCertificates } from '@/actions/get-certificates';
+import { getExperiences } from '@/actions/get-experiences';
+import { getSkills } from '@/actions/get-about-data';
+import ProjectList from '@/components/Projects/ProjectList';
 import Hero from '@/components/Hero/Hero';
 import AboutSection from '@/components/About/AboutSection';
 import CertificateSection from '@/components/Certificates/CertificateSection';

@@ -1,0 +1,4 @@
+
+Type error: Expected 2 arguments, but got 1.
+  65 |   } catch (error) {
+

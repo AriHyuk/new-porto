@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 import { containerVariants, itemVariants } from '@/utils/animation';
 import { servicesData } from '@/constants/about';
-import * as LucideIcons from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
+import { IconType } from 'react-icons';
+import { LuCode, LuPalette, LuServer, LuCloudLightning, LuZap, LuCheck, LuArrowRight } from 'react-icons/lu';
 
-const iconMap: Record<string, LucideIcon> = {
-  web: LucideIcons.Code2,
-  design: LucideIcons.Palette,
-  backend: LucideIcons.Server,
-  cloud: LucideIcons.CloudLightning,
+const iconMap: Record<string, IconType> = {
+  web: LuCode,
+  design: LuPalette,
+  backend: LuServer,
+  cloud: LuCloudLightning,
 };
 
 const CONTACT_EMAIL = "ariawl0209@gmail.com";
@@ -28,7 +28,7 @@ export default function ServicesTab() {
       animate="visible"
     >
       {servicesData.map((service, index) => {
-        const Icon = iconMap[service.iconKey] || LucideIcons.Zap;
+        const Icon = iconMap[service.iconKey] || LuZap;
         
         return (
           <motion.div
@@ -42,7 +42,7 @@ export default function ServicesTab() {
 
             <div className="mb-8 relative z-10">
               <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-sm border border-gray-50 dark:border-gray-800">
-                <Icon size={28} strokeWidth={1.5} />
+                <Icon className="text-[28px]" />
               </div>
             </div>
             
@@ -59,7 +59,7 @@ export default function ServicesTab() {
               {service.features?.map((feature, fIdx) => (
                 <li key={fIdx} className="flex items-center gap-3 text-xs font-bold text-gray-500 dark:text-gray-400 transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-200">
                   <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                    <LucideIcons.Check size={10} strokeWidth={3} />
+                    <LuCheck className="text-[10px]" />
                   </div>
                   {feature}
                 </li>
@@ -68,7 +68,7 @@ export default function ServicesTab() {
 
             <div className="mt-10 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500 relative z-10">
               Get Started
-              <LucideIcons.ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+              <LuArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
             </div>
           </motion.div>
         );

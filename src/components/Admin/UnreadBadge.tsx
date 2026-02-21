@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { createBrowserClient } from "@supabase/ssr";
-import { getUnreadMessagesCount } from "@/app/actions/messages";
+import { getUnreadMessagesCount } from "@/actions/messages";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**

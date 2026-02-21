@@ -6,7 +6,7 @@ import {
   SiPostgresql, SiDocker, SiGo, SiKotlin, SiLaravel,
   SiPython, SiFigma, SiGit, SiGithub, SiVercel,
   SiAdobelightroom, SiAdobepremierepro, SiAdobephotoshop,
-  SiFirebase, SiMysql, SiRedis, SiGraphql, SiAmazons3,
+  SiFirebase, SiMysql, SiRedis, SiGraphql, SiAmazon,
   SiGooglecloud, SiPostman,
   SiSvelte, SiVuedotjs, SiAngular, SiBootstrap, SiJquery, SiWordpress,
   SiCypress, SiTestinglibrary, SiVitest,
@@ -19,20 +19,33 @@ const icons: Record<string, React.ElementType> = {
   // Languages & Core
   react: SiReact,
   node: SiNodedotjs,
+  nodejs: SiNodedotjs,        // alias
+  'node.js': SiNodedotjs,    // alias
   mongodb: SiMongodb,
+  mongo: SiMongodb,           // alias
   express: SiExpress,
+  'express.js': SiExpress,   // alias
+  expressjs: SiExpress,       // alias
   nextjs: SiNextdotjs,
+  next: SiNextdotjs,          // alias
+  'next.js': SiNextdotjs,    // alias
   typescript: SiTypescript,
+  ts: SiTypescript,           // alias
   javascript: SiJavascript,
+  js: SiJavascript,           // alias
   tailwindcss: SiTailwindcss,
+  tailwind: SiTailwindcss,    // alias
+  'tailwind-css': SiTailwindcss, // alias
   supabase: SiSupabase,
   postgresql: SiPostgresql,
+  postgres: SiPostgresql,     // alias
   docker: SiDocker,
   go: SiGo,
+  golang: SiGo,               // alias
   kotlin: SiKotlin,
   laravel: SiLaravel,
   python: SiPython,
-  python_alt: SiPython, // Alias
+  python_alt: SiPython,       // alias
 
   // Tools & Platforms
   figma: SiFigma,
@@ -43,14 +56,16 @@ const icons: Record<string, React.ElementType> = {
   mysql: SiMysql,
   redis: SiRedis,
   graphql: SiGraphql,
-  s3: SiAmazons3,
+  s3: SiAmazon,
   gcp: SiGooglecloud,
   postman: SiPostman,
   framer: SiFramer,
+  'framer-motion': SiFramer,  // alias
+  framermotion: SiFramer,     // alias
 
   // Testing
   testing: TbTestPipe,
-  playwright: TbTestPipe, // Replaced SiPlaywright with TbTestPipe as it's missing in this version
+  playwright: TbTestPipe,
   cypress: SiCypress,
   vitest: SiVitest,
   'testing-library': SiTestinglibrary,
@@ -73,6 +88,8 @@ const icons: Record<string, React.ElementType> = {
   // Other Frameworks
   svelte: SiSvelte,
   vue: SiVuedotjs,
+  'vue.js': SiVuedotjs,      // alias
+  vuejs: SiVuedotjs,          // alias
   angular: SiAngular,
   bootstrap: SiBootstrap,
   jquery: SiJquery,
