@@ -146,6 +146,11 @@ export default async function AdminProjectsPage() {
                         )}
                       </div>
                     </td>
+                    <td className="px-6 py-5">
+                      <span className="inline-flex items-center justify-center min-w-[32px] px-2 py-1 rounded-lg bg-gray-50 dark:bg-white/5 text-[10px] font-black text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-white/10">
+                        {project.sort_order ?? 0}
+                      </span>
+                    </td>
                     <td className="px-6 py-5 text-right">
                       <div className="flex justify-end items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity translate-x-2 group-hover:translate-x-0 transition-transform">
                         <Link
