@@ -1,4 +1,4 @@
-# Ari Hyuk Portfolio v2.0.2
+# Ari Hyuk Portfolio v2.1.0
 
 🚀 **Live Site**: [https://ariawaludin.my.id](https://ariawaludin.my.id)
 
@@ -10,7 +10,9 @@ Modern portfolio website built with **Next.js 16**, **TypeScript**, and **Tailwi
 - **🎨 Tailwind CSS v4**: Styling modern dengan performa optimal.
 - **⚡ Framer Motion**: Animasi yang smooth dan interaktif.
 - **🔐 Admin Dashboard**: Fitur manajemen project, pengalaman, dan sertifikat secara langsung.
-- **📡 Supabase Integration**: Database real-time dan autentikasi yang aman.
+- **🔢 Project Sorting**: Pengaturan urutan project secara manual melalui dashboard.
+- **🖼️ Multi-Image Gallery**: Dukungan galeri foto (carousel) dengan fitur direct upload.
+- **🌓 Adaptive Theme**: Modal project yang responsif terhadap Light & Dark mode.
 - **📱 Responsive Design**: Tampilan optimal di semua perangkat (Desktop, Tablet, Mobile).
 - **🐳 Dockerized**: Siap dideploy menggunakan Docker Container.
 
