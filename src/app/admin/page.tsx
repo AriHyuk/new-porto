@@ -9,10 +9,13 @@ import {
   FaAward, 
   FaProjectDiagram, 
   FaPlus, 
-  FaArrowRight 
+  FaArrowRight,
+  FaNewspaper
 } from 'react-icons/fa';
 import { unstable_cache } from 'next/cache';
 import { createClient, createStaticClient, createAdminClient } from '@/lib/supabase/server';
+import { getAvailableForWork } from '@/actions/get-site-settings';
+import AvailableForWorkToggle from '@/components/Admin/AvailableForWorkToggle';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,6 +79,7 @@ export default async function AdminDashboardPage() {
   };
 
   const [projectsCount, skillsCount, experiencesCount, certificatesCount] = await fetchCounts();
+  const isAvailableForWork = await getAvailableForWork();
 
   const stats = [
     {
@@ -117,6 +121,7 @@ export default async function AdminDashboardPage() {
     { label: 'New Skill', href: '/admin/skills/new', icon: FaCode },
     { label: 'New Experience', href: '/admin/experiences/new', icon: FaBriefcase },
     { label: 'New Certificate', href: '/admin/certificates/new', icon: FaAward },
+    { label: 'New Post', href: '/admin/posts/new', icon: FaNewspaper },
   ];
 
   return (
@@ -129,6 +134,9 @@ export default async function AdminDashboardPage() {
           Welcome back! Here&apos;s what&apos;s happening with your portfolio.
         </p>
       </div>
+
+      {/* Available for Work Toggle */}
+      <AvailableForWorkToggle initialValue={isAvailableForWork} />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -1,15 +1,27 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { cardVariants, containerVariants, itemVariants } from '@/utils/animation';
+import { containerVariants, itemVariants } from '@/utils/animation';
 
-export default function AboutStats() {
-  const stats = [
-    { label: 'GPA', value: '3.51', suffix: '/4.0' },
-    { label: 'Semester', value: '8', suffix: 'th' },
-    { label: 'Experience', value: '2', suffix: '+ Yrs' },
-    { label: 'Projects', value: '15', suffix: '+' },
-  ];
+interface Stat {
+  label: string;
+  value: string;
+  suffix: string;
+}
+
+interface AboutStatsProps {
+  stats?: Stat[];
+}
+
+const FALLBACK_STATS: Stat[] = [
+  { label: 'GPA', value: '3.51', suffix: '/4.0' },
+  { label: 'Semester', value: '8', suffix: 'th' },
+  { label: 'Experience', value: '2', suffix: '+ Yrs' },
+  { label: 'Projects', value: '15', suffix: '+' },
+];
+
+export default function AboutStats({ stats: propStats }: AboutStatsProps) {
+  const stats = propStats?.length ? propStats : FALLBACK_STATS;
 
   return (
     <motion.div

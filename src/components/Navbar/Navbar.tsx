@@ -111,6 +111,14 @@ export default function Navbar() {
                 ))}
               </div>
 
+              {/* Blog — route link (bukan scroll) */}
+              <Link
+                href="/blog"
+                className="text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                Blog
+              </Link>
+
               <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2" />
 
               <ThemeToggle />

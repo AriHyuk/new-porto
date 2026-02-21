@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaChartPie, FaProjectDiagram, FaBriefcase, FaCode, FaAward, FaEnvelope } from "react-icons/fa";
+import { FaChartPie, FaProjectDiagram, FaBriefcase, FaCode, FaAward, FaEnvelope, FaNewspaper, FaUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import UnreadBadge from "./UnreadBadge";
@@ -14,6 +14,8 @@ const navItems = [
   { href: "/admin/experiences", label: "Experiences", icon: FaBriefcase },
   { href: "/admin/skills", label: "Skills", icon: FaCode },
   { href: "/admin/certificates", label: "Certificates", icon: FaAward },
+  { href: "/admin/posts", label: "Blog Posts", icon: FaNewspaper },
+  { href: "/admin/about", label: "About Stats", icon: FaUserCircle },
 ];
 
 /**

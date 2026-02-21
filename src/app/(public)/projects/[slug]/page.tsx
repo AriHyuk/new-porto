@@ -1,4 +1,5 @@
 import { getProjectBySlug } from '@/actions/get-project-by-slug';
+import { incrementProjectView } from '@/actions/increment-view';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -40,6 +41,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   if (!project) {
     notFound();
   }
+
+  // Increment view count (non-blocking)
+  void incrementProjectView(slug);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-32 pb-12 px-4 sm:px-6 lg:px-8">
