@@ -6,8 +6,9 @@ import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { FaSave, FaTimes, FaCloudUploadAlt, FaCode, FaLink, FaGithub, FaHeading, FaAlignLeft, FaLightbulb, FaTag } from "react-icons/fa";
+import { FaSave, FaTimes, FaCloudUploadAlt, FaCode, FaLink, FaGithub, FaHeading, FaAlignLeft, FaLightbulb, FaTag, FaPlus, FaImage, FaRocket } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface ProjectFormProps {
   project?: Project;
@@ -50,6 +51,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
   const action = mode === "create" ? createProject : updateProject;
   const [state, formAction] = useActionState(action, initialState);
   const [previewImage, setPreviewImage] = useState<string | null>(project?.image_url || null);
+  const [additionalImages, setAdditionalImages] = useState<string[]>(project?.additional_images || []);
 
   useEffect(() => {
     if (state.message) {
@@ -215,7 +217,7 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
               <h2 className="text-lg font-bold text-gray-900 dark:text-white">Deployment & Source</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label htmlFor="demo_url" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
                   <FaLink className="text-emerald-500/50" /> Live Demo URL
@@ -240,6 +242,20 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                   id="repo_url"
                   defaultValue={project?.repo_url || ""}
                   placeholder="https://github.com/yourname/repo"
+                  className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-emerald-500 dark:focus:bg-zinc-900"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="sort_order" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                  <FaTag className="text-emerald-500/50" /> Sort Order
+                </label>
+                <input
+                  type="number"
+                  name="sort_order"
+                  id="sort_order"
+                  defaultValue={project?.sort_order ?? 0}
+                  placeholder="0"
                   className="w-full rounded-xl border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition-all focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-white dark:focus:border-emerald-500 dark:focus:bg-zinc-900"
                 />
               </div>
@@ -287,6 +303,64 @@ export default function ProjectForm({ project, mode }: ProjectFormProps) {
                   <li>• Size Limit: 5MB</li>
                 </ul>
               </div>
+            </div>
+          </div>
+
+          {/* Additional Images Section (Direct Upload) */}
+          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="h-8 w-1 bg-blue-500 rounded-full" />
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white">Gallery Showcase (Direct Upload)</h2>
+            </div>
+
+            <div className="space-y-6">
+              {/* Existing / Pending Previews */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {additionalImages.map((url, index) => (
+                  <div key={index} className="relative aspect-video rounded-xl overflow-hidden border border-gray-200 dark:border-zinc-800 group">
+                    <img src={url} alt={`Gallery ${index}`} className="w-full h-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => setAdditionalImages(additionalImages.filter((_, i) => i !== index))}
+                      className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                    >
+                      <FaTimes className="text-xs" />
+                    </button>
+                    {/* Only maintain hidden input for existing non-base64 URLs */}
+                    {!url.startsWith('data:') && (
+                      <input type="hidden" name="existing_additional_images" value={url} />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="relative">
+                <input
+                  type="file"
+                  name="additional_images"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    files.forEach(file => {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setAdditionalImages(prev => [...prev, reader.result as string]);
+                      };
+                      reader.readAsDataURL(file);
+                    });
+                  }}
+                  className="absolute inset-0 z-10 cursor-pointer opacity-0"
+                />
+                <button
+                  type="button"
+                  className="w-full py-4 border-2 border-dashed border-gray-200 dark:border-zinc-800 rounded-2xl text-xs font-black uppercase tracking-widest text-gray-400 hover:border-blue-500 hover:text-blue-500 transition-all flex flex-col items-center justify-center gap-2 group"
+                >
+                  <FaCloudUploadAlt className="text-2xl group-hover:scale-110 transition-transform" />
+                  <span>Drop or Click to Add Gallery Images</span>
+                </button>
+              </div>
+              <p className="text-[10px] text-gray-400 text-center uppercase tracking-wider font-bold">Select multiple images to upload directly to storage</p>
             </div>
           </div>
 

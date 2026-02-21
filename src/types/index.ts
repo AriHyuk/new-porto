@@ -14,5 +14,7 @@ export interface Project {
   tech_stack: string[] | null;
   demo_url: string | null;
   repo_url: string | null;
+  sort_order: number;
+  additional_images?: string[] | null;
   created_at: string;
 }

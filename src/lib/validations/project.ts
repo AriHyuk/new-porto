@@ -15,6 +15,8 @@ export const projectSchema = z.object({
   demo_url: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   repo_url: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   image_url: z.string().optional(),
+  sort_order: z.coerce.number().default(0),
+  additional_images: z.array(z.string()).optional().default([]),
 });
 
 export type ProjectFormData = z.infer<typeof projectSchema>;

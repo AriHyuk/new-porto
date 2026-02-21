@@ -63,6 +63,23 @@ export async function createProject(prevState: any, formData: FormData) {
       imageUrl = publicUrlData.publicUrl;
     }
 
+    // Handle Additional Images (Gallery)
+    const galleryUrls: string[] = [];
+    const galleryFiles = (rawData.additional_images as File[]).filter(f => f.size > 0);
+
+    for (const file of galleryFiles) {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${generatedSlug}-gallery-${Math.floor(Math.random() * 1000000)}.${fileExt}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("porto")
+        .upload(fileName, file);
+
+      if (!uploadError) {
+        const { data: publicUrlData } = supabase.storage.from("porto").getPublicUrl(fileName);
+        galleryUrls.push(publicUrlData.publicUrl);
+      }
+    }
+
     const { error: insertError } = await supabase.from("projects").insert({
       title: validatedBase.title,
       slug: generatedSlug,
@@ -76,6 +93,8 @@ export async function createProject(prevState: any, formData: FormData) {
       demo_url: validatedBase.demo_url || null,
       repo_url: validatedBase.repo_url || null,
       image_url: imageUrl,
+      sort_order: validatedBase.sort_order,
+      additional_images: galleryUrls,
       user_id: user.id,
     });
 
@@ -117,31 +136,70 @@ export async function updateProject(prevState: any, formData: FormData) {
     category: formData.get("category"),
     demo_url: formData.get("demo_url"),
     repo_url: formData.get("repo_url"),
+    sort_order: formData.get("sort_order"),
+    additional_images: formData.getAll("additional_images") as File[],
     image: formData.get("image") as File,
   };
 
   try {
     const validatedBase = projectSchema.omit({ image_url: true, slug: true }).parse(rawData);
-    let imageUrl = formData.get("existing_image_url") as string | null;
 
+    let imageUrl = null;
     const imageFile = rawData.image;
+
+    // Check if a new image file is provided
     if (imageFile && imageFile.size > 0 && imageFile.name !== "undefined") {
       if (!imageFile.type.startsWith("image/")) {
-        return { success: false, message: "Invalid image format." };
+        return { success: false, message: "Invalid file type. Please upload an image." };
+      }
+
+      // Fetch current project data to get existing slug for consistent naming
+      const { data: currentProject, error: fetchError } = await supabase
+        .from("projects")
+        .select("slug")
+        .eq("id", id)
+        .single();
+
+      if (fetchError || !currentProject) {
+        console.error("Fetch project for slug error:", fetchError);
+        return { success: false, message: "Failed to retrieve project slug for image upload." };
       }
 
       const fileExt = imageFile.name.split(".").pop();
-      const titleSlug = validatedBase.title.toLowerCase().replace(/[^a-z0-9]/g, "-");
-      const fileName = `${titleSlug}-${Date.now()}.${fileExt}`;
+      const fileName = `${currentProject.slug}-${Date.now()}.${fileExt}`;
 
-      const { error: uploadError } = await supabase.storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
         .from("porto")
         .upload(fileName, imageFile);
 
-      if (uploadError) return { success: false, message: "Image upload failed." };
-      
+      if (uploadError) {
+        console.error("Storage error:", uploadError);
+        return { success: false, message: "Failed to upload project image." };
+      }
+
       const { data: publicUrlData } = supabase.storage.from("porto").getPublicUrl(fileName);
       imageUrl = publicUrlData.publicUrl;
+    } else {
+      // If no new image, retain the existing one
+      imageUrl = formData.get("existing_image_url") as string | null;
+    }
+
+    // Handle Additional Images (Gallery) - Mix of existing and new
+    const existingGalleryUrls = formData.getAll("existing_additional_images") as string[];
+    const newGalleryFiles = (rawData.additional_images as File[]).filter(f => f.size > 0);
+    const finalGalleryUrls = [...existingGalleryUrls];
+
+    for (const file of newGalleryFiles) {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `gallery-${id}-${Math.floor(Math.random() * 1000000)}.${fileExt}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("porto")
+        .upload(fileName, file);
+
+      if (!uploadError) {
+        const { data: publicUrlData } = supabase.storage.from("porto").getPublicUrl(fileName);
+        finalGalleryUrls.push(publicUrlData.publicUrl);
+      }
     }
 
     const { error: updateError } = await supabase.from("projects").update({
@@ -156,6 +214,8 @@ export async function updateProject(prevState: any, formData: FormData) {
       demo_url: validatedBase.demo_url || null,
       repo_url: validatedBase.repo_url || null,
       image_url: imageUrl,
+      sort_order: validatedBase.sort_order,
+      additional_images: finalGalleryUrls,
     }).eq("id", id);
 
     if (updateError) return { success: false, message: "Failed to update project data." };
@@ -199,6 +259,7 @@ export async function getProjects() {
   const { data, error } = await supabase
     .from("projects")
     .select("*")
+    .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
 
   if (error) {

@@ -44,6 +44,9 @@ export default async function AdminProjectsPage() {
                 <th scope="col" className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">
                   Resources
                 </th>
+                <th scope="col" className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                  Priority
+                </th>
                 <th scope="col" className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">
                   Manage
                 </th>
