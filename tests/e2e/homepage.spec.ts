@@ -26,10 +26,10 @@ test.describe('Homepage', () => {
     await expect(hero).toBeVisible();
 
     // Cek teks "Cloud-Native" ada di Hero
-    await expect(page.getByText('Cloud-Native')).toBeVisible();
+    await expect(hero.getByText('Cloud-Native')).toBeVisible();
 
-    // Cek teks "Software Engineer"
-    await expect(page.getByText('Software Engineer')).toBeVisible();
+    // Cek teks "Software Engineer" — scope ke #hero agar tidak ambiguous dengan section #about
+    await expect(hero.getByText('Software Engineer').first()).toBeVisible();
   });
 
   test('Hero CTA button - "View My Work" should be clickable', async ({ page }) => {
