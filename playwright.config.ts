@@ -60,7 +60,9 @@ export default defineConfig({
   webServer: {
     command: 'pnpm run start',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    // Selalu reuse server yang sudah berjalan.
+    // Di CI, server di-start manual sebelum Playwright supaya bisa di-kill with bersih.
+    reuseExistingServer: true,
     timeout: 120 * 1000,
   },
 });
