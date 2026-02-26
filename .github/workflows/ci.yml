@@ -1,0 +1,85 @@
+name: 🛡️ CI — Lint, Build & E2E Test
+
+on:
+  push:
+    branches: ['**']             # Berjalan di SEMUA branch
+  pull_request:
+    branches: ['main']           # Khusus PR ke main
+
+# Batalkan run lama kalau ada push baru di branch yang sama
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: CI Pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # 1. Checkout kode
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup pnpm (harus sebelum Node.js untuk cache berfungsi dengan baik)
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # 3. Setup Node.js dengan cache pnpm
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      # 4. Install dependencies
+      - name: 📥 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5. TypeScript Type Check
+      - name: 🔍 TypeScript type check
+        run: pnpm exec tsc --noEmit
+
+      # 6. Lint
+      - name: 🧹 ESLint
+        run: pnpm run lint
+
+      # 7. Build Next.js (validasi build berhasil)
+      #    Env vars kosong oke — kita hanya cek apakah build compile dengan benar
+      - name: 🏗️ Build Next.js
+        run: pnpm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
+      # 8. Install Playwright Browsers (cache untuk efisiensi)
+      - name: 🎭 Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      # 9. Jalankan Next.js server (background) lalu E2E test
+      - name: 🚀 Start Next.js server & run E2E tests
+        run: |
+          pnpm run start &
+          SERVER_PID=$!
+          # Tunggu sampai server siap
+          npx wait-on http://localhost:3000 --timeout 60000
+          # Jalankan test
+          pnpm run test:e2e
+          # Matikan server setelah selesai
+          kill $SERVER_PID
+        env:
+          BASE_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
+      # 10. Upload Playwright report kalau ada kegagalan
+      - name: 📊 Upload Playwright report (on failure)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

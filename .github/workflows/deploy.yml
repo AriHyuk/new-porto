@@ -1,0 +1,72 @@
+name: 🚀 Deploy — Build & Deploy ke Cloud Run
+
+on:
+  push:
+    branches: ['main']           # Hanya berjalan saat push ke main
+  workflow_dispatch:             # Bisa di-trigger manual dari GitHub UI
+
+# Hanya boleh ada 1 deployment berjalan sekaligus
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false     # Jangan batalkan deployment yang sedang berjalan!
+
+jobs:
+  deploy:
+    name: Deploy ke Cloud Run
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # Permission wajib untuk Workload Identity Federation (WIF)
+    permissions:
+      contents: 'read'
+      id-token: 'write'          # Dibutuhkan untuk WIF — tidak perlu service account key!
+
+    steps:
+      # 1. Checkout kode
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Authenticate ke GCP menggunakan Workload Identity Federation
+      #    Lebih aman dari service account key karena tidak ada file kunci yang bisa bocor
+      - name: 🔐 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      # 3. Setup gcloud CLI
+      - name: ☁️ Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 4. Trigger Cloud Build
+      #    Cloud Build akan handle build Docker + push + deploy ke Cloud Run
+      #    Ini lebih hemat menit GitHub Actions karena proses berat dijalankan di GCP
+      - name: 🏗️ Trigger Cloud Build
+        run: |
+          gcloud builds submit \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
+            --config=cloudbuild.yaml \
+            --substitutions=COMMIT_SHA=${{ github.sha }} \
+            --timeout=20m
+
+      # 5. Get & tampilkan URL Cloud Run
+      - name: 🌐 Get Cloud Run URL
+        run: |
+          URL=$(gcloud run services describe new-porto-service \
+            --region=us-central1 \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
+            --format='value(status.url)')
+          echo "✅ Deployed to: $URL"
+          echo "CLOUD_RUN_URL=$URL" >> $GITHUB_ENV
+
+      # 6. Summary deployment
+      - name: 📋 Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| URL | ${{ env.CLOUD_RUN_URL }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Live | https://ariawaludin.my.id |" >> $GITHUB_STEP_SUMMARY
