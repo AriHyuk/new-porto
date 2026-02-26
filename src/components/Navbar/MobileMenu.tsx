@@ -1,14 +1,17 @@
 'use client';
 
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import NavLink from './NavLink';
 import BrandLogo from './BrandLogo';
 import { clsx } from 'clsx';
+import { usePathname } from 'next/navigation';
 
 interface MobileMenuProps {
   isOpen: boolean;
   navLinks: { id: string; label: string }[];
   activeLink: string;
+  isHome: boolean;
   onLinkClick: (to: string) => void;
   onSetActive: (to: string) => void;
   onClose: () => void;
@@ -18,10 +21,13 @@ export default function MobileMenu({
   isOpen, 
   navLinks, 
   activeLink, 
+  isHome,
   onLinkClick, 
   onSetActive,
   onClose 
 }: MobileMenuProps) {
+  const pathname = usePathname();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -54,21 +60,37 @@ export default function MobileMenu({
                   to={link.id}
                   label={link.label}
                   isActive={activeLink === link.id}
+                  isHome={isHome}
                   onClick={() => onLinkClick(link.id)}
                   onSetActive={onSetActive}
                 />
               ))}
+
+              <Link
+                href="/blog"
+                onClick={onClose}
+                className={clsx(
+                  "text-lg font-semibold transition-colors flex items-center gap-2",
+                  pathname === '/blog' ? "text-blue-600" : "text-gray-600 dark:text-gray-400 hover:text-blue-600"
+                )}
+              >
+                Blog
+              </Link>
               
-              <a
-                href="#contact"
+              <Link
+                href={isHome ? "#contact" : "/#contact"}
                 onClick={(e) => {
-                  e.preventDefault();
-                  onLinkClick('contact');
+                  if (isHome) {
+                    e.preventDefault();
+                    onLinkClick('contact');
+                  } else {
+                    onClose();
+                  }
                 }}
                 className="mt-4 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold text-lg shadow-md hover:from-blue-700 hover:to-blue-900 transition-all text-center"
               >
                 Hire me
-              </a>
+              </Link>
             </div>
           </motion.div>
         </>

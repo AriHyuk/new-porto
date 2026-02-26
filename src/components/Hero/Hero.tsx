@@ -185,8 +185,9 @@ function ProfileImage() {
           className="object-cover scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
           onError={(e) => {
+            // Fail gracefully, maybe show a generic avatar or just hide the image
             const target = e.target as HTMLImageElement;
-            target.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";
+            target.style.display = 'none';
           }}
         />
         

@@ -5,7 +5,11 @@ import { Toaster } from 'react-hot-toast';
 import VisualEffects from '@/components/UI/VisualEffects';
 import { Metadata } from 'next';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Ari Awaludin | Senior Software Engineer',

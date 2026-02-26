@@ -1,6 +1,6 @@
 'use server';
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient, createAdminClient } from '@/lib/supabase/server';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -14,14 +14,41 @@ function generateSlug(title: string): string {
     .trim();
 }
 
+// Helper to upload image to Supabase Storage
+async function uploadPostImage(file: File) {
+  const supabase = createAdminClient();
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+  const filePath = `blog/${fileName}`;
+
+  const { data, error } = await supabase.storage
+    .from('porto')
+    .upload(filePath, file);
+
+  if (error) throw new Error(`Upload failed: ${error.message}`);
+
+  const { data: { publicUrl } } = supabase.storage
+    .from('porto')
+    .getPublicUrl(filePath);
+
+  return publicUrl;
+}
+
 export async function createPost(formData: FormData) {
   const supabase = await createClient();
   const title = formData.get('title') as string;
   const excerpt = formData.get('excerpt') as string;
   const content = formData.get('content') as string;
-  const cover_image = formData.get('cover_image') as string;
   const tagsRaw = formData.get('tags') as string;
   const tags = tagsRaw ? tagsRaw.split(',').map((t) => t.trim()).filter(Boolean) : [];
+  
+  let cover_image = formData.get('cover_image') as string;
+  const cover_image_file = formData.get('cover_image_file') as File | null;
+
+  // Handle file upload if present
+  if (cover_image_file && cover_image_file.size > 0) {
+    cover_image = await uploadPostImage(cover_image_file);
+  }
 
   const { error } = await supabase.from('posts').insert({
     title,
@@ -44,9 +71,16 @@ export async function updatePost(id: string, formData: FormData) {
   const title = formData.get('title') as string;
   const excerpt = formData.get('excerpt') as string;
   const content = formData.get('content') as string;
-  const cover_image = formData.get('cover_image') as string;
   const tagsRaw = formData.get('tags') as string;
   const tags = tagsRaw ? tagsRaw.split(',').map((t) => t.trim()).filter(Boolean) : [];
+
+  let cover_image = formData.get('cover_image') as string;
+  const cover_image_file = formData.get('cover_image_file') as File | null;
+
+  // Handle file upload if present
+  if (cover_image_file && cover_image_file.size > 0) {
+    cover_image = await uploadPostImage(cover_image_file);
+  }
 
   const { error } = await supabase
     .from('posts')

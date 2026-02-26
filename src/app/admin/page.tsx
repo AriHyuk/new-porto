@@ -20,12 +20,9 @@ import AvailableForWorkToggle from '@/components/Admin/AvailableForWorkToggle';
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  // 1. Initial Auth Check (Dynamic)
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  // 2. Fetch data in parallel with fallback for missing Admin Key
+  // 1. Fetch data in parallel with fallback for missing Admin Key
   const fetchCounts = async () => {
+    const supabase = await createClient();
     // Fallback: If no Admin Key, fetch dynamically with user session
     if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
       const [p, s, e, c] = await Promise.all([

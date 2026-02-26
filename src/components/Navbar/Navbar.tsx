@@ -11,12 +11,17 @@ import Link from 'next/link';
 import NavLink from './NavLink';
 import dynamic from 'next/dynamic';
 import BrandLogo from './BrandLogo';
+import { usePathname, useRouter } from 'next/navigation';
 
 const MobileMenu = dynamic(() => import('./MobileMenu'), {
   ssr: false,
 });
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === '/';
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('hero');
   const { resolvedTheme } = useTheme();
@@ -106,6 +111,7 @@ export default function Navbar() {
                     to={link.id}
                     label={link.label}
                     isActive={activeLink === link.id}
+                    isHome={isHome}
                     onSetActive={setActiveLink}
                   />
                 ))}
@@ -156,6 +162,7 @@ export default function Navbar() {
         isOpen={menuOpen}
         navLinks={navLinks}
         activeLink={activeLink}
+        isHome={isHome}
         onLinkClick={handleLinkClick}
         onSetActive={setActiveLink}
         onClose={() => setMenuOpen(false)}

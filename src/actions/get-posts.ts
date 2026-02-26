@@ -1,6 +1,6 @@
 'use server';
 
-import { createStaticClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/server';
 import { unstable_cache } from 'next/cache';
 
 export interface Post {
@@ -24,7 +24,7 @@ export interface Post {
 export const getPublishedPosts = unstable_cache(
   async (): Promise<Post[]> => {
     try {
-      const supabase = createStaticClient();
+      const supabase = createAdminClient();
       const { data, error } = await supabase
         .from('posts')
         .select('*')
@@ -51,7 +51,7 @@ export const getPublishedPosts = unstable_cache(
 export const getPostBySlug = unstable_cache(
   async (slug: string): Promise<Post | null> => {
     try {
-      const supabase = createStaticClient();
+      const supabase = createAdminClient();
       const { data, error } = await supabase
         .from('posts')
         .select('*')
@@ -74,7 +74,7 @@ export const getPostBySlug = unstable_cache(
  */
 export async function getAllPostsAdmin(): Promise<Post[]> {
   try {
-    const supabase = createStaticClient();
+    const supabase = createAdminClient();
     const { data, error } = await supabase
       .from('posts')
       .select('*')
@@ -90,3 +90,20 @@ export async function getAllPostsAdmin(): Promise<Post[]> {
     return [];
   }
 }
+
+export async function getPostById(id: string): Promise<Post | null> {
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+

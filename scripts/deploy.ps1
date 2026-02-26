@@ -34,7 +34,11 @@ Write-Host "--- 🚀 Deploying to Cloud Run ---" -ForegroundColor Cyan
 gcloud run deploy $SERVICE `
   --image $IMAGE_TAG `
   --region $REGION `
-  --platform managed
+  --platform managed `
+  --min-instances 0 `
+  --cpu-boost `
+  --cpu 1 `
+  --memory 1Gi
 
 Write-Host "--- 🎉 Deployment Selesai! ---" -ForegroundColor Green
 Write-Host "🌐 Live at: https://ariawaludin.my.id" -ForegroundColor Blue

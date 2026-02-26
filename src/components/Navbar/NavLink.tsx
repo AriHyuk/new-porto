@@ -1,6 +1,7 @@
 'use client';
 
 import { Link as ScrollLink } from 'react-scroll';
+import Link from 'next/link';
 import { FaRocket } from 'react-icons/fa';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
@@ -9,11 +10,29 @@ interface NavLinkProps {
   to: string;
   label: string;
   isActive: boolean;
+  isHome: boolean;
   onClick?: () => void;
   onSetActive: (to: string) => void;
 }
 
-export default function NavLink({ to, label, isActive, onClick, onSetActive }: NavLinkProps) {
+export default function NavLink({ to, label, isActive, isHome, onClick, onSetActive }: NavLinkProps) {
+  if (!isHome) {
+    return (
+      <div className="relative group">
+        <Link
+          href={`/#${to}`}
+          className={clsx(
+            'px-4 md:px-0 py-2 md:py-0 font-semibold transition-all duration-300 flex items-center justify-between md:justify-start',
+            isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-500'
+          )}
+          onClick={onClick}
+        >
+          <span>{label}</span>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="relative group">
       <ScrollLink
