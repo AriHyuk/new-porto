@@ -38,21 +38,21 @@ jobs:
       - name: 📥 Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 5. TypeScript Type Check
-      - name: 🔍 TypeScript type check
-        run: pnpm exec tsc --noEmit
-
-      # 6. Lint
+      # 5. Lint
       - name: 🧹 ESLint
         run: pnpm run lint
 
-      # 7. Build Next.js (validasi build berhasil)
+      # 6. Build Next.js (validasi build dan generate next-env.d.ts)
       #    Env vars kosong oke — kita hanya cek apakah build compile dengan benar
       - name: 🏗️ Build Next.js
         run: pnpm run build
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
+      # 7. TypeScript Type Check (Berjalan setelah build agar next-env.d.ts sudah ada)
+      - name: 🔍 TypeScript type check
+        run: pnpm exec tsc --noEmit
 
       # 8. Install Playwright Browsers (cache untuk efisiensi)
       - name: 🎭 Install Playwright browsers
