@@ -70,9 +70,26 @@ src/
 └── public/             # Static assets (Images, SVGs)
 ```
 
-## Deployment
+## 🚀 Deployment & CI/CD
 
-Projek ini sudah dikonfigurasi untuk deployment menggunakan Docker.
+Projek ini sudah menggunakan **Fully Automated CI/CD Pipeline** untuk deployment ke Google Cloud Run, menjamin zero-downtime dan proses rilis yang aman.
+
+### Alur CI/CD:
+
+1. **GitHub Actions (CI)**: Menjalankan ESLint, Type Checking, dan **Playwright E2E Testing** di setiap PR/Push ke `main`.
+2. **Google Cloud Build (CD)**: Mem-build Docker Image dan mem-pushnya ke Artifact Registry.
+3. **Google Cloud Run**: Otomatis mendeploy image terbaru jika semua test passing.
+4. **Keamanan**: Menggunakan **Workload Identity Federation** (WIF) untuk autentikasi tanpa _Service Account Key_ (Keyless).
+
+Untuk panduan deployment lengkap, monitoring, dan seting resource budget ($0-$1/bulan), silakan baca:
+👉 **[Deployment Guide](docs/deployment-guide.md)**
+👉 **[CI/CD Troubleshooting & Setup Guide](.agent/workflows/setup-cicd.md)**
+
+---
+
+### Manual Docker Build (Local)
+
+Jika ingin menjalankan production build di lokal:
 
 ```bash
 # Build & Run with Docker Compose
@@ -82,4 +99,3 @@ docker compose up -d --build
 ## License
 
 ISC © 2026 Ari Hyuk
-
