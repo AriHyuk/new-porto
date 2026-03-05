@@ -7,9 +7,6 @@ import { Metadata } from 'next';
 
 const inter = Inter({ 
   subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
 
 export const metadata: Metadata = {
   title: 'Ari Awaludin | Senior Software Engineer',
