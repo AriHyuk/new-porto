@@ -54,10 +54,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.className} antialiased selection:bg-blue-500/30`} suppressHydrationWarning>
         <Providers>
           <VisualEffects />
-          <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+          <main className="min-h-screen bg-gray-50 dark:bg-[#030712] transition-colors overflow-x-hidden">
             {children}
           </main>
           <Toaster position="bottom-right" />
