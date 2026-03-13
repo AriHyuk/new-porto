@@ -49,39 +49,41 @@ export default function ExperienceTab({ experiences }: ExperienceTabProps) {
   }
 
   return (
-    <div className="space-y-12 pb-24">
+    <div className="space-y-10 pb-24">
       {/* Filters */}
-      <div className="flex flex-wrap justify-center gap-3">
+      <div className="flex flex-wrap justify-center gap-2.5">
         {filters.map((filter) => (
-          <button
+          <motion.button
             key={filter}
             onClick={() => setActiveFilter(filter)}
-            className={`px-6 py-2 rounded-full text-[10px] font-black transition-all duration-500 uppercase tracking-widest border-2 ${
+            whileTap={{ scale: 0.95 }}
+            className={`px-5 py-2 rounded-full text-[10px] font-black transition-all duration-300 uppercase tracking-widest border-2 ${
               activeFilter === filter
-                ? 'bg-blue-600 text-white border-blue-600 shadow-xl shadow-blue-500/20 scale-105'
-                : 'bg-white dark:bg-gray-800 text-gray-400 border-gray-100 dark:border-gray-700 hover:border-blue-500/30 dark:hover:border-blue-500/30'
+                ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/25 scale-105'
+                : 'bg-white dark:bg-gray-800/60 text-gray-400 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 dark:hover:border-blue-500/40 hover:text-blue-500'
             }`}
           >
             {filter}
-          </button>
+          </motion.button>
         ))}
       </div>
 
-      <div ref={containerRef} className="relative px-2 max-w-5xl mx-auto">
-        {/* Central Line - Fixed Z-Index and Alignment */}
-        <div className="absolute inset-y-0 left-5 md:left-1/2 md:-translate-x-1/2 w-0.5 bg-gray-100 dark:bg-gray-800/50 z-0" />
+      <div ref={containerRef} className="relative max-w-5xl mx-auto px-4 sm:px-6">
+        {/* Static Background Line */}
+        <div className="absolute inset-y-0 left-[1.625rem] sm:left-[1.625rem] md:left-1/2 md:-translate-x-px w-[1.5px] bg-gray-100 dark:bg-gray-800/60 z-0" />
         
         {/* Animated Progress Line */}
         <motion.div 
-          className="absolute top-0 left-5 md:left-1/2 md:-translate-x-1/2 w-0.5 z-10 origin-top shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-colors duration-700"
+          className="absolute top-0 left-[1.625rem] sm:left-[1.625rem] md:left-1/2 md:-translate-x-px w-[1.5px] z-10 origin-top"
           style={{ 
             height: heightTransform,
-            backgroundColor: hoveredColor || '#3B82F6' 
+            backgroundColor: hoveredColor || '#3B82F6',
+            filter: `drop-shadow(0 0 6px ${hoveredColor || '#3B82F6'}50)`,
           }}
         />
 
         <motion.div
-          className="space-y-16 relative z-10"
+          className="space-y-10 md:space-y-14 relative z-10"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -90,72 +92,93 @@ export default function ExperienceTab({ experiences }: ExperienceTabProps) {
             {filteredExperiences.map((item, index) => {
               const displayRole = item.role || (item as any).position || "Software Engineer";
               const displayColor = item.brandColor || "#3B82F6";
+              const isEven = index % 2 === 0;
               
               return (
                 <motion.div
                   key={`${item.company}-${index}`}
                   layout
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="relative flex items-center justify-start md:justify-normal w-full"
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                  className="relative flex w-full"
                   onMouseEnter={() => setHoveredColor(displayColor)}
                   onMouseLeave={() => setHoveredColor(null)}
                 >
-                  {/* Timeline Dot - Absolute Centered */}
-                  <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-30">
-                    <div 
-                      className="w-8 h-8 rounded-full border-4 border-white dark:border-gray-950 bg-white dark:bg-gray-900 shadow-xl flex items-center justify-center transition-all duration-500 group-hover:scale-125"
-                      style={{ borderColor: hoveredColor === displayColor ? displayColor : undefined }}
+                  {/* Timeline Dot — aligned to top of card */}
+                  <div className="absolute left-0 top-6 md:left-1/2 md:-translate-x-1/2 z-30 flex items-center justify-center">
+                    <motion.div 
+                      className="w-7 h-7 rounded-full border-[3px] bg-white dark:bg-gray-950 shadow-lg flex items-center justify-center transition-colors duration-500"
+                      style={{ 
+                        borderColor: hoveredColor === displayColor ? displayColor : 'rgb(209 213 219)',
+                      }}
+                      animate={hoveredColor === displayColor ? { scale: 1.2 } : { scale: 1 }}
+                      transition={{ duration: 0.25 }}
                     >
                       <div 
-                        className="w-2 h-2 rounded-full"
+                        className="w-2 h-2 rounded-full transition-all duration-500"
                         style={{ backgroundColor: displayColor }}
                       />
-                    </div>
+                    </motion.div>
                   </div>
 
-                  {/* Content Card - Offset to avoid covering center */}
+                  {/* Content Card */}
+                  {/* Mobile: offset kanan dari dot. Desktop: alternating left/right */}
                   <div className={`
-                    w-full ml-12 md:ml-0 
-                    md:w-[calc(50%-2rem)] 
-                    ${index % 2 === 0 ? 'md:mr-auto md:pr-4' : 'md:ml-auto md:pl-4'}
-                    group/card
+                    w-full pl-12 sm:pl-14 
+                    md:pl-0 md:w-[calc(50%-2.5rem)]
+                    ${isEven 
+                      ? 'md:mr-auto md:pr-0' 
+                      : 'md:ml-auto md:pl-0'
+                    }
                   `}>
-                    <div className="bg-white/80 dark:bg-gray-800/40 backdrop-blur-xl p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-700/50 transition-all duration-500 hover:shadow-2xl relative overflow-visible"
-                         style={{ borderLeftColor: displayColor, borderLeftWidth: '2px' }}>
-                      
-                      <div className="flex flex-col gap-4 mb-6">
-                        <div className="flex items-start justify-between gap-4">
-                          <h3 className="font-black text-2xl md:text-3xl text-gray-900 dark:text-gray-100 group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors tracking-tight leading-tight max-w-[70%]">
+                    <motion.div 
+                      className="bg-white/80 dark:bg-gray-800/40 backdrop-blur-xl rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 transition-shadow duration-500"
+                      style={{ borderLeftColor: displayColor, borderLeftWidth: '3px' }}
+                      whileHover={{ 
+                        boxShadow: `0 20px 40px ${displayColor}15, 0 4px 16px rgba(0,0,0,0.08)` 
+                      }}
+                    >
+                      <div className="p-5 sm:p-6">
+                        {/* Header: Role + Period */}
+                        <div className="flex flex-col gap-2 mb-4">
+                          <h3 className="font-black text-lg sm:text-xl md:text-2xl text-gray-900 dark:text-gray-100 leading-snug tracking-tight">
                             {displayRole}
                           </h3>
-                          <div className="shrink-0 pt-1">
-                            <time 
-                              className="text-[9px] font-black px-4 py-1.5 text-white rounded-full shadow-lg uppercase tracking-widest whitespace-nowrap block"
-                              style={{ backgroundColor: displayColor, boxShadow: `0 8px 20px ${displayColor}30` }}
-                            >
-                              {item.period || "2020 - Present"}
-                            </time>
-                          </div>
+                          <time 
+                            className="self-start text-[9px] font-black px-3 py-1.5 text-white rounded-full shadow-md uppercase tracking-widest whitespace-nowrap"
+                            style={{ 
+                              backgroundColor: displayColor, 
+                              boxShadow: `0 4px 14px ${displayColor}35` 
+                            }}
+                          >
+                            {item.period || "2020 - Present"}
+                          </time>
                         </div>
 
-                        <div className="flex items-center gap-2 flex-wrap text-sm font-bold" style={{ color: displayColor }}>
-                          <span className="w-6 h-[2.5px]" style={{ backgroundColor: displayColor }} />
-                          <span className="font-black uppercase tracking-wider">{item.company}</span>
+                        {/* Company + Type */}
+                        <div className="flex items-center gap-2 flex-wrap mb-4">
+                          <span className="w-5 h-[2px] shrink-0" style={{ backgroundColor: displayColor }} />
+                          <span className="text-sm font-black uppercase tracking-wider" style={{ color: displayColor }}>
+                            {item.company}
+                          </span>
                           {item.type && (
                             <>
-                              <span className="w-1.5 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700" />
-                              <span className="opacity-60 font-black uppercase tracking-tighter text-[10px]">{item.type}</span>
+                              <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                                {item.type}
+                              </span>
                             </>
                           )}
                         </div>
-                      </div>
 
-                      <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
-                        {item.description}
-                      </p>
-                    </div>
+                        {/* Description */}
+                        <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </motion.div>
                   </div>
                 </motion.div>
               );
