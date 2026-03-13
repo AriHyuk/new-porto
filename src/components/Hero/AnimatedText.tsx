@@ -48,7 +48,7 @@ export default function AnimatedText({
               }
             }
           }}
-          className="inline-block"
+          style={{ display: 'inline-block' }}
         >
           {char === ' ' ? '\u00A0' : char}
         </motion.span>

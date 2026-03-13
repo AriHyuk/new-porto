@@ -40,10 +40,14 @@ export default function Hero() {
             className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-[0.85] relative z-20"
           />
           <div className="relative">
-             <AnimatedText 
-              text="Software Engineer"
-              className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 text-transparent bg-clip-text tracking-tighter leading-[1.1] pb-2 z-20"
-            />
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent tracking-tighter leading-[1.1] pb-2 whitespace-nowrap z-20"
+            >
+              Software Engineer
+            </motion.p>
             {/* Creative Underline/Decor */}
             <motion.div 
               initial={{ scaleX: 0, opacity: 0 }}
