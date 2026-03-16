@@ -109,16 +109,30 @@ export default function ExperienceTab({ experiences }: ExperienceTabProps) {
                   {/* Timeline Dot — aligned to top of card */}
                   <div className="absolute left-0 top-6 md:left-1/2 md:-translate-x-1/2 z-30 flex items-center justify-center">
                     <motion.div 
-                      className="w-7 h-7 rounded-full border-[3px] bg-white dark:bg-gray-950 shadow-lg flex items-center justify-center transition-colors duration-500"
+                      className="w-8 h-8 rounded-full border-[2.5px] bg-white dark:bg-gray-950 shadow-xl flex items-center justify-center transition-colors duration-500 relative"
                       style={{ 
-                        borderColor: hoveredColor === displayColor ? displayColor : 'rgb(209 213 219)',
+                        borderColor: hoveredColor === displayColor ? displayColor : 'rgb(229 231 235 / 0.5)',
                       }}
-                      animate={hoveredColor === displayColor ? { scale: 1.2 } : { scale: 1 }}
-                      transition={{ duration: 0.25 }}
                     >
-                      <div 
-                        className="w-2 h-2 rounded-full transition-all duration-500"
+                      {/* Pulse Effect for current/hovered item */}
+                      <AnimatePresence>
+                        {(index === 0 || hoveredColor === displayColor) && (
+                          <motion.div
+                            layoutId={`pulse-${index}`}
+                            className="absolute inset-0 rounded-full z-0"
+                            style={{ backgroundColor: displayColor }}
+                            initial={{ scale: 1, opacity: 0.5 }}
+                            animate={{ scale: 2, opacity: 0 }}
+                            exit={{ scale: 1, opacity: 0 }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                          />
+                        )}
+                      </AnimatePresence>
+
+                      <motion.div 
+                        className="w-2.5 h-2.5 rounded-full z-10 transition-all duration-500"
                         style={{ backgroundColor: displayColor }}
+                        animate={hoveredColor === displayColor ? { scale: 1.2 } : { scale: 1 }}
                       />
                     </motion.div>
                   </div>
@@ -134,12 +148,15 @@ export default function ExperienceTab({ experiences }: ExperienceTabProps) {
                     }
                   `}>
                     <motion.div 
-                      className="bg-white/80 dark:bg-gray-800/40 backdrop-blur-xl rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 transition-shadow duration-500"
-                      style={{ borderLeftColor: displayColor, borderLeftWidth: '3px' }}
+                      className="bg-white/80 dark:bg-gray-900/40 backdrop-blur-2xl rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 transition-all duration-500 overflow-hidden group/card"
+                      style={{ borderLeftColor: displayColor, borderLeftWidth: '4px' }}
                       whileHover={{ 
-                        boxShadow: `0 20px 40px ${displayColor}15, 0 4px 16px rgba(0,0,0,0.08)` 
+                        y: -5,
+                        boxShadow: `0 25px 50px -12px ${displayColor}15, 0 10px 20px -5px rgba(0,0,0,0.1)` 
                       }}
                     >
+                      {/* Suble localized glow on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none" />
                       <div className="p-5 sm:p-6">
                         {/* Header: Role + Period */}
                         <div className="flex flex-col gap-2 mb-4">

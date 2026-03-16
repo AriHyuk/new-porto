@@ -7,7 +7,7 @@ import {
   SiPython, SiFigma, SiGit, SiGithub, SiVercel,
   SiAdobelightroom, SiAdobepremierepro, SiAdobephotoshop,
   SiFirebase, SiMysql, SiRedis, SiGraphql, SiAmazon,
-  SiGooglecloud, SiPostman,
+  SiGooglecloud, SiPostman, SiGithubactions,
   SiSvelte, SiVuedotjs, SiAngular, SiBootstrap, SiJquery, SiWordpress,
   SiCypress, SiTestinglibrary, SiVitest,
   SiNotion, SiJira, SiTrello, SiFramer, SiSlack, SiDiscord
@@ -59,6 +59,7 @@ const icons: Record<string, React.ElementType> = {
   s3: SiAmazon,
   gcp: SiGooglecloud,
   postman: SiPostman,
+  githubactions: SiGithubactions,
   framer: SiFramer,
   'framer-motion': SiFramer,  // alias
   framermotion: SiFramer,     // alias
@@ -131,6 +132,7 @@ export const skillColors: Record<string, string> = {
   s3: '#FF9900',
   gcp: '#4285F4',
   postman: '#FF6C37',
+  githubactions: '#2088FF',
   framer: '#0055FF',
 
   // Testing

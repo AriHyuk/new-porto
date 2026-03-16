@@ -156,26 +156,26 @@ export const experienceData: Experience[] = [
 export const servicesData: Service[] = [
   {
     title: 'High-Scale Web Development',
-    description: 'Engineering resilient, lightning-fast web applications using Next.js and high-performance backend systems.',
+    description: 'Engineering resilient, lightning-fast web applications using Next.js 15 and high-performance server-side architectures.',
     iconKey: 'web',
-    features: ['Next.js 15 PWA Architecture', 'Decoupled API Design', 'SEO & Core Web Vitals Focus', 'High Scalability'],
+    features: ['Next.js 15 PWA Architecture', 'Secure RESTful API Ecosystems', 'SEO & Core Web Vitals Focus', 'High Scalability & Performance'],
   },
   {
     title: 'Cloud & AI Integration',
-    description: 'Supercharging products with intelligent AI agents and scalable cloud infrastructure on GCP.',
+    description: 'Supercharging products with intelligent AI agents and scalable cloud infrastructure on Google Cloud Platform.',
     iconKey: 'cloud',
-    features: ['GCP / Vertex AI Agents', 'Serverless Deployments', 'Cloud Cost Management', 'Infrastructure as Code'],
+    features: ['GCP / Vertex AI Agents', 'Automated CI/CD Pipelines', 'Infrastructure as Code (IaC)', 'Cloud Cost Optimization'],
   },
   {
     title: 'Fullstack Systems',
-    description: 'Building end-to-end solutions from complex database schemas to interactive user interfaces.',
+    description: 'Building end-to-end solutions from complex database schemas to interactive user interfaces with modern tech stacks.',
     iconKey: 'backend',
-    features: ['Laravel / Go Microservices', 'Relational DB Design', 'Secure Auth Ecosystems', 'Real-time Features'],
+    features: ['Laravel / Go Microservices', 'Relational DB Design & Ops', 'Real-time WebSocket Features', 'Advanced Auth & Security'],
   },
   {
     title: 'Strategic Mentorship',
-    description: 'Leading teams and workshops to bridge the gap between academic learning and industry standards.',
+    description: 'Leading teams and workshops to bridge the gap between academic learning and modern industry standards.',
     iconKey: 'design',
-    features: ['Technical Workshops', 'Engineering Best Practices', 'Agile Methodologies', 'Leadership & Research'],
+    features: ['Technical Workshops', 'Engineering Best Practices', 'Agile/Scrum Methodologies', 'Leadership & Tech Research'],
   },
 ];

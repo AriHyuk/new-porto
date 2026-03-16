@@ -35,15 +35,18 @@ export default function ServicesTab() {
             key={index}
             variants={itemVariants}
             onClick={() => handleContact(`Project Inquiry: ${service.title}`)}
-            className="group relative p-8 md:p-10 rounded-[2.5rem] bg-white/50 dark:bg-gray-800/30 backdrop-blur-md border border-gray-100 dark:border-gray-700/50 transition-all duration-500 hover:border-blue-500/30 hover:shadow-2xl flex flex-col h-full overflow-hidden cursor-pointer"
+            className="group relative p-8 md:p-10 rounded-[2.5rem] bg-white/70 dark:bg-gray-900/40 backdrop-blur-2xl border border-gray-100 dark:border-white/5 transition-all duration-500 hover:border-blue-500/40 hover:shadow-[0_20px_60px_-15px_rgba(59,130,246,0.15)] flex flex-col h-full overflow-hidden cursor-pointer"
           >
-            {/* Background Glow */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/10 blur-[80px] rounded-full transition-opacity opacity-0 group-hover:opacity-100 z-0" />
-
+            {/* Background Mesh Glow */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full transition-opacity opacity-0 group-hover:opacity-100 z-0" />
+            
             <div className="mb-8 relative z-10">
-              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-sm border border-gray-50 dark:border-gray-800">
+              <motion.div 
+                className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xl border border-gray-50 dark:border-white/5 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white"
+                whileHover={{ y: -5, rotate: 5 }}
+              >
                 <Icon className="text-[28px]" />
-              </div>
+              </motion.div>
             </div>
             
             <h3 className="text-2xl font-black text-gray-900 dark:text-gray-100 mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tighter relative z-10">
@@ -54,11 +57,11 @@ export default function ServicesTab() {
               {service.description}
             </p>
 
-            {/* Feature List */}
-            <ul className="space-y-3 mt-auto relative z-10">
+            {/* Feature List with cleaner dots */}
+            <ul className="space-y-3.5 mt-auto relative z-10">
               {service.features?.map((feature, fIdx) => (
-                <li key={fIdx} className="flex items-center gap-3 text-xs font-bold text-gray-500 dark:text-gray-400 transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-200">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                <li key={fIdx} className="flex items-center gap-3 text-[11px] font-black uppercase tracking-wider text-gray-500 dark:text-gray-500 transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-300">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-500 group-hover:scale-110 transition-transform">
                     <LuCheck className="text-[10px]" />
                   </div>
                   {feature}
@@ -66,31 +69,49 @@ export default function ServicesTab() {
               ))}
             </ul>
 
-            <div className="mt-10 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500 relative z-10">
-              Get Started
-              <LuArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
+            <div className="mt-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 relative z-10">
+              Launch Project
+              <LuArrowRight className="text-sm" />
             </div>
           </motion.div>
         );
       })}
 
-      {/* Hero-like CTA Card */}
+      {/* Hero-like CTA Card - Premium Polish */}
       <motion.div
         variants={itemVariants}
         onClick={() => handleContact("General Inquiry via Portfolio")}
-        className="group relative p-10 rounded-[2.5rem] border-2 border-dashed border-gray-200 dark:border-gray-700/50 hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all duration-500 flex flex-col items-center justify-center text-center min-h-[320px] cursor-pointer"
+        className="group relative p-10 rounded-[2.5rem] bg-gradient-to-br from-white/40 to-white/10 dark:from-white/[0.03] dark:to-transparent backdrop-blur-xl border border-gray-200 dark:border-white/5 hover:border-blue-500/40 transition-all duration-700 flex flex-col items-center justify-center text-center min-h-[320px] cursor-pointer overflow-hidden shadow-sm"
       >
-        <div className="w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
-          ✨
+        {/* Animated Border */}
+        <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+          <motion.div 
+            className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(59,130,246,0.1)_120deg,transparent_240deg)]"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          />
         </div>
-        <h4 className="text-2xl font-black text-gray-900 dark:text-gray-100 mb-3 tracking-tighter">
-          Have a Project?
-        </h4>
-        <p className="text-sm text-gray-500 dark:text-gray-400 max-w-[260px] font-medium leading-relaxed mb-8">
-          Let&apos;s engineer your vision into a high-performance reality.
-        </p>
-        <div className="px-10 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 shadow-xl transition-all active:scale-95">
-          Let&apos;s Talk
+
+        <div className="relative z-10 flex flex-col items-center">
+          <motion.div 
+            className="w-20 h-20 rounded-full bg-blue-100/50 dark:bg-blue-900/20 backdrop-blur-3xl flex items-center justify-center mb-6 text-3xl shadow-inner"
+            whileHover={{ scale: 1.15, rotate: 15 }}
+          >
+            ✨
+          </motion.div>
+          <h4 className="text-3xl font-black text-gray-900 dark:text-gray-100 mb-3 tracking-tighter">
+            Have a Project?
+          </h4>
+          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-[260px] font-medium leading-relaxed mb-8">
+            Let&apos;s engineer your vision into a <span className="text-blue-600 dark:text-blue-500 font-bold italic">high-performance</span> reality.
+          </p>
+          <motion.div 
+            className="px-10 py-3.5 bg-gray-900 dark:bg-blue-600 text-white dark:text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl transition-all"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Start Conversation
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>

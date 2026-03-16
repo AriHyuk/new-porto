@@ -20,7 +20,20 @@ export const getExperiences = unstable_cache(
         return [];
       }
 
-      return data as Experience[];
+      const experiences = data as Experience[];
+
+      // Inject specific highlights into relevant experiences
+      return experiences.map(exp => {
+        if (exp.position.includes('Skripsi') || exp.company.includes('Pamulang')) {
+          return {
+            ...exp,
+            description: exp.description.includes('RESTful API') 
+              ? exp.description 
+              : exp.description + ' Implemented secure RESTful APIs and automated CI/CD workflows to ensure high availability and seamless delivery.'
+          };
+        }
+        return exp;
+      });
     } catch (error) {
       console.error("Unexpected error fetching experiences:", error);
       return [];
