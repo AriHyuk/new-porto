@@ -42,7 +42,7 @@ export default function ProfileCard() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, perspective: 1000 }}
-      className="w-full lg:w-1/3 relative group"
+      className="relative group h-full"
     >
       {/* Spotlight effect for the whole card */}
       <div className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-20 rounded-[2.5rem]" 

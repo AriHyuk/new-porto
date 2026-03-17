@@ -13,20 +13,25 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: 'Ari Awaludin | Senior Software Engineer',
-  description: 'Portfolio of Ari Awaludin, a Senior Software Engineer specializing in modern web technologies.',
+  title: 'Ari Hyuk — Cloud Native Software Engineer | GCP · Kubernetes · Go',
+  description: 'I design and build backend systems that scale — from clean API contracts to Kubernetes deployments on GCP. Cloud Native Software Engineer, DevOps-native.',
   metadataBase: new URL('https://ariawaludin.my.id'),
+  keywords: [
+    'backend engineer', 'systems architect', 'cloud engineer', 'GCP',
+    'Kubernetes', 'Go', 'Golang', 'Node.js', 'DevOps', 'software architecture',
+    'clean architecture', 'Google Cloud', 'software engineer Indonesia',
+  ],
   openGraph: {
-    title: 'Ari Awaludin | Senior Software Engineer',
-    description: 'Portfolio of Ari Awaludin, a Senior Software Engineer specializing in modern web technologies.',
+    title: 'Ari Hyuk — Cloud Native Software Engineer',
+    description: 'Cloud Native systems that scale. Kubernetes on GCP. Clean Architecture. DevOps-native.',
     url: 'https://ariawaludin.my.id',
-    siteName: 'Ari Awaludin Portfolio',
+    siteName: 'Ari Hyuk Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ari Awaludin Portfolio',
+        alt: 'Ari Hyuk | Cloud Native Software Engineer',
       },
     ],
     locale: 'en_US',
@@ -34,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ari Awaludin | Senior Software Engineer',
-    description: 'Portfolio of Ari Awaludin, a Senior Software Engineer specializing in modern web technologies.',
+    title: 'Ari Hyuk — Cloud Native Software Engineer',
+    description: 'Cloud Native systems that scale. Kubernetes on GCP. Clean Architecture. DevOps-native.',
     images: ['/og-image.png'],
   },
   robots: {

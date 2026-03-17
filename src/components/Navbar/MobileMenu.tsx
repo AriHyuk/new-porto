@@ -70,7 +70,7 @@ export default function MobileMenu({
                 href="/blog"
                 onClick={onClose}
                 className={clsx(
-                  "text-lg font-semibold transition-colors flex items-center gap-2",
+                  "text-base font-semibold transition-colors flex items-center gap-2",
                   pathname === '/blog' ? "text-blue-600" : "text-gray-600 dark:text-gray-400 hover:text-blue-600"
                 )}
               >

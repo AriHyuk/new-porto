@@ -66,10 +66,10 @@ export default function Navbar() {
   // but framer motion handles rgba interpolation efficiently)
 
   const navLinks = [
-    { id: 'hero', label: 'Hero' },
+    { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'portfolio', label: 'Projects' },
-    { id: 'certificates', label: 'Certificates' }
+    { id: 'certificates', label: 'Certificates' },
   ];
 
   const handleLinkClick = (section: string) => {
@@ -117,10 +117,12 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Blog — route link (bukan scroll) */}
               <Link
                 href="/blog"
-                className="text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className={clsx(
+                  "text-sm font-semibold transition-all duration-300",
+                  pathname === '/blog' ? "text-blue-600 dark:text-blue-400" : "text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                )}
               >
                 Blog
               </Link>
@@ -135,9 +137,9 @@ export default function Navbar() {
                   e.preventDefault();
                   handleLinkClick('contact');
                 }}
-                className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold shadow-md hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105"
+                className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold shadow-lg hover:shadow-blue-500/25 hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105 active:scale-95 text-sm"
               >
-                Hire me
+                Let's Collaborate
               </a>
             </div>
 

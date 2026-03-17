@@ -35,8 +35,12 @@ export default function BrandLogo({ className, onClick }: BrandLogoProps) {
           <motion.span 
             key={index}
             className="inline-block transition-colors duration-300 text-blue-600 dark:text-blue-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-            whileHover={{ y: -8, transition: springTransition }}
-            whileTap={{ y: -8, transition: springTransition }}
+            whileHover={{ 
+              y: -8, 
+              scale: 1.1,
+              transition: { ...springTransition, scale: { duration: 0.2 } } 
+            }}
+            whileTap={{ scale: 0.95 }}
           >
             {char}
           </motion.span>
@@ -47,20 +51,15 @@ export default function BrandLogo({ className, onClick }: BrandLogoProps) {
           className="ml-1 text-blue-600 dark:text-blue-500 font-mono text-base font-bold transition-colors duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
           whileHover={{ 
             y: -8,
+            scale: 1.1,
             rotate: [0, -10, 10, 0],
             transition: { 
               ...springTransition,
-              rotate: { duration: 0.4, ease: "easeInOut" }
+              rotate: { duration: 0.4, ease: "easeInOut" },
+              scale: { duration: 0.2 }
             } 
           }}
-          whileTap={{ 
-            y: -8,
-            rotate: [0, -10, 10, 0],
-            transition: { 
-              ...springTransition,
-              rotate: { duration: 0.4, ease: "easeInOut" }
-            } 
-          }}
+          whileTap={{ scale: 0.95 }}
         >
           &lt;/&gt;
         </motion.span>
@@ -68,9 +67,9 @@ export default function BrandLogo({ className, onClick }: BrandLogoProps) {
       
       {/* Subtle Shimmer Line Underneath */}
       <motion.div 
-        className="absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full"
-        initial={{ width: 0 }}
-        whileHover={{ width: '100%', transition: { duration: 0.3 } }}
+        className="absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 rounded-full shadow-[0_2px_10px_rgba(59,130,246,0.3)]"
+        initial={{ width: 0, opacity: 0 }}
+        whileHover={{ width: '100%', opacity: 1, transition: { duration: 0.4, ease: "circOut" } }}
       />
     </Link>
   );

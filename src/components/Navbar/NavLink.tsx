@@ -68,14 +68,29 @@ export default function NavLink({ to, label, isActive, isHome, onClick, onSetAct
             <>
               <motion.div 
                 layoutId="rocket"
-                className="absolute -right-5 top-1/2 -translate-y-1/2"
+                className="absolute -right-5 top-1/2 -translate-y-1/2 z-10"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <FaRocket className="text-blue-500 animate-bounce text-xs" />
+                <motion.div
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <FaRocket className="text-blue-500 text-xs" />
+                </motion.div>
               </motion.div>
               
               <motion.div 
                 layoutId="underline"
-                className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"
+                className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500 to-transparent blur-[1px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.div 
+                layoutId="underline-glow"
+                className="absolute -bottom-1 left-0 w-full h-[1px] bg-blue-400 z-20"
               />
             </>
           )}

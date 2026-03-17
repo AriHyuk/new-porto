@@ -127,23 +127,14 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
     return counts;
   }, [skills]);
 
-  const groupedSkills = useMemo(() => {
-    if (activeCategory !== "All") {
-      return {
-        [activeCategory]: skills.filter((s) => s.category === activeCategory),
-      };
-    }
-    const groups: Record<string, Skill[]> = {};
-    skills.forEach((s) => {
-      if (!groups[s.category]) groups[s.category] = [];
-      groups[s.category].push(s);
-    });
-    return groups;
+  const filteredSkills = useMemo(() => {
+    if (activeCategory === "All") return skills;
+    return skills.filter((s) => s.category === activeCategory);
   }, [skills, activeCategory]);
 
   if (!skills || skills.length === 0) {
     return (
-      <div className="text-center py-20 text-gray-500">
+      <div className="text-center py-20 text-gray-400">
         No skills data found.
       </div>
     );
@@ -161,7 +152,7 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
             className={`px-4 py-1.5 rounded-full text-[10px] font-black transition-all duration-300 uppercase tracking-widest border ${
               activeCategory === cat
                 ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/30 scale-105"
-                : "bg-white/50 dark:bg-gray-800/50 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-blue-400/50 hover:text-blue-500"
+                : "bg-white/50 dark:bg-gray-800/50 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700 hover:border-blue-400/50 hover:text-blue-500"
             }`}
           >
             {cat}
@@ -174,47 +165,22 @@ export default function SkillsTab({ skills }: SkillsTabProps) {
         ))}
       </div>
 
-      {/* Grouped skill sections */}
+      {/* Unified skill grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCategory}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-          className="space-y-8"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
         >
-          {Object.entries(groupedSkills).map(([category, categorySkills]) => (
-            <div key={category}>
-              {/* Section divider — only in "All" mode */}
-              {activeCategory === "All" && (
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 shrink-0">
-                    {category}
-                  </span>
-                  <div className="flex-1 h-[1px] bg-gray-100 dark:bg-gray-800" />
-                  <span className="text-[9px] font-bold text-gray-300 dark:text-gray-700 shrink-0">
-                    {categorySkills.length}
-                  </span>
-                </div>
-              )}
-
-              <motion.div
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {categorySkills.map((skill) => {
-                  const brandColor = getSkillColor(skill.icon_key);
-                  const enrichedSkill = { ...skill, color: brandColor };
-                  return (
-                    <SkillCard key={skill.name} skill={enrichedSkill as any} />
-                  );
-                })}
-              </motion.div>
-            </div>
-          ))}
+          {filteredSkills.map((skill) => {
+            const brandColor = getSkillColor(skill.icon_key);
+            const enrichedSkill = { ...skill, color: brandColor };
+            return (
+              <SkillCard key={skill.name} skill={enrichedSkill as any} />
+            );
+          })}
         </motion.div>
       </AnimatePresence>
     </div>

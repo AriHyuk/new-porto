@@ -23,6 +23,14 @@ export default function BackgroundShapes() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Mesh Grid Overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" 
+           style={{ 
+             backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.5) 1px, transparent 0)`,
+             backgroundSize: '40px 40px' 
+           }} 
+      />
+
       {/* Interactive Spotlight */}
       <motion.div
         className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/5 dark:bg-blue-400/5 blur-[120px] z-0"
