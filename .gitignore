@@ -57,4 +57,5 @@ Thumbs.db
 # AI & Docs (Private)
 .agent/
 docs/
+reports/
 ROADMAP.md
