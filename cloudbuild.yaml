@@ -1,17 +1,29 @@
 steps:
   # ------------------------------------------------------------------
-  # Step 1: Build Docker Image
-  # COMMIT_SHA digunakan sebagai tag image supaya setiap build bisa di-rollback
-  # Secrets (Supabase URL & Key) diambil dari GCP Secret Manager — lebih aman
+  # Step 1: Fetch Secrets
+  # gcr.io/cloud-builders/docker doesn't have gcloud, so we fetch securely first
   # ------------------------------------------------------------------
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'build-image'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'fetch-secrets'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        SUPABASE_URL=$(gcloud secrets versions access latest --secret="NEXT_PUBLIC_SUPABASE_URL")
-        SUPABASE_KEY=$(gcloud secrets versions access latest --secret="NEXT_PUBLIC_SUPABASE_ANON_KEY")
+        gcloud secrets versions access latest --secret="NEXT_PUBLIC_SUPABASE_URL" > /workspace/url.txt
+        gcloud secrets versions access latest --secret="NEXT_PUBLIC_SUPABASE_ANON_KEY" > /workspace/key.txt
+
+  # ------------------------------------------------------------------
+  # Step 2: Build Docker Image
+  # ------------------------------------------------------------------
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    waitFor: ['fetch-secrets']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        SUPABASE_URL=$(cat /workspace/url.txt)
+        SUPABASE_KEY=$(cat /workspace/key.txt)
         docker build \
           --build-arg NEXT_PUBLIC_SUPABASE_URL="$$SUPABASE_URL" \
           --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="$$SUPABASE_KEY" \
@@ -20,8 +32,7 @@ steps:
           .
 
   # ------------------------------------------------------------------
-  # Step 2: Push ke Artifact Registry
-  # Dua tag: COMMIT_SHA (untuk rollback spesifik) & latest (untuk referensi)
+  # Step 3: Push ke Artifact Registry
   # ------------------------------------------------------------------
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-image'
@@ -32,8 +43,7 @@ steps:
       - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/app'
 
   # ------------------------------------------------------------------
-  # Step 3: Deploy ke Cloud Run
-  # --region dan --image sudah hardcode agar lebih eksplisit
+  # Step 4: Deploy ke Cloud Run
   # ------------------------------------------------------------------
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'deploy-cloudrun'
@@ -57,6 +67,8 @@ steps:
       - '1Gi'
       - '--allow-unauthenticated'
       - '--quiet'
+      - '--remove-env-vars'
+      - 'NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY'
       - '--set-secrets'
       - 'NEXT_PUBLIC_SUPABASE_URL=NEXT_PUBLIC_SUPABASE_URL:latest,NEXT_PUBLIC_SUPABASE_ANON_KEY=NEXT_PUBLIC_SUPABASE_ANON_KEY:latest'
 
