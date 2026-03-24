@@ -51,11 +51,12 @@ steps:
       - 'managed'
       - '--min-instances'
       - '0'
-      - '--cpu-boost'
+      - '--no-cpu-throttling'
       - '--cpu'
       - '1'
       - '--memory'
       - '1Gi'
+      - '--quiet'
       - '--set-secrets'
       - 'NEXT_PUBLIC_SUPABASE_URL=NEXT_PUBLIC_SUPABASE_URL:latest,NEXT_PUBLIC_SUPABASE_ANON_KEY=NEXT_PUBLIC_SUPABASE_ANON_KEY:latest'
 
