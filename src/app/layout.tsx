@@ -13,17 +13,18 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: 'Ari Hyuk — Cloud Native Software Engineer | GCP · Kubernetes · Go',
-  description: 'I design and build backend systems that scale — from clean API contracts to Kubernetes deployments on GCP. Cloud Native Software Engineer, DevOps-native.',
+  title: 'Ari Hyuk — Fullstack Software Engineer',
+  description: 'I design and build end-to-end web applications — from intuitive frontend interfaces to scalable backend systems. Fullstack Software Engineer.',
   metadataBase: new URL('https://ariawaludin.my.id'),
   keywords: [
+    'fullstack engineer', 'frontend', 'react', 'next.js',
     'backend engineer', 'systems architect', 'cloud engineer', 'GCP',
-    'Kubernetes', 'Go', 'Golang', 'Node.js', 'DevOps', 'software architecture',
-    'clean architecture', 'Google Cloud', 'software engineer Indonesia',
+    'Kubernetes', 'Go', 'Golang', 'Node.js', 'software architecture',
+    'clean architecture', 'software engineer Indonesia',
   ],
   openGraph: {
-    title: 'Ari Hyuk — Cloud Native Software Engineer',
-    description: 'Cloud Native systems that scale. Kubernetes on GCP. Clean Architecture. DevOps-native.',
+    title: 'Ari Hyuk — Fullstack Software Engineer',
+    description: 'End-to-end web applications. From intuitive UIs to scalable backends. Fullstack Software Engineer.',
     url: 'https://ariawaludin.my.id',
     siteName: 'Ari Hyuk Portfolio',
     images: [
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ari Hyuk | Cloud Native Software Engineer',
+        alt: 'Ari Hyuk | Fullstack Software Engineer',
       },
     ],
     locale: 'en_US',
@@ -39,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ari Hyuk — Cloud Native Software Engineer',
-    description: 'Cloud Native systems that scale. Kubernetes on GCP. Clean Architecture. DevOps-native.',
+    title: 'Ari Hyuk — Fullstack Software Engineer',
+    description: 'End-to-end web applications. From intuitive UIs to scalable backends. Fullstack Software Engineer.',
     images: ['/og-image.png'],
   },
   robots: {

@@ -9,7 +9,7 @@ import AnimatedText from './AnimatedText';
 import BackgroundShapes from './BackgroundShapes';
 import TechPill from './TechPill';
 import ScrollIndicator from './ScrollIndicator';
-import { SiGo, SiGooglecloud, SiKubernetes } from 'react-icons/si';
+import { SiGo, SiGooglecloud, SiReact } from 'react-icons/si';
 import profileAvatar from '../../../public/images/profile/avatar.jpeg';
 
 export default function Hero() {
@@ -22,7 +22,7 @@ export default function Hero() {
       <BackgroundShapes />
 
       {/* Main Container */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between h-full z-10 gap-8 lg:gap-12">
+      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between h-full z-10 gap-8 lg:gap-12 md:-translate-y-10">
         {/* Left Section - Content */}
         <div className="md:w-1/2 text-center md:text-left z-10 space-y-6 md:space-y-8 flex flex-col justify-center h-full w-full">
           <motion.p
@@ -38,7 +38,7 @@ export default function Hero() {
           {/* Hero Headlines */}
           <div className="flex flex-col relative w-full lg:w-max">
             <AnimatedText 
-              text="Cloud Native"
+              text="Fullstack"
               className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.9] relative z-20"
             />
             <div className="relative mt-1 md:mt-2">
@@ -66,8 +66,8 @@ export default function Hero() {
             animate="visible"
             className="text-gray-600 dark:text-gray-400 text-base md:text-lg lg:text-xl max-w-xl mb-8 leading-relaxed mx-auto md:mx-0 font-medium"
           >
-            Designing backend systems that scale — from clean API contracts
-            to Kubernetes deployments on GCP. DevOps-native, architecture-obsessed.
+            Building end-to-end web applications — from intuitive user interfaces 
+            to scalable backend systems. Architecture-obsessed, detail-oriented.
           </motion.p>
           
           {/* Call to Actions */}
@@ -118,8 +118,8 @@ export default function Hero() {
               delay={1.8}
             />
             <TechPill 
-              icon={<SiKubernetes />} 
-              label="Kubernetes" 
+              icon={<SiReact />} 
+              label="React" 
               className="bottom-10 -left-6 md:bottom-16 md:-left-8 lg:-left-12 animate-bounce-slow delay-1000 z-20 hidden sm:flex" 
               delay={2.1}
             />
