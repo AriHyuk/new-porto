@@ -57,8 +57,8 @@ steps:
       - '1Gi'
       - '--allow-unauthenticated'
       - '--quiet'
-      - '--remove-env-vars'
-      - 'NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY'
+      - '--set-secrets'
+      - 'NEXT_PUBLIC_SUPABASE_URL=NEXT_PUBLIC_SUPABASE_URL:latest,NEXT_PUBLIC_SUPABASE_ANON_KEY=NEXT_PUBLIC_SUPABASE_ANON_KEY:latest'
 
 # ------------------------------------------------------------------
 # Konfigurasi Build
@@ -78,3 +78,4 @@ substitutions:
   _REGION: 'us-central1'
   _SERVICE: 'new-porto-service'
   _REPO: 'new-porto-repo'
+
