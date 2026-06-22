@@ -7,7 +7,9 @@ import Image from 'next/image';
 import { textVariants, buttonVariants } from '@/utils/animation';
 import AnimatedText from './AnimatedText';
 import BackgroundShapes from './BackgroundShapes';
+import TechPill from './TechPill';
 import ScrollIndicator from './ScrollIndicator';
+import { SiGo, SiGooglecloud, SiReact } from 'react-icons/si';
 import profileAvatar from '../../../public/images/profile/avatar.jpeg';
 
 export default function Hero() {
@@ -98,6 +100,26 @@ export default function Hero() {
         {/* Right Section - Profile Image */}
         <div className="md:w-1/2 flex justify-center md:justify-end z-10 items-center relative mt-12 md:mt-0 h-1/2 md:h-full w-full">
           <div className="relative group flex items-center justify-center scale-90 sm:scale-100 transform-gpu transition-transform duration-500">
+            {/* Tech Pills - Positioned relative to the image container */}
+            <TechPill 
+              icon={<SiGo />} 
+              label="Go" 
+              className="-top-6 -left-4 md:-top-10 md:-left-8 z-20 hidden sm:flex" 
+              delay={1.5}
+            />
+            <TechPill 
+              icon={<SiGooglecloud />} 
+              label="GCP" 
+              className="top-1/4 -right-6 md:-right-12 lg:-right-16 z-20 hidden sm:flex" 
+              delay={1.8}
+            />
+            <TechPill 
+              icon={<SiReact />} 
+              label="React" 
+              className="bottom-10 -left-6 md:bottom-16 md:-left-8 lg:-left-12 z-20 hidden sm:flex" 
+              delay={2.1}
+            />
+            
             <ProfileImage />
           </div>
         </div>
@@ -109,48 +131,9 @@ export default function Hero() {
 }
 
 function ProfileImage() {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const rectRef = useRef<DOMRect | null>(null);
-
-  const rotateX = useSpring(useTransform(y, [-100, 100], [15, -15]), { stiffness: 100, damping: 30 });
-  const rotateY = useSpring(useTransform(x, [-100, 100], [-15, 15]), { stiffness: 100, damping: 30 });
-
-  const handleMouseEnter = (e: React.MouseEvent) => {
-    if (containerRef.current) {
-      rectRef.current = containerRef.current.getBoundingClientRect();
-    }
-  };
-
-  function handleMouse(e: React.MouseEvent) {
-    if (!rectRef.current) return;
-    
-    const rect = rectRef.current;
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set(e.clientX - centerX);
-    y.set(e.clientY - centerY);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-    rectRef.current = null;
-  }
-
   return (
     <motion.div 
-      ref={containerRef}
-      className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[460px] xl:h-[460px] bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-[2.5rem] lg:rounded-[3rem] xl:rounded-[3.5rem] p-1 shadow-[0_0_50px_rgba(59,130,246,0.2)] dark:shadow-[0_0_50px_rgba(59,130,246,0.1)] border border-white/20 overflow-hidden cursor-none"
-      style={{
-        perspective: 1000,
-        rotateX,
-        rotateY,
-      }}
-      onMouseEnter={handleMouseEnter}
-      onMouseMove={handleMouse}
-      onMouseLeave={handleMouseLeave}
+      className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[460px] xl:h-[460px] bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-[2.5rem] lg:rounded-[3rem] xl:rounded-[3.5rem] p-1 shadow-[0_0_50px_rgba(59,130,246,0.2)] dark:shadow-[0_0_50px_rgba(59,130,246,0.1)] border border-white/20 overflow-hidden"
     >
       <div className="relative w-full h-full bg-white dark:bg-gray-950/80 rounded-[2.3rem] lg:rounded-[2.8rem] xl:rounded-[3.3rem] overflow-hidden">
         <Image
