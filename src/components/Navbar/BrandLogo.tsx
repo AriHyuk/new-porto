@@ -65,12 +65,6 @@ export default function BrandLogo({ className, onClick }: BrandLogoProps) {
         </motion.span>
       </div>
       
-      {/* Subtle Shimmer Line Underneath */}
-      <motion.div 
-        className="absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 rounded-full shadow-[0_2px_10px_rgba(59,130,246,0.3)]"
-        initial={{ width: 0, opacity: 0 }}
-        whileHover={{ width: '100%', opacity: 1, transition: { duration: 0.4, ease: "circOut" } }}
-      />
     </Link>
   );
 }

@@ -7,9 +7,7 @@ import Image from 'next/image';
 import { textVariants, buttonVariants } from '@/utils/animation';
 import AnimatedText from './AnimatedText';
 import BackgroundShapes from './BackgroundShapes';
-import TechPill from './TechPill';
 import ScrollIndicator from './ScrollIndicator';
-import { SiGo, SiGooglecloud, SiReact } from 'react-icons/si';
 import profileAvatar from '../../../public/images/profile/avatar.jpeg';
 
 export default function Hero() {
@@ -46,7 +44,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent tracking-tight leading-[1.1] pb-2 whitespace-nowrap z-20 animate-gradient-x"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-blue-600 dark:text-blue-500 tracking-tight leading-[1.1] pb-2 whitespace-nowrap z-20"
               >
                 Software Engineer
               </motion.p>
@@ -55,7 +53,7 @@ export default function Hero() {
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-                className="absolute bottom-0 left-0 w-1/3 h-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hidden md:block z-10" 
+                className="absolute bottom-0 left-0 w-1/3 h-2 bg-blue-600 rounded-full hidden md:block z-10" 
               />
             </div>
           </div>
@@ -80,21 +78,17 @@ export default function Hero() {
               whileTap="tap"
               className="relative group"
             >
-              {/* Animated border glow */}
-              <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 rounded-2xl blur-sm opacity-25 group-hover:opacity-100 group-hover:blur-md transition duration-500 animate-shimmer" />
-              
               <ScrollLink
                 to="portfolio"
                 href="#portfolio"
                 smooth={true}
                 duration={500}
                 offset={-70}
-                className="relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-2xl font-bold uppercase tracking-wider text-sm flex items-center justify-center cursor-pointer transition-all duration-300 border border-white/10 dark:border-black/5 shadow-2xl"
+                className="relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-2xl font-bold uppercase tracking-wider text-sm flex items-center justify-center cursor-pointer transition-all duration-300 shadow-xl hover:shadow-2xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
                 <span className="relative z-10 flex items-center gap-3">
                   View My Work
-                  <svg className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" style={{ transformOrigin: 'center', transform: 'rotate(-45deg)' }} /></svg>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </span>
               </ScrollLink>
             </motion.div>
@@ -104,29 +98,6 @@ export default function Hero() {
         {/* Right Section - Profile Image */}
         <div className="md:w-1/2 flex justify-center md:justify-end z-10 items-center relative mt-12 md:mt-0 h-1/2 md:h-full w-full">
           <div className="relative group flex items-center justify-center scale-90 sm:scale-100 transform-gpu transition-transform duration-500">
-            {/* Tech Pills - Positioned relative to the image container */}
-            <TechPill 
-              icon={<SiGo />} 
-              label="Go" 
-              className="-top-6 -left-4 md:-top-10 md:-left-8 animate-bounce-slow z-20 hidden sm:flex" 
-              delay={1.5}
-            />
-            <TechPill 
-              icon={<SiGooglecloud />} 
-              label="GCP" 
-              className="top-1/4 -right-6 md:-right-12 lg:-right-16 animate-bounce-slow delay-700 z-20 hidden sm:flex" 
-              delay={1.8}
-            />
-            <TechPill 
-              icon={<SiReact />} 
-              label="React" 
-              className="bottom-10 -left-6 md:bottom-16 md:-left-8 lg:-left-12 animate-bounce-slow delay-1000 z-20 hidden sm:flex" 
-              delay={2.1}
-            />
-            
-            {/* Decorative Backglow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/30 to-purple-500/30 blur-[80px] rounded-full animate-pulse-slow scale-110 group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
-            
             <ProfileImage />
           </div>
         </div>

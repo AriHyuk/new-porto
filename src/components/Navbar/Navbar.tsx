@@ -137,7 +137,7 @@ export default function Navbar() {
                   e.preventDefault();
                   handleLinkClick('contact');
                 }}
-                className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold shadow-lg hover:shadow-blue-500/25 hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105 active:scale-95 text-sm"
+                className="px-6 py-2 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors text-sm"
               >
                 Let's Collaborate
               </a>
