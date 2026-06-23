@@ -42,7 +42,7 @@ export default function Hero() {
           <div className="flex flex-col relative w-full">
             <AnimatedText
               text="Fullstack"
-              className="text-[3.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.85] uppercase"
+              className="text-[2.8rem] sm:text-[3.8rem] md:text-[4.2rem] lg:text-[5rem] xl:text-[5.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.85] uppercase whitespace-nowrap"
             />
             <div className="relative mt-0">
               <motion.p
