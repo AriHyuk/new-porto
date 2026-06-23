@@ -42,14 +42,14 @@ export default function Hero() {
           <div className="flex flex-col relative w-full">
             <AnimatedText
               text="Fullstack"
-              className="text-[2.8rem] sm:text-[3.8rem] md:text-[4.2rem] lg:text-[5rem] xl:text-[5.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.85] uppercase whitespace-nowrap"
+              className="text-[2.8rem] sm:text-[3.8rem] md:text-[4.2rem] lg:text-[5rem] xl:text-[5.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.9] uppercase whitespace-nowrap pb-2"
             />
             <div className="relative mt-0">
               <motion.p
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.6, ease: 'easeOut' }}
-                className="text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] xl:text-[5rem] font-black text-[#2B5CE6] dark:text-[#5b82ff] tracking-tight leading-[1] uppercase"
+                className="text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] xl:text-[5rem] font-black text-[#2B5CE6] dark:text-[#5b82ff] tracking-tight leading-[1.1] uppercase pb-1"
               >
                 Software
               </motion.p>
@@ -57,7 +57,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7, duration: 0.6, ease: 'easeOut' }}
-                className="text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] xl:text-[5rem] font-black italic text-[#FF4D00] tracking-tight leading-[1] uppercase"
+                className="text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] xl:text-[5rem] font-black italic text-[#FF4D00] tracking-tight leading-[1.1] uppercase pb-2"
               >
                 Engineer.
               </motion.p>
