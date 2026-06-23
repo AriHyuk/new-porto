@@ -44,60 +44,44 @@ export default function ProfileCard() {
       style={{ rotateX, rotateY, perspective: 1000 }}
       className="relative group h-full"
     >
-      {/* Spotlight effect for the whole card */}
-      <div className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-20 rounded-[2.5rem]" 
-           style={{ 
-             background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59,130,246,0.1), transparent 40%)` 
-           }} 
-      />
-
-      {/* Cyber Glass Card */}
-      <div className="bg-white/80 dark:bg-[#0A0C10] backdrop-blur-3xl p-6 md:p-8 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-white/5 group-hover:border-blue-500/30 transition-all duration-500 h-full relative overflow-hidden z-10">
+      {/* Brutalist Card */}
+      <div className="bg-[#CCFF00] dark:bg-[#1a1c23] p-6 md:p-8 border-2 border-black dark:border-white h-full relative overflow-hidden z-10 shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.2)]">
         
-        {/* Animated Background Mesh */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(59,130,246,0.05),_transparent_50%)]" />
-
         {/* Profile Image with Parallax */}
         <div className="relative w-32 h-32 md:w-36 md:h-36 mx-auto mb-6 md:mb-8">
           <motion.div
-            className="w-full h-full rounded-[1.5rem] overflow-hidden border-2 border-white dark:border-white/10 shadow-2xl relative z-10 bg-gray-100 dark:bg-gray-900"
+            className="w-full h-full border-4 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.5)] relative z-10 bg-white dark:bg-black overflow-hidden"
             style={{ x: imgX, y: imgY }}
           >
             <Image
               src="/images/profile/avatar.jpeg"
               alt="Ari Awaludin"
               fill
-              className="object-cover group-hover:scale-110 transition-transform duration-700"
+              className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale hover:grayscale-0"
               sizes="(max-width: 768px) 128px, 144px"
               priority
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-                target.src = 'https://ui-avatars.com/api/?name=Ari+Awaludin&background=3b82f6&color=fff';
+                target.src = 'https://ui-avatars.com/api/?name=Ari+Awaludin&background=000&color=fff';
               }}
             />
           </motion.div>
-          {/* Decorative Ring */}
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="absolute -inset-4 border border-dashed border-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-          />
         </div>
 
         <div className="text-center relative z-10">
-          <h2 className="text-2xl md:text-3xl font-black bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-600 bg-clip-text text-transparent mb-2 md:mb-3 tracking-tighter leading-[0.9]">
+          <h2 className="text-3xl md:text-4xl font-black text-black dark:text-white mb-2 md:mb-3 tracking-tighter leading-[0.9] uppercase">
             Ari Awaludin
           </h2>
           
           <div className="flex items-center justify-center gap-3 md:gap-4 mb-4 md:mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-            <p className="text-blue-600 dark:text-blue-500 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em]">
+            <span className="w-2 h-2 bg-black dark:bg-white animate-pulse border border-black dark:border-white" />
+            <p className="text-black dark:text-white font-black text-[9px] md:text-[10px] uppercase tracking-[0.4em]">
               Software Engineer
             </p>
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+            <span className="w-2 h-2 bg-black dark:bg-white animate-pulse border border-black dark:border-white" />
           </div>
 
-          {/* Social Links - Cyber Style */}
+          {/* Social Links - Brutalist Style */}
           <div className="flex justify-center flex-wrap gap-2 md:gap-3 mb-6 md:mb-8">
             {socialLinks.map((link, index) => (
               <motion.a
@@ -105,8 +89,7 @@ export default function ProfileCard() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gray-100/50 dark:bg-white/5 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white hover:bg-white dark:hover:bg-blue-600/30 transition-all border border-gray-200 dark:border-white/5 hover:border-blue-400/30 backdrop-blur-xl shadow-lg"
-                whileHover={{ y: -5, scale: 1.05 }}
+                className="w-10 h-10 md:w-11 md:h-11 bg-white dark:bg-black flex items-center justify-center text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)] hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_rgba(255,255,255,0.5)] hover:-translate-y-1 hover:-translate-x-1"
                 whileTap={{ scale: 0.95 }}
                 title={link.label}
               >
@@ -115,8 +98,8 @@ export default function ProfileCard() {
             ))}
           </div>
 
-          {/* Contact Details - Standardized DNS */}
-          <div className="space-y-2 md:space-y-3 text-left bg-gray-50/50 dark:bg-black/20 p-4 md:p-5 rounded-[1.5rem] border border-gray-200 dark:border-white/5 backdrop-blur-md">
+          {/* Contact Details - Brutalist */}
+          <div className="space-y-2 md:space-y-3 text-left bg-white dark:bg-black p-4 md:p-5 border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)]">
             {contactInfo.map((item, index) => (
               <a 
                 key={index}
@@ -125,12 +108,12 @@ export default function ProfileCard() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-blue-500/10 flex-shrink-0 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover/item:bg-blue-600 group-hover/item:text-white transition-all duration-500 shadow-xl border border-blue-500/10 dark:border-white/5">
+                <div className="w-8 h-8 md:w-9 md:h-9 bg-[#2B5CE6] flex-shrink-0 flex items-center justify-center text-white border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)] group-hover/item:translate-x-1 transition-transform">
                   <item.icon className="text-xs md:text-sm" />
                 </div>
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-[7px] md:text-[8px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-[0.3em] leading-tight mb-0.5">{item.label}</span>
-                  <span className="text-[11px] md:text-xs font-black text-gray-700 dark:text-gray-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors truncate tracking-tight">
+                  <span className="text-[8px] md:text-[9px] text-gray-500 dark:text-gray-400 font-black uppercase tracking-[0.3em] leading-tight mb-0.5">{item.label}</span>
+                  <span className="text-xs md:text-sm font-black text-black dark:text-white group-hover/item:text-[#2B5CE6] dark:group-hover/item:text-[#5b82ff] transition-colors truncate tracking-tight uppercase">
                     {item.value}
                   </span>
                 </div>
@@ -138,35 +121,33 @@ export default function ProfileCard() {
             ))}
           </div>
 
-          {/* Key Certifications - Premium Layout */}
+          {/* Key Certifications - Brutalist */}
           <div className="mt-5 md:mt-6 space-y-3 md:space-y-4">
-             <div className="flex items-center gap-4 px-2">
-                <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500">Credentials</span>
-                <div className="h-[1px] flex-1 bg-gray-100 dark:bg-white/5" />
+             <div className="flex items-center gap-4">
+                <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] text-black dark:text-white bg-white dark:bg-black px-2 py-1 border-2 border-black dark:border-white">Credentials</span>
+                <div className="h-0.5 flex-1 bg-black dark:bg-white" />
              </div>
              <div className="grid grid-cols-2 gap-2 md:gap-3">
-                <div className="bg-blue-500/5 p-3 rounded-xl border border-blue-500/10 dark:border-white/5 text-left group/cred hover:bg-blue-600/10 transition-colors">
-                  <p className="text-[6px] md:text-[7px] font-black uppercase text-blue-600 dark:text-blue-500 mb-1 tracking-widest">BNSP</p>
-                  <p className="text-[8px] md:text-[9px] font-black text-gray-800 dark:text-white leading-tight">Certified <br />Programmer</p>
+                <div className="bg-white dark:bg-black p-3 border-2 border-black dark:border-white text-left shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)]">
+                  <p className="text-[7px] md:text-[8px] font-black uppercase text-black dark:text-white mb-1 tracking-widest">BNSP</p>
+                  <p className="text-[9px] md:text-[10px] font-black text-[#2B5CE6] dark:text-[#5b82ff] leading-tight uppercase">Certified <br />Programmer</p>
                 </div>
-                <div className="bg-purple-500/5 p-3 rounded-xl border border-purple-500/10 dark:border-white/5 text-left group/cred hover:bg-purple-600/10 transition-colors">
-                  <p className="text-[6px] md:text-[7px] font-black uppercase text-purple-600 dark:text-purple-500 mb-1 tracking-widest">TOEFL</p>
-                  <p className="text-[8px] md:text-[9px] font-black text-gray-800 dark:text-white leading-tight">ITP <br />Certified</p>
+                <div className="bg-white dark:bg-black p-3 border-2 border-black dark:border-white text-left shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)]">
+                  <p className="text-[7px] md:text-[8px] font-black uppercase text-black dark:text-white mb-1 tracking-widest">TOEFL</p>
+                  <p className="text-[9px] md:text-[10px] font-black text-[#FF4D00] leading-tight uppercase">ITP <br />Certified</p>
                 </div>
              </div>
           </div>
 
-          {/* Download Button - Elitist Style */}
+          {/* Download Button - Brutalist */}
           <motion.button
-            className="w-full mt-6 md:mt-8 py-4 md:py-5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-xl shadow-2xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all relative overflow-hidden group/btn"
-            whileHover={{ scale: 1.01 }}
+            className="w-full mt-6 md:mt-8 py-4 md:py-5 px-6 bg-[#FF4D00] text-black font-black uppercase border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.5)] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.5)] hover:-translate-y-1 hover:-translate-x-1 transition-all group/btn"
             whileTap={{ scale: 0.98 }}
             onClick={() => window.open('files/cv_ari_awaludin.pdf', '_blank')}
           >
-            <div className="relative z-10 flex items-center justify-center gap-2 md:gap-3 text-[8px] md:text-[9px] uppercase tracking-[0.3em]">
-              Access Dossier <FaDownload className="text-[10px] md:text-xs group-hover:translate-y-1 transition-transform" />
+            <div className="flex items-center justify-center gap-2 md:gap-3 text-xs md:text-sm tracking-widest">
+              Access CV <FaDownload className="group-hover/btn:translate-y-1 transition-transform" />
             </div>
-            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
           </motion.button>
         </div>
       </div>

@@ -35,12 +35,12 @@ export default function AboutStats({ stats: propStats }: AboutStatsProps) {
         <motion.div
           key={index}
           variants={itemVariants}
-          className="bg-white/50 dark:bg-white/[0.03] backdrop-blur-3xl p-4 md:p-6 rounded-[1.8rem] border border-gray-100 dark:border-white/5 flex flex-col items-center justify-center text-center group hover:bg-white dark:hover:bg-blue-600/10 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1"
+          className="bg-[#F5F0E8] dark:bg-[#1a1c23] p-4 md:p-6 border-2 border-black dark:border-white flex flex-col items-center justify-center text-center group hover:bg-[#CCFF00] dark:hover:bg-[#2B5CE6] transition-all duration-150 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.3)]"
         >
-          <div className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white mb-1.5 tracking-tighter group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-none">
-            {stat.value}<span className="text-[10px] md:text-sm font-black text-blue-600 dark:text-blue-500 ml-0.5">{stat.suffix}</span>
+          <div className="text-2xl md:text-4xl font-black text-black dark:text-white mb-1.5 tracking-tighter group-hover:text-black dark:group-hover:text-white transition-colors leading-none">
+            {stat.value}<span className="text-[10px] md:text-sm font-black text-[#2B5CE6] group-hover:text-black dark:text-[#5b82ff] dark:group-hover:text-white ml-0.5">{stat.suffix}</span>
           </div>
-          <p className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500 group-hover:text-blue-500 dark:group-hover:text-gray-300 transition-colors">
+          <p className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em] text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
             {stat.label}
           </p>
         </motion.div>
