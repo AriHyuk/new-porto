@@ -39,17 +39,17 @@ export default async function Page() {
       {/* About Section */}
       <AboutSection experiences={experiences} skills={skills} />
 
-      {/* Projects Section - Cyber Polish */}
-      <section id="portfolio" className="py-20 md:py-32 relative overflow-hidden bg-gray-50/30 dark:bg-[#050608] transition-colors duration-500">
+      {/* Projects Section - Brutalist */}
+      <section id="portfolio" className="py-20 md:py-32 relative overflow-hidden bg-white dark:bg-[#1a1c23] border-b-4 border-black dark:border-white transition-colors duration-150">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 md:mb-32">
-            <span className="text-blue-500 font-black uppercase tracking-[0.5em] text-[9px] md:text-[10px] mb-4 md:mb-6 block">Production Archive</span>
-            <h2 className="text-4xl md:text-7xl font-black mb-6 md:mb-10 bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-600 bg-clip-text text-transparent tracking-tighter leading-[0.9]">
-              Featured <br className="md:hidden" /> <span className="text-blue-600 dark:text-blue-500">Solutions</span>
+            <span className="inline-block bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-[0.5em] text-[10px] md:text-[12px] mb-6 px-4 py-2 border-2 border-transparent shadow-[4px_4px_0px_rgba(255,255,255,0.5)] dark:shadow-[4px_4px_0px_rgba(0,0,0,1)]">Production Archive</span>
+            <h2 className="text-5xl md:text-8xl font-black mb-8 text-black dark:text-white tracking-tighter leading-[0.9] uppercase drop-shadow-[4px_4px_0px_rgba(0,0,0,0.2)] dark:drop-shadow-[4px_4px_0px_rgba(255,255,255,0.2)]">
+              Featured <br className="md:hidden" /> <span className="text-[#FF4D00]">Solutions</span>
             </h2>
-            <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-base md:text-lg font-medium leading-relaxed px-4">
+            <div className="max-w-2xl mx-auto text-black dark:text-white text-base md:text-lg font-bold leading-relaxed p-4 border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-[#CCFF00]">
               A showcase of my recent work and side projects. Built with modern technologies and best practices.
-            </p>
+            </div>
           </div>
 
           <ProjectList projects={projects} />

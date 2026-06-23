@@ -30,7 +30,7 @@ export default function ProjectLinks({ repoUrl, demoUrl, projectTitle }: Project
           href={demoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+          className="flex items-center gap-2 px-6 py-3 bg-[#2B5CE6] text-white font-black uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-150 active:scale-95"
         >
           <FaExternalLinkAlt />
           <span>Live Demo</span>
@@ -42,7 +42,7 @@ export default function ProjectLinks({ repoUrl, demoUrl, projectTitle }: Project
           href={repoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100 font-medium rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-all transform hover:-translate-y-1"
+          className="flex items-center gap-2 px-6 py-3 bg-white dark:bg-black text-black dark:text-white font-black uppercase tracking-widest border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.5)] hover:bg-gray-100 dark:hover:bg-gray-900 hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.6)] transition-all duration-150 active:scale-95"
         >
           <FaGithub className="text-xl" />
           <span>Source Code</span>
@@ -52,7 +52,7 @@ export default function ProjectLinks({ repoUrl, demoUrl, projectTitle }: Project
       <div className="relative">
         <button
           onClick={handleShare}
-          className="flex items-center gap-2 px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 font-medium rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
+          className="flex items-center gap-2 px-4 py-3 bg-[#CCFF00] text-black font-black uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-150 active:scale-95"
           aria-label="Share project"
         >
           <FaShareAlt />
@@ -64,10 +64,9 @@ export default function ProjectLinks({ repoUrl, demoUrl, projectTitle }: Project
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-xs rounded-md whitespace-nowrap"
+              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-widest text-[10px] border-2 border-transparent shadow-[2px_2px_0px_rgba(255,255,255,0.5)] dark:shadow-[2px_2px_0px_rgba(0,0,0,1)] whitespace-nowrap"
             >
               Link Copied!
-              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-black" />
             </motion.div>
           )}
         </AnimatePresence>

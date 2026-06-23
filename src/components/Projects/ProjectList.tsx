@@ -48,21 +48,21 @@ export default function ProjectList({ projects }: ProjectListProps) {
 
   return (
     <div onMouseMove={handleMouseMove} className="w-full">
-      {/* Search & Category Filter - Cyber Polish */}
+      {/* Search & Category Filter - Brutalist */}
       <div className="flex flex-col items-center gap-10 mb-20">
         {/* Search Bar */}
         <div className="relative w-full max-w-lg group">
            <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-              <svg className="h-4 w-4 text-gray-500 group-focus-within:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-4 w-4 text-black dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
            </div>
            <input
               type="text"
-              placeholder="Search projects..."
+              placeholder="SEARCH PROJECTS..."
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
-              className="block w-full pl-14 pr-6 py-4 border border-white/5 rounded-2xl bg-black/40 text-white placeholder-gray-600 focus:outline-none focus:ring-4 focus:ring-blue-500/10 hover:border-white/10 transition-all duration-500 font-medium backdrop-blur-3xl"
+              className="block w-full pl-14 pr-6 py-4 border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 focus:outline-none focus:shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_rgba(255,255,255,0.3)] transition-all duration-150 font-black uppercase tracking-widest shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)]"
            />
         </div>
 
@@ -74,11 +74,11 @@ export default function ProjectList({ projects }: ProjectListProps) {
                 <button
                   key={cat}
                   onClick={() => { setActiveCategory(cat); setPage(1); }}
-                  className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 border ${
+                  className={`px-8 py-3 text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-150 border-2 border-black dark:border-white ${
                     activeCategory === cat
-                      ? 'bg-blue-600/20 border-blue-500/50 text-white shadow-[0_0_30px_rgba(59,130,246,0.2)] scale-105'
-                      : 'bg-black/20 border-white/5 text-gray-500 hover:text-white hover:border-white/20'
-                  } backdrop-blur-md`}
+                      ? 'bg-[#2B5CE6] text-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.8)] -translate-y-1 -translate-x-1'
+                      : 'bg-white dark:bg-black text-black dark:text-white hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_rgba(255,255,255,0.5)]'
+                  }`}
                 >
                   {cat}
                 </button>
@@ -113,15 +113,15 @@ export default function ProjectList({ projects }: ProjectListProps) {
         ) : (
           /* Empty State */
            <motion.div
-            className="flex flex-col items-center justify-center min-h-[400px] text-center"
+            className="flex flex-col items-center justify-center min-h-[400px] text-center border-2 border-black dark:border-white border-dashed bg-white/50 dark:bg-black/50 p-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-             <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-3xl mb-8 border border-white/5 grayscale">🔍</div>
-             <p className="text-gray-500 text-lg font-black uppercase tracking-[0.2em]">0 Results Found</p>
+             <div className="w-16 h-16 bg-white dark:bg-black flex items-center justify-center text-3xl mb-8 border-2 border-black dark:border-white grayscale shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.5)]">🔍</div>
+             <p className="text-black dark:text-white text-lg font-black uppercase tracking-[0.2em]">0 Results Found</p>
              <button
                onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}
-               className="mt-6 text-blue-500 hover:text-blue-400 font-black text-xs uppercase tracking-[0.3em] transition-colors"
+               className="mt-6 text-[#FF4D00] hover:text-black dark:hover:text-white font-black text-xs uppercase tracking-[0.3em] transition-colors border-b-2 border-transparent hover:border-[#FF4D00]"
              >
                Reset Parameters
              </button>
@@ -129,17 +129,16 @@ export default function ProjectList({ projects }: ProjectListProps) {
         )}
       </AnimatePresence>
       
-      {/* Load More Button - Elitist Polish */}
+      {/* Load More Button - Brutalist */}
       {hasMore && (
         <div className="flex justify-center mt-24">
             <button
                 onClick={() => setPage(prev => prev + 1)}
-                className="group relative px-12 py-5 rounded-2xl bg-black/20 border border-white/5 hover:border-blue-500/30 transition-all active:scale-95 shadow-2xl"
+                className="group relative px-12 py-5 bg-[#CCFF00] border-2 border-black dark:border-white transition-all shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.3)] active:scale-95"
             >
-                <span className="text-[10px] font-black text-gray-500 group-hover:text-blue-400 uppercase tracking-[0.4em] transition-colors">
+                <span className="text-[10px] font-black text-black uppercase tracking-[0.4em] transition-colors">
                     Expand Project Database
                 </span>
-                <div className="absolute inset-0 rounded-2xl bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
         </div>
       )}

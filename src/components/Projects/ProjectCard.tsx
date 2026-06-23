@@ -161,66 +161,52 @@ export default function ProjectCard({ project, onClick, layoutId }: ProjectCardP
     <motion.div
       ref={cardRef}
       layoutId={layoutId}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, perspective: 1000 }}
-      className="group relative h-full flex flex-col cursor-pointer rounded-3xl overflow-hidden bg-white dark:bg-[#0A0C10] border border-gray-100 dark:border-white/10 shadow-lg hover:shadow-2xl transition-all duration-300"
+      className="group relative h-full flex flex-col cursor-pointer bg-white dark:bg-[#1a1c23] border-2 border-black dark:border-white transition-all duration-150 overflow-hidden shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.3)]"
       variants={itemVariants}
       onClick={onClick}
     >
-      {/* Spotlight Effect */}
-      <div className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100" 
-           style={{ 
-             background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59,130,246,0.1), transparent 40%)` 
-           }} 
-      />
-
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 via-transparent to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
       {/* Image Container */}
-      <div className="relative h-64 w-full overflow-hidden">
+      <div className="relative h-64 w-full overflow-hidden border-b-2 border-black dark:border-white bg-[#CCFF00]">
         <Image
           src={project.image_url || 'https://placehold.co/800x600?text=Project'}
           alt={project.title}
           fill
-          className="object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+          className="object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out grayscale hover:grayscale-0"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         
         {/* Category Badge */}
-        <div className="absolute top-5 left-5 z-20">
-           <span className="px-4 py-1.5 rounded-full bg-white/90 dark:bg-black/60 backdrop-blur-md text-gray-900 dark:text-white text-[10px] font-black uppercase tracking-widest shadow-xl border border-white/20">
+        <div className="absolute top-4 left-4 z-20">
+           <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-[10px] font-black uppercase tracking-widest border-2 border-transparent shadow-[2px_2px_0px_rgba(255,255,255,0.5)] dark:shadow-[2px_2px_0px_rgba(0,0,0,1)]">
               {project.category || 'Showcase'}
            </span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-grow p-8 relative z-20">
-        <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tight">
+      <div className="flex flex-col flex-grow p-6 relative z-20">
+        <h3 className="text-xl md:text-2xl font-black text-black dark:text-white mb-2 uppercase tracking-tight">
           {project.title}
         </h3>
         
-        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 md:line-clamp-3 mb-8 font-medium">
+        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-2 md:line-clamp-3 mb-6 font-bold">
           {project.summary || project.description}
         </p>
 
-        <div className="mt-auto pt-6 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
+        <div className="mt-auto pt-6 border-t-2 border-black dark:border-white flex items-center justify-between">
             <div className="flex items-center gap-3">
                {project.tech_stack?.slice(0, 4).map((tech, i) => (
-                 <div key={i} className="text-xl text-gray-400 dark:text-gray-500 hover:scale-125 transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400" title={tech}>
+                 <div key={i} className="text-xl grayscale group-hover:grayscale-0 transition-all duration-300" title={tech}>
                     {getTechIcon(tech)}
                  </div>
                ))}
                {project.tech_stack && project.tech_stack.length > 4 && (
-                 <span className="text-[10px] font-black text-gray-400 tracking-tighter">+{project.tech_stack.length - 4}</span>
+                 <span className="text-[10px] font-black text-black tracking-tighter bg-[#CCFF00] border-2 border-black px-1 shadow-[1px_1px_0px_rgba(0,0,0,1)]">+{project.tech_stack.length - 4}</span>
                )}
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white group-hover:translate-x-2 transition-transform">
-               Case Study <span className="text-blue-600 dark:text-blue-400 text-lg">→</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#FF4D00] group-hover:translate-x-1 transition-transform">
+               Case Study <span className="text-lg">→</span>
             </div>
         </div>
       </div>

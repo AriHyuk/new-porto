@@ -88,7 +88,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           {/* Modal Container */}
           <motion.div
             layoutId={`project-card-${project.id}`}
-            className="relative w-full max-w-6xl bg-white dark:bg-[#0A0C10] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] border border-gray-200/50 dark:border-white/10"
+            className="relative w-full max-w-6xl bg-white dark:bg-[#1a1c23] shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] border-4 border-black dark:border-white"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -98,13 +98,13 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 z-50 p-2.5 bg-black/20 hover:bg-black/40 dark:bg-white/10 dark:hover:bg-white/20 text-white rounded-xl transition-all backdrop-blur-xl group"
+              className="absolute top-4 right-4 z-50 p-2.5 bg-[#FF4D00] text-black border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all group"
             >
               <FaTimes className="text-lg group-hover:rotate-90 transition-transform duration-300" />
             </button>
 
-            {/* ===== LEFT: Image Carousel (Clean, no text overlay) ===== */}
-            <div className="w-full md:w-[45%] h-[280px] md:h-auto relative bg-gray-100 dark:bg-[#111] overflow-hidden group/carousel shrink-0">
+            {/* ===== LEFT: Image Carousel ===== */}
+            <div className="w-full md:w-[45%] h-[280px] md:h-auto relative bg-[#CCFF00] border-b-4 md:border-b-0 md:border-r-4 border-black dark:border-white overflow-hidden group/carousel shrink-0">
                <AnimatePresence mode="wait">
                  <motion.div
                    key={currentImageIndex}
@@ -118,38 +118,35 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       src={images[currentImageIndex] || "https://placehold.co/800x600?text=Project"}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover grayscale"
                       sizes="(max-width: 768px) 100vw, 45vw"
                       priority
                     />
                  </motion.div>
                </AnimatePresence>
-               
-                {/* Subtle vignette for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 pointer-events-none" />
                 
                 {/* Carousel Controls */}
                 {images.length > 1 && (
                   <>
                     <button
                       onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-black/30 hover:bg-black/60 backdrop-blur-md text-white opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-30"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-white text-black border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-y-[calc(-50%-2px)] hover:translate-x-[-2px] hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] opacity-0 group-hover/carousel:opacity-100 transition-all duration-150 z-30"
                     >
                       <FaChevronLeft className="text-sm" />
                     </button>
                     <button
                       onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-black/30 hover:bg-black/60 backdrop-blur-md text-white opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-30"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-white text-black border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-y-[calc(-50%-2px)] hover:translate-x-[-2px] hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] opacity-0 group-hover/carousel:opacity-100 transition-all duration-150 z-30"
                     >
                       <FaChevronRight className="text-sm" />
                     </button>
                     {/* Dot Indicators */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-30">
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
                       {images.map((_, i) => (
                         <button
                           key={i}
                           onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
-                          className={`h-1.5 rounded-full transition-all duration-300 ${i === currentImageIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/60'}`}
+                          className={`h-2 transition-all duration-150 border-2 border-black ${i === currentImageIndex ? 'w-6 bg-[#FF4D00]' : 'w-2 bg-white'}`}
                         />
                       ))}
                     </div>
@@ -157,21 +154,21 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 )}
             </div>
 
-            {/* ===== RIGHT: Content Panel (Title moved here) ===== */}
-            <div className="w-full md:w-[55%] flex flex-col overflow-y-auto custom-scrollbar bg-white dark:bg-[#0A0C10]">
+            {/* ===== RIGHT: Content Panel ===== */}
+            <div className="w-full md:w-[55%] flex flex-col overflow-y-auto custom-scrollbar bg-white dark:bg-[#1a1c23]">
               
-              {/* Header: Title + Category (NO LONGER overlapping image) */}
-              <motion.div variants={contentVariants} className="px-8 pt-8 pb-6 md:px-12 md:pt-12 md:pb-8 border-b border-gray-100 dark:border-white/5">
+              {/* Header: Title + Category */}
+              <motion.div variants={contentVariants} className="px-8 pt-8 pb-6 md:px-12 md:pt-12 md:pb-8 border-b-4 border-black dark:border-white">
                 <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-600/10 border border-blue-200/50 dark:border-blue-500/20 text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                  <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black border-2 border-transparent text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_rgba(255,255,255,0.5)] dark:shadow-[2px_2px_0px_rgba(0,0,0,1)]">
                     {project.category || 'Showcase'}
                   </span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white leading-tight tracking-tight">
+                <h2 className="text-3xl md:text-5xl font-black text-black dark:text-white leading-tight tracking-tight uppercase">
                   {project.title}
                 </h2>
                 {project.summary && project.summary !== project.description && (
-                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-3 leading-relaxed font-medium">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm mt-4 font-bold">
                     {project.summary}
                   </p>
                 )}
@@ -183,10 +180,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {/* Overview Section */}
                 <motion.section variants={contentVariants}>
                   <div className="flex items-center gap-2.5 mb-4">
-                    <FaRocket className="text-blue-500 text-sm" />
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">The Overview</h3>
+                    <FaRocket className="text-black dark:text-white text-sm" />
+                    <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white border-b-2 border-black dark:border-white inline-block">THE OVERVIEW</h3>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
+                  <p className="text-gray-800 dark:text-gray-200 text-base leading-relaxed font-medium">
                     {project.description || project.summary}
                   </p>
                 </motion.section>
@@ -194,15 +191,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {/* Challenge */}
                 {project.challenge && (
                   <motion.section variants={contentVariants}>
-                    <div className="p-6 rounded-2xl bg-amber-50/50 dark:bg-amber-500/[0.03] border border-amber-200/30 dark:border-amber-500/10 relative overflow-hidden">
-                       <div className="absolute -top-2 -right-2 opacity-[0.04]">
-                          <FaLightbulb className="text-7xl text-amber-500" />
-                       </div>
+                    <div className="p-6 bg-[#FF4D00] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] relative overflow-hidden">
                        <div className="flex items-center gap-2.5 mb-3">
-                          <FaLightbulb className="text-amber-500 text-sm" />
-                          <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">The Challenge</h3>
+                          <FaLightbulb className="text-black text-sm" />
+                          <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black">THE CHALLENGE</h3>
                        </div>
-                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm italic">
+                       <p className="text-black font-bold text-sm uppercase">
                          &ldquo;{project.challenge}&rdquo;
                        </p>
                     </div>
@@ -213,10 +207,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {project.contribution && (
                   <motion.section variants={contentVariants}>
                     <div className="flex items-center gap-2.5 mb-4">
-                      <FaTools className="text-purple-500 text-sm" />
-                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-500">My Contribution</h3>
+                      <FaTools className="text-black dark:text-white text-sm" />
+                      <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white border-b-2 border-black dark:border-white inline-block">MY CONTRIBUTION</h3>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+                    <p className="text-gray-800 dark:text-gray-200 leading-relaxed text-sm font-medium">
                       {project.contribution}
                     </p>
                   </motion.section>
@@ -226,18 +220,18 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {project.key_features && project.key_features.length > 0 && (
                   <motion.section variants={contentVariants}>
                     <div className="flex items-center gap-2.5 mb-5">
-                      <HiLightningBolt className="text-emerald-500 text-sm" />
-                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500">Core Features</h3>
+                      <HiLightningBolt className="text-black dark:text-white text-sm" />
+                      <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white border-b-2 border-black dark:border-white inline-block">CORE FEATURES</h3>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {project.key_features.map((feature, i) => (
                         <motion.div 
                           key={i} 
                           variants={contentVariants}
-                          className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50/80 dark:bg-white/[0.02] border border-gray-100 dark:border-white/5"
+                          className="flex items-start gap-3 p-4 bg-white dark:bg-black border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)]"
                         >
-                           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-                           <span className="text-sm text-gray-600 dark:text-gray-300">{feature}</span>
+                           <div className="w-2 h-2 bg-[#CCFF00] mt-1.5 shrink-0 border border-black" />
+                           <span className="text-sm text-black dark:text-white font-bold">{feature}</span>
                         </motion.div>
                       ))}
                     </div>
@@ -245,11 +239,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 )}
 
                 {/* Tech Stack */}
-                <motion.section variants={contentVariants} className="pt-8 border-t border-gray-100 dark:border-white/5">
-                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 mb-4 text-center">Engineered With</h3>
-                   <div className="flex flex-wrap justify-center gap-2">
+                <motion.section variants={contentVariants} className="pt-8 border-t-4 border-black dark:border-white">
+                   <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white mb-6 text-center">ENGINEERED WITH</h3>
+                   <div className="flex flex-wrap justify-center gap-3">
                       {project.tech_stack?.map((tech, i) => (
-                        <span key={i} className="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 text-xs font-medium border border-gray-200/50 dark:border-white/5 transition-colors hover:border-blue-300 dark:hover:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/5">
+                        <span key={i} className="px-4 py-2 bg-white dark:bg-black text-black dark:text-white text-xs font-black uppercase border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)] hover:bg-[#CCFF00] dark:hover:bg-[#CCFF00] hover:text-black dark:hover:text-black hover:-translate-y-1 transition-all duration-150">
                           {tech}
                         </span>
                       ))}
@@ -257,13 +251,13 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 </motion.section>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   {project.demo_url && (
                     <a
                       href={project.demo_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 py-4 flex items-center justify-center gap-2.5 bg-blue-600 text-white rounded-2xl font-bold text-sm hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.25)] transition-all duration-300 active:scale-[0.97]"
+                      className="flex-1 py-4 flex items-center justify-center gap-2.5 bg-[#2B5CE6] text-white font-black text-sm uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-150 active:scale-95"
                     >
                       <FaExternalLinkAlt className="text-xs" /> Live Showcase
                     </a>
@@ -273,7 +267,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       href={project.repo_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 py-4 flex items-center justify-center gap-2.5 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white rounded-2xl font-bold text-sm hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 border border-gray-200 dark:border-white/10 active:scale-[0.97]"
+                      className="flex-1 py-4 flex items-center justify-center gap-2.5 bg-white text-black font-black text-sm uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-gray-100 hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-150 active:scale-95"
                     >
                       <FaGithub className="text-lg" /> Repository
                     </a>
