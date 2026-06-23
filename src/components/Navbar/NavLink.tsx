@@ -2,7 +2,6 @@
 
 import { Link as ScrollLink } from 'react-scroll';
 import Link from 'next/link';
-import { FaRocket } from 'react-icons/fa';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 
@@ -16,25 +15,38 @@ interface NavLinkProps {
 }
 
 export default function NavLink({ to, label, isActive, isHome, onClick, onSetActive }: NavLinkProps) {
+  const baseClass = clsx(
+    'relative cursor-pointer text-xs font-black uppercase tracking-widest transition-all duration-150 px-1 py-0.5',
+    isActive
+      ? 'text-[#2B5CE6] dark:text-[#5b82ff]'
+      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+  );
+
+  const activeIndicator = isActive ? (
+    <motion.span
+      layoutId="nav-active-bar"
+      className="absolute -bottom-[3px] left-0 w-full h-[3px] bg-[#2B5CE6]"
+      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+    />
+  ) : null;
+
   if (!isHome) {
     return (
-      <div className="relative group">
+      <div className="relative">
         <Link
           href={`/#${to}`}
-          className={clsx(
-            'px-4 md:px-0 py-2 md:py-0 font-semibold transition-all duration-300 flex items-center justify-between md:justify-start',
-            isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-500'
-          )}
+          className={baseClass}
           onClick={onClick}
         >
-          <span>{label}</span>
+          {label}
+          {activeIndicator}
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="relative group">
+    <div className="relative">
       <ScrollLink
         to={to}
         href={`#${to}`}
@@ -42,59 +54,12 @@ export default function NavLink({ to, label, isActive, isHome, onClick, onSetAct
         smooth={true}
         duration={500}
         offset={-70}
-        className={clsx(
-          'cursor-pointer px-4 md:px-0 py-2 md:py-0 font-semibold transition-all duration-300 flex items-center justify-between md:justify-start',
-          isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-500'
-        )}
+        className={baseClass}
         onClick={onClick}
         onSetActive={() => onSetActive(to)}
       >
-        <span className="transition-all duration-300">{label}</span>
-        
-        {/* Mobile Rocket - Only visible when active on mobile */}
-        {isActive && (
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="md:hidden ml-2"
-          >
-            <FaRocket className="text-blue-500 text-sm" />
-          </motion.div>
-        )}
-
-        {/* Desktop Rocket & Underline */}
-        <div className="hidden md:block">
-          {isActive && (
-            <>
-              <motion.div 
-                layoutId="rocket"
-                className="absolute -right-5 top-1/2 -translate-y-1/2 z-10"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <motion.div
-                  animate={{ y: [0, -4, 0] }}
-                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <FaRocket className="text-blue-500 text-xs" />
-                </motion.div>
-              </motion.div>
-              
-              <motion.div 
-                layoutId="underline"
-                className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500 to-transparent blur-[1px]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.div 
-                layoutId="underline-glow"
-                className="absolute -bottom-1 left-0 w-full h-[1px] bg-blue-400 z-20"
-              />
-            </>
-          )}
-        </div>
+        {label}
+        {activeIndicator}
       </ScrollLink>
     </div>
   );

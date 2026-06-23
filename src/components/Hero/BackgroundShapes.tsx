@@ -1,75 +1,60 @@
 'use client';
 
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { shapeVariants } from '@/utils/animation';
-import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export default function BackgroundShapes() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Smooth out the mouse movement
-  const spotlightX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const spotlightY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
+    setMounted(true);
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Mesh Grid Overlay */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" 
-           style={{ 
-             backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.5) 1px, transparent 0)`,
-             backgroundSize: '40px 40px' 
-           }} 
-      />
+      {/* Left Panel - Cream/Off-white */}
+      <div className="absolute inset-y-0 left-0 w-full md:w-[52%] bg-[#F5F0E8] dark:bg-[#0F1117]" />
 
-      {/* Interactive Spotlight */}
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/5 dark:bg-blue-400/5 blur-[120px] z-0"
+      {/* Right Panel - Vivid Blue with polka dots */}
+      <div
+        className="absolute inset-y-0 right-0 w-full md:w-[48%] bg-[#2B5CE6] dark:bg-[#1a3ab0]"
         style={{
-          x: spotlightX,
-          y: spotlightY,
-          translateX: '-50%',
-          translateY: '-50%',
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 2px, transparent 0)`,
+          backgroundSize: '28px 28px',
         }}
       />
 
-      {/* Top Right Glow */}
-      <motion.div 
-        className="absolute top-20 right-10 w-64 h-64 rounded-full bg-blue-100 dark:bg-blue-900/20 filter blur-3xl"
-        variants={shapeVariants}
-        custom={0}
-        initial="hidden"
-        animate="visible"
-      />
-      
-      {/* Bottom Left Glow */}
-      <motion.div 
-        className="absolute bottom-20 left-10 w-40 h-40 rounded-full bg-purple-100 dark:bg-purple-900/20 filter blur-3xl"
-        variants={shapeVariants}
-        custom={1}
-        initial="hidden"
-        animate="visible"
-      />
-      
-      {/* Center Glow */}
-      <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-yellow-50 dark:bg-yellow-900/10 filter blur-3xl opacity-50"
-        variants={shapeVariants}
-        custom={2}
-        initial="hidden"
-        animate="visible"
-      />
+      {/* Diagonal split accent line */}
+      <div className="absolute top-0 bottom-0 left-[52%] w-[3px] bg-black/10 hidden md:block" />
 
-      {/* Decorative dots or extra shapes could go here */}
+      {/* Floating geometric accents - Right panel */}
+      {mounted && (
+        <>
+          <motion.div
+            className="absolute top-[15%] right-[18%] w-16 h-16 border-4 border-[#CCFF00] rounded-lg rotate-12 hidden md:block"
+            animate={{ rotate: [12, 20, 12], y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute bottom-[20%] right-[30%] w-10 h-10 bg-[#FF4D00] rounded-full hidden md:block"
+            animate={{ scale: [1, 1.15, 1], y: [0, -6, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+          />
+          <motion.div
+            className="absolute top-[55%] right-[10%] w-8 h-8 border-4 border-white/40 rotate-45 hidden md:block"
+            animate={{ rotate: [45, 90, 45], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
+          />
+        </>
+      )}
+
+      {/* Top-left subtle noise texture */}
+      <div
+        className="absolute inset-y-0 left-0 w-full md:w-[52%] opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        }}
+      />
     </div>
   );
 }

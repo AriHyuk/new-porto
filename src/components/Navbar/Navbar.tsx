@@ -2,16 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaBars, FaTimes } from 'react-icons/fa';
 import { clsx } from 'clsx';
-import { navVariants, letterVariants } from '@/utils/animation';
-import { useTheme } from 'next-themes';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import NavLink from './NavLink';
 import dynamic from 'next/dynamic';
 import BrandLogo from './BrandLogo';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const MobileMenu = dynamic(() => import('./MobileMenu'), {
   ssr: false,
@@ -19,64 +16,30 @@ const MobileMenu = dynamic(() => import('./MobileMenu'), {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
   const isHome = pathname === '/';
-  
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('hero');
-  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Handle hydration mismatch
   useEffect(() => {
     setMounted(true);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
-  // Advanced Scroll Animations
-  const { scrollY } = useScroll();
-  
-  // Dynamic background based on theme
-  const isDark = mounted && resolvedTheme === 'dark';
-  const bgColorStart = isDark ? 'rgba(10, 12, 16, 0)' : 'rgba(255, 255, 255, 0)';
-  const bgColorEnd = isDark ? 'rgba(11, 13, 18, 0.8)' : 'rgba(255, 255, 255, 0.8)';
-  const borderColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
-
-  // Transform values based on scroll position
-  const navWidth = useTransform(scrollY, [0, 100], ['100%', '85%']);
-  const navTop = useTransform(scrollY, [0, 100], ['0px', '20px']);
-  const navBorderRadius = useTransform(scrollY, [0, 100], ['0px', '24px']);
-  const navBackground = useTransform(
-    scrollY, 
-    [0, 100], 
-    [bgColorStart, bgColorEnd]
-  );
-  const navBackdropBlur = useTransform(scrollY, [0, 100], ['0px', '12px']);
-  const navBorder = useTransform(
-    scrollY, 
-    [0, 100], 
-    ['1px solid rgba(0,0,0,0)', `1px solid ${borderColor}`]
-  );
-  const navShadow = useTransform(
-    scrollY,
-    [0, 100],
-    ['0px 0px 0px rgba(0,0,0,0)', '0px 10px 30px -10px rgba(0,0,0,0.1)']
-  );
-
-  // Dark mode specifics (handled via CSS variables or conditional logic if needed, 
-  // but framer motion handles rgba interpolation efficiently)
 
   const navLinks = [
     { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'portfolio', label: 'Projects' },
-    { id: 'certificates', label: 'Certificates' },
+    { id: 'certificates', label: 'Certs' },
   ];
 
   const handleLinkClick = (section: string) => {
     setActiveLink(section);
     setMenuOpen(false);
-    
-    // Smooth scroll for non-ScrollLink triggers
     const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -85,82 +48,111 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-50">
+        {/* Top accent bar — neon yellow, like the ClipFun marquee bar */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="w-full h-[3px] bg-[#CCFF00] origin-left"
+        />
+
+        {/* Main nav bar */}
         <motion.nav
-          style={{
-            width: navWidth,
-            top: navTop,
-            borderRadius: navBorderRadius,
-            backgroundColor: navBackground,
-            backdropFilter: navBackdropBlur,
-            border: navBorder,
-            boxShadow: navShadow,
-          }}
-          className="pointer-events-auto px-4 md:px-8 py-3 md:py-4 transition-all duration-500 max-w-7xl mx-auto dark:bg-[#0B0D12]/80"
+          initial={{ y: -60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.5, ease: 'easeOut' }}
+          className={clsx(
+            'w-full px-5 md:px-10 py-3 flex items-center justify-between transition-all duration-300',
+            scrolled
+              ? 'bg-[#F5F0E8]/95 dark:bg-[#0F1117]/95 backdrop-blur-md border-b-2 border-black/10 dark:border-white/10 shadow-[0_2px_0px_rgba(0,0,0,0.08)]'
+              : 'bg-[#F5F0E8] dark:bg-[#0F1117]'
+          )}
         >
-          <div className="flex justify-between items-center">
-            {/* Animated Brand Name */}
-            <BrandLogo />
+          {/* Brand */}
+          <BrandLogo />
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              <div className="flex items-center gap-6 mr-4">
-                {navLinks.map((link) => (
-                  <NavLink
-                    key={link.id}
-                    to={link.id}
-                    label={link.label}
-                    isActive={activeLink === link.id}
-                    isHome={isHome}
-                    onSetActive={setActiveLink}
-                  />
-                ))}
-              </div>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.id}
+                to={link.id}
+                label={link.label}
+                isActive={activeLink === link.id}
+                isHome={isHome}
+                onSetActive={setActiveLink}
+              />
+            ))}
 
-              <Link
-                href="/blog"
+            {/* Divider */}
+            <span className="w-px h-4 bg-black/20 dark:bg-white/20" />
+
+            <Link
+              href="/blog"
+              className={clsx(
+                'text-xs font-black uppercase tracking-widest transition-colors duration-150',
+                pathname === '/blog'
+                  ? 'text-[#2B5CE6] dark:text-[#5b82ff]'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              )}
+            >
+              Blog
+            </Link>
+          </div>
+
+          {/* Right actions */}
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+
+            {/* CTA button — hard shadow brutalist */}
+            <motion.a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('contact');
+              }}
+              whileHover={{ y: -2, x: -1 }}
+              className="px-5 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-black uppercase tracking-widest border-2 border-black dark:border-white shadow-[3px_3px_0px_#2B5CE6] hover:shadow-[5px_5px_0px_#2B5CE6] transition-shadow duration-150 cursor-pointer"
+            >
+              Let's Collaborate
+            </motion.a>
+          </div>
+
+          {/* Mobile: theme + hamburger */}
+          <div className="flex md:hidden items-center gap-3">
+            <ThemeToggle />
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle Menu"
+              className="w-8 h-8 flex flex-col items-center justify-center gap-[5px] border-2 border-black dark:border-white bg-transparent hover:bg-black dark:hover:bg-white group transition-colors duration-150 shadow-[2px_2px_0px_rgba(43,92,230,0.8)]"
+            >
+              <span
                 className={clsx(
-                  "text-sm font-semibold transition-all duration-300",
-                  pathname === '/blog' ? "text-blue-600 dark:text-blue-400" : "text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                  'block w-4 h-[2px] bg-black dark:bg-white group-hover:bg-white dark:group-hover:bg-black transition-all duration-200',
+                  menuOpen && 'rotate-45 translate-y-[7px]'
                 )}
-              >
-                Blog
-              </Link>
-
-              <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2" />
-
-              <ThemeToggle />
-
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick('contact');
-                }}
-                className="px-6 py-2 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors text-sm"
-              >
-                Let's Collaborate
-              </a>
-            </div>
-
-            {/* Mobile Toggle & Icons */}
-            <div className="flex md:hidden items-center gap-4">
-              <ThemeToggle />
-              
-              <button 
-                className="p-2 text-2xl text-gray-800 dark:text-gray-100 focus:outline-none"
-                onClick={() => setMenuOpen(!menuOpen)}
-                aria-label="Toggle Menu"
-              >
-                {menuOpen ? <FaTimes /> : <FaBars />}
-              </button>
-            </div>
+              />
+              <span
+                className={clsx(
+                  'block w-4 h-[2px] bg-black dark:bg-white group-hover:bg-white dark:group-hover:bg-black transition-all duration-200',
+                  menuOpen && 'opacity-0'
+                )}
+              />
+              <span
+                className={clsx(
+                  'block w-4 h-[2px] bg-black dark:bg-white group-hover:bg-white dark:group-hover:bg-black transition-all duration-200',
+                  menuOpen && '-rotate-45 -translate-y-[7px]'
+                )}
+              />
+            </motion.button>
           </div>
         </motion.nav>
       </div>
 
-      {/* Mobile Menu Content */}
-      <MobileMenu 
+      <MobileMenu
         isOpen={menuOpen}
         navLinks={navLinks}
         activeLink={activeLink}

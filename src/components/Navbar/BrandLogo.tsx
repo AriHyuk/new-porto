@@ -9,18 +9,10 @@ interface BrandLogoProps {
 }
 
 export default function BrandLogo({ className, onClick }: BrandLogoProps) {
-  const brandText = "AriHyuk";
-  
-  const springTransition = {
-    type: 'spring' as const,
-    stiffness: 400,
-    damping: 10,
-  };
-
   return (
-    <Link 
+    <Link
       href="/"
-      className={`text-2xl font-black cursor-pointer relative group flex items-center gap-1.5 ${className}`}
+      className={`flex items-center gap-0 cursor-pointer group ${className}`}
       onClick={(e) => {
         if (onClick) {
           onClick();
@@ -30,41 +22,32 @@ export default function BrandLogo({ className, onClick }: BrandLogoProps) {
         }
       }}
     >
-      <div className="flex items-baseline py-1">
-        {brandText.split("").map((char, index) => (
-          <motion.span 
-            key={index}
-            className="inline-block transition-colors duration-300 text-blue-600 dark:text-blue-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-            whileHover={{ 
-              y: -8, 
-              scale: 1.1,
-              transition: { ...springTransition, scale: { duration: 0.2 } } 
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {char}
-          </motion.span>
-        ))}
-        
-        {/* Logo Icon */}
-        <motion.span 
-          className="ml-1 text-blue-600 dark:text-blue-500 font-mono text-base font-bold transition-colors duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-          whileHover={{ 
-            y: -8,
-            scale: 1.1,
-            rotate: [0, -10, 10, 0],
-            transition: { 
-              ...springTransition,
-              rotate: { duration: 0.4, ease: "easeInOut" },
-              scale: { duration: 0.2 }
-            } 
-          }}
-          whileTap={{ scale: 0.95 }}
-        >
-          &lt;/&gt;
-        </motion.span>
-      </div>
-      
+      {/* "ARI" block */}
+      <motion.span
+        whileHover={{ y: -2 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 12 }}
+        className="text-xl font-black uppercase tracking-tight text-gray-900 dark:text-white px-2 py-1 border-2 border-black dark:border-white bg-transparent group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors duration-150"
+      >
+        ARI
+      </motion.span>
+
+      {/* "HYUK" block — filled accent */}
+      <motion.span
+        whileHover={{ y: -2 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 12, delay: 0.04 }}
+        className="text-xl font-black uppercase tracking-tight bg-[#2B5CE6] text-white px-2 py-1 border-2 border-black dark:border-[#2B5CE6] group-hover:bg-[#1a3ab0] transition-colors duration-150"
+      >
+        HYUK
+      </motion.span>
+
+      {/* Code tag accent */}
+      <motion.span
+        whileHover={{ y: -2 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 12, delay: 0.08 }}
+        className="text-[11px] font-black font-mono text-[#2B5CE6] dark:text-[#5b82ff] ml-1.5 hidden sm:block"
+      >
+        &lt;/&gt;
+      </motion.span>
     </Link>
   );
 }

@@ -1,10 +1,9 @@
 'use client';
 
 import { Link as ScrollLink } from 'react-scroll';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { textVariants, buttonVariants } from '@/utils/animation';
+import { textVariants } from '@/utils/animation';
 import AnimatedText from './AnimatedText';
 import BackgroundShapes from './BackgroundShapes';
 import TechPill from './TechPill';
@@ -16,69 +15,74 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center px-4 md:px-8 h-[100dvh] min-h-[600px] max-h-[1080px] overflow-hidden bg-white dark:bg-[#0A0C10] transition-colors pt-24 md:pt-20"
+      className="relative flex items-center justify-center px-4 md:px-0 h-[100dvh] min-h-[600px] max-h-[1080px] overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors pt-24 md:pt-20"
     >
-      {/* Background visual components */}
+      {/* Split Background */}
       <BackgroundShapes />
 
       {/* Main Container */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between h-full z-10 gap-8 lg:gap-12 md:-translate-y-10">
-        {/* Left Section - Content */}
-        <div className="md:w-1/2 text-center md:text-left z-10 space-y-6 md:space-y-8 flex flex-col justify-center h-full w-full">
-          <motion.p
+      <div className="w-full max-w-none flex flex-col md:flex-row items-stretch h-full z-10">
+
+        {/* ─── LEFT PANEL ─── */}
+        <div className="md:w-[52%] flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 space-y-6 md:space-y-8 relative">
+
+          {/* Badge pill */}
+          <motion.div
             variants={textVariants}
             initial="hidden"
             animate="visible"
-            className="text-blue-600 dark:text-blue-500 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center justify-center md:justify-start gap-4"
+            className="inline-flex items-center w-fit"
           >
-            <span className="w-10 h-[2px] bg-blue-600/30 hidden md:block" />
-            I build systems that scale <code className="bg-blue-50/80 dark:bg-blue-900/40 px-2 py-1 rounded text-blue-700 dark:text-blue-400 font-mono text-[10px] sm:text-xs border border-blue-200 dark:border-blue-800/60 shadow-sm">&lt;/&gt;</code>
-          </motion.p>
+            <span className="bg-[#2B5CE6] text-white text-[10px] sm:text-xs font-black uppercase tracking-widest px-4 py-2 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)]">
+              I BUILD SYSTEMS THAT SCALE &nbsp;&lt;/&gt;
+            </span>
+          </motion.div>
 
-          {/* Hero Headlines */}
-          <div className="flex flex-col relative w-full lg:w-max">
-            <AnimatedText 
+          {/* ── Headline ── */}
+          <div className="flex flex-col relative w-full">
+            <AnimatedText
               text="Fullstack"
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.9] relative z-20"
+              className="text-[3.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.85] uppercase"
             />
-            <div className="relative mt-1 md:mt-2">
+            <div className="relative mt-0">
               <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-blue-600 dark:text-blue-500 tracking-tight leading-[1.1] pb-2 whitespace-nowrap z-20"
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5, duration: 0.6, ease: 'easeOut' }}
+                className="text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] xl:text-[5rem] font-black text-[#2B5CE6] dark:text-[#5b82ff] tracking-tight leading-[1] uppercase"
               >
-                Software Engineer
+                Software
               </motion.p>
-              {/* Creative Underline/Decor */}
-              <motion.div 
-                initial={{ scaleX: 0, opacity: 0 }}
-                animate={{ scaleX: 1, opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-                className="absolute bottom-0 left-0 w-1/3 h-2 bg-blue-600 rounded-full hidden md:block z-10" 
-              />
+              <motion.p
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7, duration: 0.6, ease: 'easeOut' }}
+                className="text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] xl:text-[5rem] font-black italic text-[#FF4D00] tracking-tight leading-[1] uppercase"
+              >
+                Engineer.
+              </motion.p>
             </div>
           </div>
 
+          {/* Description */}
           <motion.p
             variants={textVariants}
             initial="hidden"
             animate="visible"
-            className="text-gray-600 dark:text-gray-400 text-base md:text-lg lg:text-xl max-w-xl mb-8 leading-relaxed mx-auto md:mx-0 font-medium"
+            className="text-gray-700 dark:text-gray-300 text-sm md:text-base lg:text-lg max-w-md leading-relaxed font-medium border-l-4 border-[#2B5CE6] pl-4"
           >
-            Building end-to-end web applications — from intuitive user interfaces 
+            Building end-to-end web applications — from intuitive user interfaces
             to scalable backend systems. Architecture-obsessed, detail-oriented.
           </motion.p>
-          
-          {/* Call to Actions */}
-          <div className="flex flex-wrap gap-5 justify-center md:justify-start">
+
+          {/* CTA */}
+          <div className="flex flex-wrap gap-4 pt-2">
             <motion.div
-              variants={buttonVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
-              whileTap="tap"
-              className="relative group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              whileHover={{ y: -3, x: -2 }}
+              className="relative"
             >
               <ScrollLink
                 to="portfolio"
@@ -86,42 +90,90 @@ export default function Hero() {
                 smooth={true}
                 duration={500}
                 offset={-70}
-                className="relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-2xl font-bold uppercase tracking-wider text-sm flex items-center justify-center cursor-pointer transition-all duration-300 shadow-xl hover:shadow-2xl"
+                className="relative block px-8 py-4 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-wider text-sm border-2 border-black shadow-[4px_4px_0px_rgba(43,92,230,1)] hover:shadow-[6px_6px_0px_rgba(43,92,230,1)] transition-shadow duration-200 cursor-pointer"
               >
-                <span className="relative z-10 flex items-center gap-3">
+                <span className="flex items-center gap-3">
                   View My Work
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </span>
+              </ScrollLink>
+            </motion.div>
+
+            {/* Secondary CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.5 }}
+              whileHover={{ y: -3, x: -2 }}
+            >
+              <ScrollLink
+                to="contact"
+                href="#contact"
+                smooth={true}
+                duration={500}
+                offset={-70}
+                className="block px-8 py-4 bg-transparent text-gray-900 dark:text-white font-black uppercase tracking-wider text-sm border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,0.3)] hover:shadow-[6px_6px_0px_rgba(0,0,0,0.4)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.3)] transition-shadow duration-200 cursor-pointer"
+              >
+                Let's Talk
               </ScrollLink>
             </motion.div>
           </div>
         </div>
 
-        {/* Right Section - Profile Image */}
-        <div className="md:w-1/2 flex justify-center md:justify-end z-10 items-center relative mt-12 md:mt-0 h-1/2 md:h-full w-full">
-          <div className="relative group flex items-center justify-center scale-90 sm:scale-100 transform-gpu transition-transform duration-500">
-            {/* Tech Pills - Positioned relative to the image container */}
-            <TechPill 
-              icon={<SiGo />} 
-              label="Go" 
-              className="-top-6 -left-4 md:-top-10 md:-left-8 z-20 hidden sm:flex" 
+        {/* ─── RIGHT PANEL ─── */}
+        <div className="md:w-[48%] flex justify-center items-center relative overflow-hidden">
+          {/* Profile image wrapper */}
+          <div className="relative flex items-center justify-center">
+            {/* Tech Pills */}
+            <TechPill
+              icon={<SiGo />}
+              label="Go"
+              className="-top-4 -left-6 md:-top-8 md:-left-10 z-20 hidden sm:flex"
               delay={1.5}
+              variant="accent"
             />
-            <TechPill 
-              icon={<SiGooglecloud />} 
-              label="GCP" 
-              className="top-1/4 -right-6 md:-right-12 lg:-right-16 z-20 hidden sm:flex" 
+            <TechPill
+              icon={<SiGooglecloud />}
+              label="GCP"
+              className="top-1/4 -right-4 md:-right-10 z-20 hidden sm:flex"
               delay={1.8}
+              variant="dark"
             />
-            <TechPill 
-              icon={<SiReact />} 
-              label="React" 
-              className="bottom-10 -left-6 md:bottom-16 md:-left-8 lg:-left-12 z-20 hidden sm:flex" 
+            <TechPill
+              icon={<SiReact />}
+              label="React"
+              className="bottom-8 -left-4 md:bottom-12 md:-left-10 z-20 hidden sm:flex"
               delay={2.1}
+              variant="light"
             />
-            
+
             <ProfileImage />
           </div>
+
+          {/* Bold label bottom-left of right panel */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
+            className="absolute bottom-10 left-8 hidden md:block"
+          >
+            <div className="bg-[#CCFF00] border-2 border-black px-4 py-2 shadow-[4px_4px_0px_rgba(0,0,0,1)] rotate-[-2deg]">
+              <p className="text-black text-xs font-black uppercase tracking-widest">OPEN TO WORK ✓</p>
+            </div>
+          </motion.div>
+
+          {/* Big decorative text watermark */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6, duration: 1 }}
+            className="absolute bottom-16 right-6 text-white/10 font-black uppercase text-[6rem] leading-none select-none hidden lg:block"
+            aria-hidden="true"
+          >
+            DEV
+          </motion.div>
         </div>
       </div>
 
@@ -132,27 +184,32 @@ export default function Hero() {
 
 function ProfileImage() {
   return (
-    <motion.div 
-      className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[460px] xl:h-[460px] bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-[2.5rem] lg:rounded-[3rem] xl:rounded-[3.5rem] p-1 shadow-[0_0_50px_rgba(59,130,246,0.2)] dark:shadow-[0_0_50px_rgba(59,130,246,0.1)] border border-white/20 overflow-hidden"
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8, rotate: -3 }}
+      animate={{ opacity: 1, scale: 1, rotate: 2 }}
+      transition={{ delay: 0.6, duration: 0.8, type: 'spring', damping: 15 }}
+      whileHover={{ rotate: 0, scale: 1.02 }}
+      className="relative w-52 h-64 sm:w-64 sm:h-80 md:w-72 md:h-96 lg:w-80 lg:h-[440px] xl:w-96 xl:h-[500px] bg-white border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] overflow-hidden"
     >
-      <div className="relative w-full h-full bg-white dark:bg-gray-950/80 rounded-[2.3rem] lg:rounded-[2.8rem] xl:rounded-[3.3rem] overflow-hidden">
-        <Image
-          src={profileAvatar}
-          alt="Ari Hyuk Profile"
-          fill
-          priority
-          placeholder="blur"
-          className="object-cover scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
-          onError={(e) => {
-            // Fail gracefully, maybe show a generic avatar or just hide the image
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-          }}
-        />
-        
-        {/* Modern Overlay Gradient with more contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent opacity-80" />
+      <Image
+        src={profileAvatar}
+        alt="Ari Hyuk Profile"
+        fill
+        priority
+        placeholder="blur"
+        className="object-cover object-top"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.style.display = 'none';
+        }}
+      />
+
+      {/* Bottom label strip */}
+      <div className="absolute bottom-0 left-0 right-0 bg-black px-4 py-2">
+        <p className="text-white text-xs font-black uppercase tracking-widest text-center">
+          Ari Hyuk · Bandung 🇮🇩
+        </p>
       </div>
     </motion.div>
   );
