@@ -15,41 +15,41 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
     <AnimatePresence>
       {certificate && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
           <motion.div
-            className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col relative"
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            className="bg-white dark:bg-[#0F1117] border-4 border-black dark:border-white shadow-[16px_16px_0px_rgba(0,0,0,1)] dark:shadow-[16px_16px_0px_rgba(255,255,255,1)] max-w-3xl w-full max-h-[90vh] flex flex-col relative"
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
             onClick={(e) => e.stopPropagation()}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           >
             {/* Header */}
-            <div className="flex justify-between items-center p-6 border-b border-gray-100 dark:border-gray-700">
+            <div className="flex justify-between items-center p-4 md:p-6 border-b-4 border-black dark:border-white bg-[#CCFF00] dark:bg-[#2B5CE6]">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl md:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
                   {certificate.name}
                 </h3>
-                <p className="text-gray-500 text-sm mt-1">
-                  Issued by <span className="text-blue-600 font-medium">{certificate.issuer}</span>
+                <p className="text-black dark:text-white text-xs font-black uppercase mt-1">
+                  Issued by <span className="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 ml-1 inline-block">{certificate.issuer}</span>
                 </p>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="p-2 border-2 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,1)]"
               >
-                <FaTimes className="text-gray-600 dark:text-gray-300" />
+                <FaTimes className="text-current" />
               </button>
             </div>
 
             {/* Image Container */}
-            <div className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900/50 flex items-center justify-center">
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-gray-200 dark:border-gray-700">
+            <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-[#F5F0E8] dark:bg-black flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] border-4 border-black dark:border-white bg-white shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.2)]">
                 <Image
                   src={certificate.image_url}
                   alt={certificate.name}
@@ -61,12 +61,12 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 flex justify-end">
+            <div className="p-4 md:p-6 border-t-4 border-black dark:border-white bg-white dark:bg-[#0F1117] flex justify-end">
               <a
                 href={certificate.certificate_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30"
+                className="flex items-center gap-2 px-6 py-3 bg-[#FF4D00] text-black font-black uppercase tracking-widest border-2 border-black hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_rgba(255,255,255,1)] transition-all"
               >
                 <span>Verify Credential</span>
                 <FaExternalLinkAlt className="text-sm" />

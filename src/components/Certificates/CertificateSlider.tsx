@@ -21,7 +21,7 @@ export default function CertificateSlider({
   const duplicatedCertificates = [...certificates, ...certificates, ...certificates];
 
   return (
-    <div className="overflow-hidden flex w-full my-8">
+    <div className="overflow-hidden flex w-full py-8 my-4">
       <motion.div
         className="flex"
         animate={{

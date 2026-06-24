@@ -55,16 +55,16 @@ export default function ContactForm() {
 
   const inputContainerClasses = (hasError: boolean) => `
     relative group transition-all duration-300
-    ${hasError ? 'text-red-500' : 'text-gray-400 focus-within:text-blue-500'}
+    ${hasError ? 'text-red-500' : 'text-black dark:text-white focus-within:text-[#2B5CE6]'}
   `;
 
   const inputClasses = (hasError: boolean) => `
-    w-full px-5 py-4 rounded-2xl bg-gray-100/50 dark:bg-black/40 border-2 transition-all duration-500
+    w-full px-5 py-4 bg-[#F5F0E8] dark:bg-[#1a1c23] border-4 transition-all duration-300
     ${hasError 
-      ? 'border-red-500/50 focus:border-red-500 ring-red-500/10' 
-      : 'border-white/5 focus:border-blue-500/50 dark:focus:border-blue-400/50 ring-blue-500/5'}
-    focus:ring-4 outline-none text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-600 font-medium
-    backdrop-blur-xl hover:bg-white dark:hover:bg-white/5
+      ? 'border-red-500 focus:border-red-500' 
+      : 'border-black dark:border-white focus:border-[#2B5CE6] dark:focus:border-[#2B5CE6] focus:shadow-[8px_8px_0px_rgba(43,92,230,1)]'}
+    outline-none text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 font-bold
+    shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)] hover:bg-white dark:hover:bg-black
   `;
 
   if (isSuccess) {
@@ -73,23 +73,23 @@ export default function ContactForm() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="flex flex-col items-center justify-center py-12 px-4 text-center h-full min-h-[400px]"
+        className="flex flex-col items-center justify-center py-12 px-4 text-center h-full min-h-[400px] border-4 border-black dark:border-white bg-[#CCFF00] dark:bg-[#0F1117] shadow-[12px_12px_0px_rgba(0,0,0,1)]"
       >
         <motion.div 
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          className="w-24 h-24 bg-gradient-to-tr from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 mb-8"
+          className="w-24 h-24 bg-white dark:bg-[#2B5CE6] border-4 border-black dark:border-white flex items-center justify-center shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,1)] mb-8"
         >
-          <FaCheckCircle className="text-white text-5xl" />
+          <FaCheckCircle className="text-black dark:text-white text-5xl" />
         </motion.div>
-        <h3 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Message Sent!</h3>
-        <p className="text-gray-500 dark:text-gray-400 max-w-md text-lg mb-8 leading-relaxed font-medium">
+        <h3 className="text-4xl font-black text-black dark:text-white mb-4 tracking-tight uppercase">Message Sent!</h3>
+        <p className="text-black dark:text-gray-300 max-w-md text-lg mb-8 leading-relaxed font-bold border-l-4 border-black dark:border-white pl-4">
           Thank you for reaching out. I'll review your project details and get back to you within 24 hours.
         </p>
         <button 
           onClick={() => setIsSuccess(false)}
-          className="px-10 py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-gray-900 dark:text-white rounded-2xl font-black uppercase tracking-widest text-xs transition-all duration-300 hover:scale-105"
+          className="px-10 py-4 bg-black dark:bg-white border-2 border-transparent text-white dark:text-black font-black uppercase tracking-widest text-xs transition-all duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.5)] dark:hover:shadow-[4px_4px_0px_rgba(255,255,255,0.5)]"
         >
           Send Another Message
         </button>
@@ -111,8 +111,8 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
         <div className={inputContainerClasses(!!errors.name)}>
-          <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+          <label htmlFor="name" className="text-[12px] font-black uppercase tracking-[0.2em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-2 h-2 bg-black dark:bg-white" />
             Full Name
           </label>
           <input
@@ -128,7 +128,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
+                className="text-white bg-red-500 border-2 border-black inline-flex px-2 py-1 text-[10px] font-black uppercase tracking-wider mt-2 shadow-[2px_2px_0px_rgba(0,0,0,1)] items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.name.message}
               </motion.p>
@@ -137,8 +137,8 @@ export default function ContactForm() {
         </div>
 
         <div className={inputContainerClasses(!!errors.email)}>
-          <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <label htmlFor="email" className="text-[12px] font-black uppercase tracking-[0.2em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-2 h-2 bg-black dark:bg-white" />
             Email Address
           </label>
           <input
@@ -154,7 +154,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
+                className="text-white bg-red-500 border-2 border-black inline-flex px-2 py-1 text-[10px] font-black uppercase tracking-wider mt-2 shadow-[2px_2px_0px_rgba(0,0,0,1)] items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.email.message}
               </motion.p>
@@ -165,8 +165,8 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
         <div className={inputContainerClasses(!!errors.category)}>
-          <label htmlFor="category" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+          <label htmlFor="category" className="text-[12px] font-black uppercase tracking-[0.2em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-2 h-2 bg-black dark:bg-white" />
             Project Category
           </label>
           <div className="relative group/select">
@@ -175,15 +175,15 @@ export default function ContactForm() {
               className={`${inputClasses(!!errors.category)} appearance-none pr-10 cursor-pointer text-sm md:text-base`}
               {...register('category')}
             >
-              <option value="" disabled className="bg-white dark:bg-[#0D0F14]">Select Category</option>
+              <option value="" disabled className="bg-white dark:bg-black text-gray-500">Select Category</option>
               {categories.map(cat => (
-                <option key={cat.value} value={cat.value} className="bg-white dark:bg-[#0D0F14]">
+                <option key={cat.value} value={cat.value} className="bg-white dark:bg-black font-bold">
                   {cat.label}
                 </option>
               ))}
             </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 group-focus-within/select:text-blue-400 transition-colors">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black dark:text-white">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
             </div>
           </div>
           <AnimatePresence>
@@ -192,7 +192,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
+                className="text-white bg-red-500 border-2 border-black inline-flex px-2 py-1 text-[10px] font-black uppercase tracking-wider mt-2 shadow-[2px_2px_0px_rgba(0,0,0,1)] items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.category.message}
               </motion.p>
@@ -201,8 +201,8 @@ export default function ContactForm() {
         </div>
 
         <div className={inputContainerClasses(!!errors.budget)}>
-          <label htmlFor="budget" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <label htmlFor="budget" className="text-[12px] font-black uppercase tracking-[0.2em] mb-3 ml-1 flex items-center gap-2">
+            <span className="w-2 h-2 bg-black dark:bg-white" />
             Budget Range
           </label>
           <input
@@ -218,7 +218,7 @@ export default function ContactForm() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
+                className="text-white bg-red-500 border-2 border-black inline-flex px-2 py-1 text-[10px] font-black uppercase tracking-wider mt-2 shadow-[2px_2px_0px_rgba(0,0,0,1)] items-center gap-1"
               >
                 <FaExclamationCircle /> {errors.budget.message}
               </motion.p>
@@ -228,8 +228,8 @@ export default function ContactForm() {
       </div>
 
       <div className={inputContainerClasses(!!errors.message)}>
-        <label htmlFor="message" className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 ml-1 flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+        <label htmlFor="message" className="text-[12px] font-black uppercase tracking-[0.2em] mb-3 ml-1 flex items-center gap-2">
+          <span className="w-2 h-2 bg-black dark:bg-white" />
           Project Details
         </label>
         <textarea
@@ -245,7 +245,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-red-500 text-[10px] font-black uppercase tracking-wider mt-2 ml-1 flex items-center gap-1"
+              className="text-white bg-red-500 border-2 border-black inline-flex px-2 py-1 text-[10px] font-black uppercase tracking-wider mt-2 shadow-[2px_2px_0px_rgba(0,0,0,1)] items-center gap-1"
             >
               <FaExclamationCircle /> {errors.message.message}
             </motion.p>
@@ -256,17 +256,13 @@ export default function ContactForm() {
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.98 }}
-        className="group w-full py-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-blue-500/20 hover:shadow-blue-500/40 transition-all flex items-center justify-center gap-4 disabled:opacity-70 disabled:grayscale relative overflow-hidden active:scale-95"
+        whileHover={{ y: -4, x: -4 }}
+        whileTap={{ y: 0, x: 0 }}
+        className="group w-full py-6 bg-[#2B5CE6] border-4 border-black dark:border-white text-white font-black text-sm uppercase tracking-widest shadow-[8px_8px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,1)] dark:hover:shadow-[12px_12px_0px_rgba(255,255,255,1)] transition-all flex items-center justify-center gap-4 disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-        
         {isSubmitting ? (
           <>
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            <span className="animate-pulse">Broadcasting Signal...</span>
+            <span className="animate-pulse">SENDING...</span>
           </>
         ) : (
           <>

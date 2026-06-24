@@ -28,31 +28,24 @@ export default function CertificateSection({ certificates }: CertificateSectionP
   const row2 = certificates.slice(midPoint);
 
   return (
-    <section id="certificates" className="py-32 relative overflow-hidden bg-white dark:bg-[#050608]">
-      {/* Background Decor */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[150px] animate-pulse" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px] animate-pulse" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px]" />
-      </div>
+    <section id="certificates" className="py-20 md:py-32 relative overflow-hidden bg-white dark:bg-[#1a1c23] border-b-4 border-black dark:border-white transition-colors duration-150">
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          className="text-center mb-24"
+          className="text-center mb-16 md:mb-24"
           variants={entryVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <span className="text-blue-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Proven Skills</span>
-          <h2 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-500 bg-clip-text text-transparent tracking-tighter">
-            My Certifications
+          <span className="inline-block bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-[0.5em] text-[10px] md:text-[12px] mb-6 px-4 py-2 border-2 border-transparent shadow-[4px_4px_0px_rgba(255,255,255,0.5)] dark:shadow-[4px_4px_0px_rgba(0,0,0,1)]">Proven Skills</span>
+          <h2 className="text-5xl md:text-8xl font-black mb-8 text-black dark:text-white tracking-tighter leading-[0.9] uppercase drop-shadow-[4px_4px_0px_rgba(0,0,0,0.2)] dark:drop-shadow-[4px_4px_0px_rgba(255,255,255,0.2)]">
+            My <br className="md:hidden" /> <span className="text-[#2B5CE6]">Certifications</span>
           </h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-10 shadow-[0_0_20px_rgba(59,130,246,0.5)]" />
-          <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-lg font-medium leading-relaxed">
+          <div className="max-w-2xl mx-auto text-black dark:text-white text-base md:text-lg font-bold leading-relaxed p-4 border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-[#FF4D00]">
             Investasi terbaik adalah pada diri sendiri. Berikut adalah validasi hasil belajar 
             saya dari berbagai institusi teknologi ternama.
-          </p>
+          </div>
         </motion.div>
 
         <div className="space-y-8">

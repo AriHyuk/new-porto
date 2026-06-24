@@ -6,10 +6,10 @@ import { HiEnvelope, HiPhone, HiMapPin, HiArrowUp } from 'react-icons/hi2';
 import { FiExternalLink } from 'react-icons/fi';
 
 const socialLinks = [
-  { icon: <FaInstagram />, href: 'https://instagram.com/ariawaludin', label: 'Instagram', color: 'hover:text-pink-500' },
-  { icon: <FaTwitter />, href: 'https://twitter.com/ariawaludin', label: 'Twitter', color: 'hover:text-blue-400' },
-  { icon: <FaLinkedin />, href: 'https://linkedin.com/in/ariawaludin', label: 'LinkedIn', color: 'hover:text-blue-600' },
-  { icon: <FaGithub />, href: 'https://github.com/ariawaludin', label: 'GitHub', color: 'hover:text-gray-900 dark:hover:text-white' },
+  { icon: <FaInstagram />, href: 'https://instagram.com/ariawaludin', label: 'Instagram', hoverColor: 'hover:bg-[#FF4D00]' },
+  { icon: <FaTwitter />, href: 'https://twitter.com/ariawaludin', label: 'Twitter', hoverColor: 'hover:bg-[#2B5CE6]' },
+  { icon: <FaLinkedin />, href: 'https://linkedin.com/in/ariawaludin', label: 'LinkedIn', hoverColor: 'hover:bg-[#2B5CE6]' },
+  { icon: <FaGithub />, href: 'https://github.com/ariawaludin', label: 'GitHub', hoverColor: 'hover:bg-[#CCFF00]' },
 ];
 
 const quickLinks = [
@@ -31,45 +31,38 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-white dark:bg-[#030712] border-t border-gray-100 dark:border-white/5 pt-20 pb-10 overflow-hidden">
-      {/* Premium Background Mesh */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[30%] -left-[10%] w-[50%] h-[70%] bg-blue-500/5 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute -bottom-[30%] -right-[10%] w-[50%] h-[70%] bg-indigo-500/5 blur-[120px] rounded-full" />
-      </div>
-
+    <footer className="relative bg-[#F5F0E8] dark:bg-[#0F1117] border-t-8 border-black dark:border-white pt-20 pb-10">
       <div className="container mx-auto px-4 md:px-10 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex flex-col space-y-4">
-              <h3 className="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">
+              <h3 className="text-4xl font-black tracking-tighter text-black dark:text-white uppercase">
                 ARI HYUK.
               </h3>
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 w-fit">
+              <div className="flex items-center gap-2 px-3 py-1 bg-[#CCFF00] border-4 border-black w-fit shadow-[4px_4px_0px_rgba(0,0,0,1)]">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full bg-black opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 bg-black"></span>
                 </span>
-                <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Available for Projects</span>
+                <span className="text-[10px] font-black text-black uppercase tracking-widest">Available for Projects</span>
               </div>
             </div>
-            <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-sm max-w-xs">
+            <p className="text-black dark:text-gray-300 font-bold leading-relaxed text-sm max-w-xs border-l-4 border-black dark:border-white pl-4">
               Membangun pengalaman digital yang bermakna melalui kombinasi kode yang bersih dan desain yang intuitif.
             </p>
           </div>
 
           {/* Quick Navigation */}
           <div className="space-y-6">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white">Navigation</h4>
+            <h4 className="text-sm font-black uppercase tracking-[0.3em] text-black dark:text-white">Navigation</h4>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a 
                     href={link.url} 
-                    className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 group text-sm"
+                    className="text-black dark:text-gray-300 font-bold hover:text-white hover:bg-black dark:hover:bg-white dark:hover:text-black transition-all inline-block px-2 py-1 -ml-2 text-sm uppercase tracking-wider"
                   >
-                    <span className="w-0 group-hover:w-4 h-[1px] bg-blue-600 transition-all duration-300" />
                     {link.name}
                   </a>
                 </li>
@@ -79,24 +72,24 @@ export default function Footer() {
 
           {/* Contact Details */}
           <div className="space-y-6">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white">Contact Info</h4>
+            <h4 className="text-sm font-black uppercase tracking-[0.3em] text-black dark:text-white">Contact Info</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-4">
-                <div className="mt-1 w-8 h-8 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                  <HiEnvelope className="text-base" />
+                <div className="mt-1 w-10 h-10 bg-[#FF4D00] border-4 border-black dark:border-white flex items-center justify-center text-black dark:text-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]">
+                  <HiEnvelope className="text-lg" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase">Email</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">{contactInfo.email}</p>
+                  <p className="text-[10px] font-black text-black dark:text-gray-400 uppercase tracking-widest mb-1">Email</p>
+                  <p className="text-sm text-black dark:text-white font-bold">{contactInfo.email}</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
-                <div className="mt-1 w-8 h-8 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                  <HiMapPin className="text-base" />
+                <div className="mt-1 w-10 h-10 bg-[#2B5CE6] border-4 border-black dark:border-white flex items-center justify-center text-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)]">
+                  <HiMapPin className="text-lg" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase">Location</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">{contactInfo.address}</p>
+                  <p className="text-[10px] font-black text-black dark:text-gray-400 uppercase tracking-widest mb-1">Location</p>
+                  <p className="text-sm text-black dark:text-white font-bold">{contactInfo.address}</p>
                 </div>
               </li>
             </ul>
@@ -104,7 +97,7 @@ export default function Footer() {
 
           {/* Connect Section */}
           <div className="space-y-6">
-            <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white">Connect</h4>
+            <h4 className="text-sm font-black uppercase tracking-[0.3em] text-black dark:text-white">Connect</h4>
             <div className="flex flex-wrap gap-4">
               {socialLinks.map((social, index) => (
                 <motion.a
@@ -112,8 +105,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-12 h-12 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center text-gray-500 dark:text-gray-400 transition-all duration-300 ${social.color} hover:border-current/30 hover:shadow-lg hover:shadow-current/5`}
-                  whileHover={{ y: -5, scale: 1.05 }}
+                  className={`w-12 h-12 bg-white dark:bg-black border-4 border-black dark:border-white flex items-center justify-center text-black dark:text-white transition-all duration-300 ${social.hoverColor} hover:text-white dark:hover:text-black hover:-translate-y-1 hover:-translate-x-1 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)] hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_rgba(255,255,255,1)]`}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.label}
                 >
@@ -121,22 +113,21 @@ export default function Footer() {
                 </motion.a>
               ))}
             </div>
-            <p className="text-xs text-gray-400 flex items-center gap-1 italic">
-              Let's build something epic <FiExternalLink />
+            <p className="text-xs text-black dark:text-gray-400 font-bold flex items-center gap-1 uppercase tracking-widest mt-4">
+              Let's build something epic <FiExternalLink className="text-black dark:text-white" />
             </p>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-gray-100 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-gray-400 dark:text-gray-500 text-xs font-medium">
-            © {new Date().getFullYear()} <span className="text-gray-900 dark:text-white font-bold tracking-tight">ARI HYUK</span>. Handcrafted with passion.
+        <div className="pt-10 border-t-4 border-black dark:border-white/20 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-black dark:text-gray-400 text-xs font-bold uppercase tracking-widest">
+            © {new Date().getFullYear()} <span className="text-black dark:text-white font-black bg-[#CCFF00] dark:bg-black dark:text-[#CCFF00] px-2 py-1 border-2 border-black dark:border-transparent mx-1">ARI HYUK</span>. Handcrafted with passion.
           </p>
 
           <motion.button
             onClick={scrollToTop}
-            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs font-bold transition-all hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white shadow-xl shadow-blue-500/10"
-            whileHover={{ scale: 1.05 }}
+            className="group flex items-center gap-2 px-6 py-3 bg-[#2B5CE6] border-4 border-black dark:border-white text-white font-black text-xs uppercase tracking-widest transition-all hover:-translate-y-1 hover:-translate-x-1 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)] hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_rgba(255,255,255,1)]"
             whileTap={{ scale: 0.95 }}
           >
             BACK TO TOP

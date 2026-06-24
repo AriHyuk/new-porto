@@ -1,8 +1,8 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const contactInfo = [
   {
@@ -10,7 +10,7 @@ const contactInfo = [
     label: 'Location',
     value: 'Serang, Indonesia',
     href: null,
-    color: 'from-blue-500 to-cyan-400',
+    color: 'bg-[#FF4D00]',
     showTime: true
   },
   {
@@ -18,21 +18,21 @@ const contactInfo = [
     label: 'Email',
     value: 'ariawl0209@gmail.com',
     href: 'mailto:ariawl0209@gmail.com',
-    color: 'from-purple-500 to-indigo-400',
+    color: 'bg-[#CCFF00]',
   },
   {
     icon: <FaGithub />,
     label: 'GitHub',
     value: 'AriHyuk',
     href: 'https://github.com/AriHyuk',
-    color: 'from-gray-700 to-gray-500',
+    color: 'bg-[#F5F0E8] dark:bg-black',
   },
   {
     icon: <FaLinkedin />,
     label: 'LinkedIn',
     value: 'Ari Awaludin',
     href: 'https://linkedin.com/in/ari-awaludin',
-    color: 'from-blue-600 to-blue-400',
+    color: 'bg-[#2B5CE6]',
   },
 ];
 
@@ -58,8 +58,8 @@ const TimeDisplay = () => {
     if (!time) return null;
 
     return (
-        <span className="text-blue-600/60 dark:text-blue-200/40 font-black text-[9px] ml-auto tracking-widest uppercase flex items-center gap-1 transition-colors">
-            {time} (WIB) <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <span className="text-black dark:text-white font-black text-[9px] ml-auto tracking-widest uppercase flex items-center gap-1 transition-colors">
+            {time} (WIB) <span className="inline-block w-1.5 h-1.5 bg-black dark:bg-white animate-pulse" />
         </span>
     );
 };
@@ -70,57 +70,20 @@ interface InfoCardProps {
 }
 
 const InfoCard = ({ item, index }: InfoCardProps) => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const rotateX = useSpring(useTransform(y, [-60, 60], [10, -10]), { stiffness: 100, damping: 30 });
-    const rotateY = useSpring(useTransform(x, [-60, 60], [-10, 10]), { stiffness: 100, damping: 30 });
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        x.set(e.clientX - centerX);
-        y.set(e.clientY - centerY);
-
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        cardRef.current.style.setProperty("--mouse-x", `${mouseX}px`);
-        cardRef.current.style.setProperty("--mouse-y", `${mouseY}px`);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
     return (
         <motion.div
-            ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ rotateX, rotateY, perspective: 1000 }}
-            className="group relative flex items-center gap-4 p-4 rounded-2xl bg-gray-100/50 dark:bg-black/20 backdrop-blur-xl border border-gray-200 dark:border-white/5 hover:border-blue-500/30 transition-all duration-500 cursor-default shadow-xl"
+            className="group relative flex items-center gap-4 p-4 bg-white dark:bg-[#1a1c23] border-4 border-black dark:border-white hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_rgba(255,255,255,1)] transition-all duration-300"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1, duration: 0.8 }}
             viewport={{ once: true }}
         >
-            {/* Spotlight Effect */}
-            <div className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 rounded-3xl" 
-                style={{ 
-                    background: `radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(59,130,246,0.1), transparent 40%)` 
-                }} 
-            />
-
-            <div className={`w-14 h-14 shrink-0 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-2xl text-white shadow-xl transition-all duration-700 group-hover:scale-110 group-hover:rotate-6`}>
+            <div className={`w-14 h-14 shrink-0 border-4 border-black dark:border-white ${item.color} flex items-center justify-center text-2xl text-black dark:text-white transition-all duration-300 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,1)] group-hover:scale-110 group-hover:rotate-6`}>
                 {item.icon}
             </div>
             
             <div className="relative z-10 flex-grow min-w-0">
-                <p className="text-gray-500 dark:text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] mb-1.5 flex items-center flex-wrap gap-2">
+                <p className="text-black dark:text-gray-300 text-[10px] font-black uppercase tracking-[0.3em] mb-1.5 flex items-center flex-wrap gap-2">
                     {item.label} {item.showTime && <TimeDisplay />}
                 </p>
                 {item.href ? (
@@ -128,12 +91,12 @@ const InfoCard = ({ item, index }: InfoCardProps) => {
                         href={item.href}
                         target={item.label !== 'Email' ? "_blank" : undefined}
                         rel="noopener noreferrer"
-                        className="text-gray-900 dark:text-white font-black text-lg hover:text-blue-600 transition-colors tracking-tight block truncate"
+                        className="text-black dark:text-white font-black text-lg hover:text-[#2B5CE6] transition-colors tracking-tight block truncate"
                     >
                         {item.value}
                     </a>
                 ) : (
-                    <p className="text-gray-900 dark:text-white font-black text-lg tracking-tight truncate">{item.value}</p>
+                    <p className="text-black dark:text-white font-black text-lg tracking-tight truncate">{item.value}</p>
                 )}
             </div>
 
