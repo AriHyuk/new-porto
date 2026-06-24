@@ -1,0 +1,40 @@
+import { Project } from '@/types';
+
+export const projectsData: Project[] = [
+  {
+    id: 'project-1',
+    slug: 'e-commerce-mobile',
+    title: 'E-Commerce Mobile App',
+    description: 'A full-stack mobile-first e-commerce application with dynamic cart and payment gateway integration.',
+    summary: 'Built a scalable e-commerce platform handling 1000+ daily transactions.',
+    challenge: 'Managing real-time inventory and ensuring zero race-conditions during checkout.',
+    contribution: 'Architected the database schema, developed the backend API in Laravel, and integrated third-party payment gateways.',
+    key_features: ['Real-time Cart', 'Payment Gateway Integration', 'Mobile-first Design', 'Admin Dashboard'],
+    category: 'Fullstack',
+    image_url: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?q=80&w=800&auto=format&fit=crop',
+    tech_stack: ['Laravel', 'React', 'MySQL', 'TailwindCSS'],
+    demo_url: 'https://demo.com',
+    repo_url: 'https://github.com/AriHyuk',
+    sort_order: 1,
+    additional_images: [],
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: 'project-2',
+    slug: 'company-profile-cms',
+    title: 'Corporate CMS Profile',
+    description: 'A custom CMS-driven corporate website with optimized SEO and performance metrics for high-speed content delivery.',
+    summary: 'Developed a high-performance company profile serving global clients.',
+    challenge: 'Achieving 99+ Lighthouse scores while maintaining rich media content.',
+    contribution: 'Developed the frontend using Next.js and integrated a Headless CMS for marketing teams.',
+    key_features: ['Headless CMS', 'Next.js SSR', 'i18n Support', 'Analytics Dashboard'],
+    category: 'Frontend',
+    image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
+    tech_stack: ['Next.js', 'TypeScript', 'Framer Motion', 'TailwindCSS'],
+    demo_url: 'https://demo.com',
+    repo_url: 'https://github.com/AriHyuk',
+    sort_order: 2,
+    additional_images: [],
+    created_at: new Date().toISOString(),
+  }
+];
