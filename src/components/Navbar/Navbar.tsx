@@ -86,7 +86,7 @@ export default function Navbar() {
             ))}
 
             {/* Divider */}
-            <span className="w-px h-4 bg-black/20 dark:bg-white/20" />
+            {/* <span className="w-px h-4 bg-black/20 dark:bg-white/20" />
 
             <Link
               href="/blog"
@@ -98,7 +98,7 @@ export default function Navbar() {
               )}
             >
               Blog
-            </Link>
+            </Link> */}
           </div>
 
           {/* Right actions */}

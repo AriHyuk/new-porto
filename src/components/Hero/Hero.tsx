@@ -208,7 +208,7 @@ function ProfileImage() {
       {/* Bottom label strip */}
       <div className="absolute bottom-0 left-0 right-0 bg-black px-4 py-2">
         <p className="text-white text-xs font-black uppercase tracking-widest text-center">
-          Ari Hyuk · Bandung 🇮🇩
+          Ari Hyuk · Serang 🇮🇩
         </p>
       </div>
     </motion.div>

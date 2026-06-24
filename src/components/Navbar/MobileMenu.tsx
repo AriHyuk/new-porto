@@ -78,7 +78,7 @@ export default function MobileMenu({
                 </motion.div>
               ))}
 
-              <motion.div
+              {/* <motion.div
                 initial={{ x: 30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: navLinks.length * 0.06, duration: 0.3 }}
@@ -96,7 +96,7 @@ export default function MobileMenu({
                 >
                   Blog
                 </Link>
-              </motion.div>
+              </motion.div> */}
             </div>
 
             {/* CTA Footer */}
