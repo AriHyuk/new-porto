@@ -6,7 +6,7 @@ export const certificatesData: Certificate[] = [
     name: 'Google IT Support Professional Certificate',
     issuer: 'Coursera / Google',
     issued_at: '2023-08-15',
-    image_url: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop',
+    image_url: '/certificates/pemateri.webp',
     certificate_url: 'https://coursera.org/verify/example1',
   },
   {
