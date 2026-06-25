@@ -3,11 +3,11 @@ import { Certificate } from '@/types/certificate';
 export const certificatesData: Certificate[] = [
   {
     id: 'cert-1',
-    name: 'Google IT Support Professional Certificate',
-    issuer: 'Coursera / Google',
-    issued_at: '2023-08-15',
+    name: 'Sertifikat Penghargaan Pemateri Hackathon',
+    issuer: 'HIMTIF Universitas Pamulang',
+    issued_at: '2026-06-18',
     image_url: '/certificates/pemateri.webp',
-    certificate_url: 'https://coursera.org/verify/example1',
+    certificate_url: '',
   },
   {
     id: 'cert-2',

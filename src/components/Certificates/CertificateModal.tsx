@@ -61,17 +61,19 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
             </div>
 
             {/* Footer */}
-            <div className="p-4 md:p-6 border-t-4 border-black dark:border-white bg-white dark:bg-[#0F1117] flex justify-end">
-              <a
-                href={certificate.certificate_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-[#FF4D00] text-black font-black uppercase tracking-widest border-2 border-black hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_rgba(255,255,255,1)] transition-all"
-              >
-                <span>Verify Credential</span>
-                <FaExternalLinkAlt className="text-sm" />
-              </a>
-            </div>
+            {certificate.certificate_url && (
+              <div className="p-4 md:p-6 border-t-4 border-black dark:border-white bg-white dark:bg-[#0F1117] flex justify-end">
+                <a
+                  href={certificate.certificate_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3 bg-[#FF4D00] text-black font-black uppercase tracking-widest border-2 border-black hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_rgba(255,255,255,1)] transition-all"
+                >
+                  <span>Verify Credential</span>
+                  <FaExternalLinkAlt className="text-sm" />
+                </a>
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}
