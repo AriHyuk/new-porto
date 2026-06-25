@@ -88,7 +88,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           {/* Modal Container */}
           <motion.div
             layoutId={`project-card-${project.id}`}
-            className="relative w-full max-w-6xl bg-white dark:bg-[#1a1c23] shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] border-4 border-black dark:border-white"
+            className="relative w-full max-w-6xl bg-white dark:bg-[#1a1c23] shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:h-[80vh] border-4 border-black dark:border-white"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -104,7 +104,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </button>
 
             {/* ===== LEFT: Image Carousel ===== */}
-            <div className="w-full md:w-[45%] h-[280px] md:h-auto relative bg-[#CCFF00] border-b-4 md:border-b-0 md:border-r-4 border-black dark:border-white overflow-hidden group/carousel shrink-0">
+            <div className="w-full md:w-[45%] h-[280px] md:h-full relative bg-[#CCFF00] border-b-4 md:border-b-0 md:border-r-4 border-black dark:border-white overflow-hidden group/carousel shrink-0">
                <AnimatePresence mode="wait">
                  <motion.div
                    key={currentImageIndex}
@@ -118,7 +118,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       src={images[currentImageIndex] || "https://placehold.co/800x600?text=Project"}
                       alt={project.title}
                       fill
-                      className="object-cover grayscale"
+                      className="object-cover grayscale hover:grayscale-0 group-hover/carousel:grayscale-0 transition-all duration-500 ease-out cursor-pointer"
                       sizes="(max-width: 768px) 100vw, 45vw"
                       priority
                     />
