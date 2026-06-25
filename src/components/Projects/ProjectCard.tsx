@@ -34,6 +34,7 @@ const getTechIcon = (tech: string) => {
     react: <FaReact className="text-[#61DAFB]" />,
     nextjs: <SiNextdotjs className="text-black dark:text-white" />,
     tailwind: <SiTailwindcss className="text-[#38B2AC]" />,
+    tailwindcss: <SiTailwindcss className="text-[#38B2AC]" />,
     typescript: <SiTypescript className="text-[#3178C6]" />,
     javascript: <SiJavascript className="text-[#F7DF1E]" />,
     node: <FaNodeJs className="text-[#339933]" />,

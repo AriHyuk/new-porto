@@ -30,6 +30,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   nextjs: SiNextdotjs,
   typescript: SiTypescript,
   tailwindcss: SiTailwindcss,
+  tailwind: SiTailwindcss,
   supabase: SiSupabase,
   postgresql: SiPostgresql,
   prisma: SiPrisma,

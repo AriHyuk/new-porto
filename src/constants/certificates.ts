@@ -10,14 +10,6 @@ export const certificatesData: Certificate[] = [
     certificate_url: '',
   },
   {
-    id: 'cert-2',
-    name: 'AWS Certified Cloud Practitioner',
-    issuer: 'Amazon Web Services',
-    issued_at: '2024-01-10',
-    image_url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop',
-    certificate_url: 'https://aws.amazon.com/verify/example2',
-  },
-  {
     id: 'cert-3',
     name: 'GDGOC Back-End Web Development Class',
     issuer: 'GDGOC UIN Syarif Hidayatullah Jakarta',
