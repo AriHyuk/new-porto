@@ -38,7 +38,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div className="flex flex-col space-y-4">
               <h3 className="text-4xl font-black tracking-tighter text-black dark:text-white uppercase">
-                ARI HYUK.
+                ARI AWALUDIN.
               </h3>
               <div className="flex items-center gap-2 px-3 py-1 bg-[#CCFF00] border-4 border-black w-fit shadow-[4px_4px_0px_rgba(0,0,0,1)]">
                 <span className="relative flex h-2 w-2">
@@ -122,7 +122,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-10 border-t-4 border-black dark:border-white/20 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-black dark:text-gray-400 text-xs font-bold uppercase tracking-widest">
-            © {new Date().getFullYear()} <span className="text-black dark:text-white font-black bg-[#CCFF00] dark:bg-black dark:text-[#CCFF00] px-2 py-1 border-2 border-black dark:border-transparent mx-1">ARI HYUK</span>. Handcrafted with passion.
+            © {new Date().getFullYear()} <span className="text-black dark:text-white font-black bg-[#CCFF00] dark:bg-black dark:text-[#CCFF00] px-2 py-1 border-2 border-black dark:border-transparent mx-1">ARI AWALUDIN</span>. Handcrafted with passion.
           </p>
 
           <motion.button

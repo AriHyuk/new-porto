@@ -65,7 +65,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           }}
         >
           <span style={{ fontSize: 18, fontWeight: 900, letterSpacing: 4, color: '#3b82f6', textTransform: 'uppercase' }}>
-            ARI HYUK
+            ARI AWALUDIN
           </span>
           <span style={{ color: '#374151', fontSize: 18 }}>·</span>
           <span style={{ fontSize: 14, fontWeight: 700, color: '#6b7280', letterSpacing: 3, textTransform: 'uppercase' }}>

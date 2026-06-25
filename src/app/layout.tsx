@@ -13,7 +13,7 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: 'Ari Hyuk — Fullstack Software Engineer',
+  title: 'Ari Awaludin — Fullstack Software Engineer',
   description: 'I design and build end-to-end web applications — from intuitive frontend interfaces to scalable backend systems. Fullstack Software Engineer.',
   metadataBase: new URL('https://ariawaludin.my.id'),
   keywords: [
@@ -23,16 +23,16 @@ export const metadata: Metadata = {
     'clean architecture', 'software engineer Indonesia',
   ],
   openGraph: {
-    title: 'Ari Hyuk — Fullstack Software Engineer',
+    title: 'Ari Awaludin — Fullstack Software Engineer',
     description: 'End-to-end web applications. From intuitive UIs to scalable backends. Fullstack Software Engineer.',
     url: 'https://ariawaludin.my.id',
-    siteName: 'Ari Hyuk Portfolio',
+    siteName: 'Ari Awaludin Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ari Hyuk | Fullstack Software Engineer',
+        alt: 'Ari Awaludin | Fullstack Software Engineer',
       },
     ],
     locale: 'en_US',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ari Hyuk — Fullstack Software Engineer',
+    title: 'Ari Awaludin — Fullstack Software Engineer',
     description: 'End-to-end web applications. From intuitive UIs to scalable backends. Fullstack Software Engineer.',
     images: ['/og-image.png'],
   },

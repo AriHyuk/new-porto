@@ -118,7 +118,7 @@ export default function ContactForm() {
           <input
             id="name"
             type="text"
-            placeholder="Ari Hyuk"
+            placeholder="Ari Awaludin"
             className={inputClasses(!!errors.name)}
             {...register('name')}
           />

@@ -34,7 +34,7 @@ export default function Sidebar() {
             A
           </div>
           <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-xl font-bold text-transparent dark:from-white dark:to-gray-400">
-            AriHyuk
+            Ari Awaludin
           </span>
         </div>
       </div>

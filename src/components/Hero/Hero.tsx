@@ -193,7 +193,7 @@ function ProfileImage() {
     >
       <Image
         src={profileAvatar}
-        alt="Ari Hyuk Profile"
+        alt="Ari Awaludin Profile"
         fill
         priority
         placeholder="blur"
@@ -208,7 +208,7 @@ function ProfileImage() {
       {/* Bottom label strip */}
       <div className="absolute bottom-0 left-0 right-0 bg-black px-4 py-2">
         <p className="text-white text-xs font-black uppercase tracking-widest text-center">
-          Ari Hyuk · Serang 🇮🇩
+          Ari Awaludin · Serang 🇮🇩
         </p>
       </div>
     </motion.div>

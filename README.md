@@ -1,4 +1,4 @@
-# Ari Hyuk Portfolio v2.1.0
+# Ari Awaludin Portfolio v2.1.0
 
 🚀 **Live Site**: [https://ariawaludin.my.id](https://ariawaludin.my.id)
 
@@ -98,4 +98,4 @@ docker compose up -d --build
 
 ## License
 
-ISC © 2026 Ari Hyuk
+ISC © 2026 Ari Awaludin
