@@ -37,22 +37,4 @@ export const projectsData: Project[] = [
     additional_images: [],
     created_at: new Date().toISOString(),
   },
-  {
-    id: 'project-3',
-    slug: 'pwa-multi-vendor-marketplace',
-    title: 'PWA Multi-Vendor Marketplace',
-    description: 'A high-performance Multi-Vendor Marketplace platform with Progressive Web App (PWA) architecture. Focuses on decoupled frontend-backend design and integrated AI features.',
-    summary: 'Developed a high-performance decoupled marketplace with PWA and AI search capabilities.',
-    challenge: 'Managing real-time inventory across multiple vendors while maintaining high performance and PWA compliance.',
-    contribution: 'Architected the decoupled systems, developed frontend with Next.js, and integrated Google Vertex AI for smart features.',
-    key_features: ['PWA Architecture', 'Decoupled APIs', 'AI Search Integration', 'Multi-Vendor Support'],
-    category: 'Fullstack',
-    image_url: '/images/projects/skripsi-cover.png',
-    tech_stack: ['Next.js', 'TypeScript', 'Laravel', 'MySQL', 'Gemini Flash'],
-    demo_url: 'https://demo.com',
-    repo_url: 'https://github.com/AriHyuk',
-    sort_order: 3,
-    additional_images: [],
-    created_at: new Date().toISOString(),
-  }
 ];

@@ -10,14 +10,6 @@ export const certificatesData: Certificate[] = [
     certificate_url: '',
   },
   {
-    id: 'cert-2',
-    name: 'Google Cloud Certified - Cloud Digital Leader',
-    issuer: 'Google Cloud',
-    issued_at: '2026-04-10',
-    image_url: '/certificates/google-cloud-digital-leader.png',
-    certificate_url: '',
-  },
-  {
     id: 'cert-8',
     name: 'Best Final Project - Weekly Class PM GDGoC UIN Jakarta 25.26',
     issuer: 'GDGOC UIN Syarif Hidayatullah Jakarta',
