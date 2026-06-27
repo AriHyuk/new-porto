@@ -15,16 +15,16 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center px-4 md:px-0 h-[100dvh] min-h-[600px] max-h-[1080px] overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors pt-24 md:pt-20"
+      className="relative flex items-center justify-center px-4 md:px-0 min-h-[100dvh] md:h-[100dvh] md:min-h-[600px] md:max-h-[1080px] overflow-x-hidden md:overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors pt-28 pb-16 md:py-0"
     >
       {/* Split Background */}
       <BackgroundShapes />
 
       {/* Main Container */}
-      <div className="w-full max-w-none flex flex-col md:flex-row items-stretch h-full z-10">
+      <div className="w-full max-w-none flex flex-col md:flex-row items-stretch min-h-full md:h-full z-10">
 
         {/* ─── LEFT PANEL ─── */}
-        <div className="md:w-[52%] flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 space-y-6 md:space-y-8 relative">
+        <div className="w-full md:w-[52%] flex flex-col justify-center px-6 sm:px-12 md:px-12 lg:px-16 xl:px-24 py-8 md:py-0 space-y-6 md:space-y-8 relative">
 
           {/* Badge pill */}
           <motion.div
@@ -42,7 +42,7 @@ export default function Hero() {
           <div className="flex flex-col relative w-full">
             <AnimatedText
               text="Fullstack"
-              className="text-[2.8rem] sm:text-[3.8rem] md:text-[4.2rem] lg:text-[5rem] xl:text-[5.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.9] uppercase whitespace-nowrap pb-2"
+              className="text-[2.2rem] sm:text-[3.5rem] md:text-[3.8rem] lg:text-[4.8rem] xl:text-[5.5rem] font-black text-gray-900 dark:text-white tracking-tight leading-[0.9] uppercase whitespace-nowrap pb-2"
             />
             <div className="relative mt-0">
               <motion.p
@@ -123,7 +123,7 @@ export default function Hero() {
         </div>
 
         {/* ─── RIGHT PANEL ─── */}
-        <div className="md:w-[48%] flex justify-center items-center relative overflow-hidden">
+        <div className="w-full md:w-[48%] flex justify-center items-center relative overflow-visible py-8 md:py-0">
           {/* Profile image wrapper */}
           <div className="relative flex items-center justify-center">
             {/* Tech Pills */}

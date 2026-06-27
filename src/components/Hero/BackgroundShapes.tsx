@@ -12,20 +12,23 @@ export default function BackgroundShapes() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Left Panel - Cream/Off-white */}
-      <div className="absolute inset-y-0 left-0 w-full md:w-[52%] bg-[#F5F0E8] dark:bg-[#0F1117]" />
+      {/* Left Panel - Cream/Off-white (Top on mobile, Left on desktop) */}
+      <div className="absolute top-0 left-0 w-full h-[52%] md:h-full md:w-[52%] bg-[#F5F0E8] dark:bg-[#0F1117]" />
 
-      {/* Right Panel - Vivid Blue with polka dots */}
+      {/* Right Panel - Vivid Blue with polka dots (Bottom on mobile, Right on desktop) */}
       <div
-        className="absolute inset-y-0 right-0 w-full md:w-[48%] bg-[#2B5CE6] dark:bg-[#1a3ab0]"
+        className="absolute bottom-0 right-0 w-full h-[48%] md:h-full md:w-[48%] bg-[#2B5CE6] dark:bg-[#1a3ab0]"
         style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 2px, transparent 0)`,
           backgroundSize: '28px 28px',
         }}
       />
 
-      {/* Diagonal split accent line */}
-      <div className="absolute top-0 bottom-0 left-[52%] w-[3px] bg-black/10 hidden md:block" />
+      {/* Diagonal split accent line (Desktop) */}
+      <div className="absolute top-0 bottom-0 left-[52%] w-[3px] bg-black/10 dark:bg-white/10 hidden md:block" />
+
+      {/* Horizontal split accent line (Mobile) */}
+      <div className="absolute left-0 right-0 top-[52%] h-[3px] bg-black/10 dark:bg-white/10 md:hidden" />
 
       {/* Floating geometric accents - Right panel */}
       {mounted && (
