@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center px-4 md:px-0 min-h-[100dvh] md:h-[100dvh] md:min-h-[600px] md:max-h-[1080px] overflow-x-hidden md:overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors pt-28 pb-16 md:py-0"
+      className="relative flex items-center justify-center px-4 md:px-0 min-h-[100dvh] md:h-[100dvh] md:min-h-[600px] md:max-h-[1080px] overflow-x-hidden md:overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors pt-28 pb-16 md:pt-24 md:pb-0"
     >
       {/* Split Background */}
       <BackgroundShapes />
