@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center px-4 md:px-0 min-h-[100dvh] md:h-[100dvh] md:min-h-[600px] md:max-h-[1080px] overflow-x-hidden md:overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors pt-28 pb-16 md:pt-24 md:pb-0"
+      className="relative flex items-center justify-center px-0 min-h-[100dvh] md:h-[100dvh] md:min-h-[600px] md:max-h-[1080px] overflow-x-hidden md:overflow-hidden bg-[#F5F0E8] dark:bg-[#0F1117] transition-colors"
     >
       {/* Split Background */}
       <BackgroundShapes />
@@ -24,7 +24,7 @@ export default function Hero() {
       <div className="w-full max-w-none flex flex-col md:flex-row items-stretch min-h-full md:h-full z-10">
 
         {/* ─── LEFT PANEL ─── */}
-        <div className="w-full md:w-[52%] flex flex-col justify-center px-6 sm:px-12 md:px-12 lg:px-16 xl:px-24 py-8 md:py-0 space-y-6 md:space-y-8 relative">
+        <div className="w-full md:w-[52%] flex flex-col justify-center px-6 sm:px-12 md:px-12 lg:px-16 xl:px-24 pt-28 pb-16 md:py-0 space-y-6 md:space-y-8 relative bg-[#F5F0E8] dark:bg-[#0F1117] border-b-4 md:border-b-0 md:border-r-4 border-black dark:border-white/20 transition-colors duration-300 z-10">
 
           {/* Badge pill */}
           <motion.div
@@ -123,7 +123,13 @@ export default function Hero() {
         </div>
 
         {/* ─── RIGHT PANEL ─── */}
-        <div className="w-full md:w-[48%] flex justify-center items-center relative overflow-visible py-8 md:py-0">
+        <div 
+          className="w-full md:w-[48%] flex justify-center items-center relative overflow-visible py-16 md:py-0 bg-[#2B5CE6] dark:bg-[#1a3ab0] transition-colors duration-300 z-10"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 2px, transparent 0)`,
+            backgroundSize: '28px 28px',
+          }}
+        >
           {/* Profile image wrapper */}
           <div className="relative flex items-center justify-center">
             {/* Tech Pills */}
