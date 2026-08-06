@@ -2,7 +2,10 @@
 
 @theme {
   --font-sans: var(--font-inter);
-  
+
+  /* Custom xs breakpoint (480px) — below sm (640px) */
+  --breakpoint-xs: 30rem; /* 480px */
+
   @keyframes gradient-x {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
