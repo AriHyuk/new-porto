@@ -1,5 +1,5 @@
 import { getProjectBySlug } from '@/actions/get-project-by-slug';
-import { incrementProjectView } from '@/actions/increment-view';
+
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,8 +8,10 @@ import TechStackBadge from '@/components/UI/TechStackBadge';
 import ProjectLinks from '@/components/Projects/ProjectLinks';
 import { FaArrowLeft } from 'react-icons/fa';
 
-// Cache for 1 hour
-export const revalidate = 3600;
+// Full static
+export const dynamic = 'force-static';
+export async function generateStaticParams() { return []; }
+
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -42,8 +44,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Increment view count (non-blocking)
-  void incrementProjectView(slug);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-32 pb-12 px-4 sm:px-6 lg:px-8">

@@ -1,12 +1,14 @@
 import { getPostBySlug } from '@/actions/get-posts';
-import { incrementPostView } from '@/actions/increment-view';
+
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaArrowLeft } from 'react-icons/fa';
 
-export const revalidate = 300;
+export const dynamic = 'force-static';
+export async function generateStaticParams() { return []; }
+
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -43,8 +45,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   if (!post) notFound();
 
-  // Increment view in background (non-blocking)
-  void incrementPostView(slug);
+
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#030712] pt-32 pb-24 transition-colors">

@@ -1,47 +1,9 @@
-import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
+// Portfolio is fully static — no auth/admin needed.
+// This middleware is a pure passthrough.
 export async function proxy(request: NextRequest) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
-          );
-          response = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
-  // Optimization: Skip session refresh for public landing pages to reduce latency.
-  // Only use this if you have specific /admin or /protected routes.
-  const isPublicRoute = request.nextUrl.pathname === '/' || 
-                       request.nextUrl.pathname.startsWith('/projects') ||
-                       request.nextUrl.pathname.startsWith('/blog');
-
-  if (!isPublicRoute) {
-    await supabase.auth.getUser();
-  }
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {

@@ -1,34 +1,44 @@
-import { getProjects } from '@/actions/get-projects';
-import { getCertificates } from '@/actions/get-certificates';
-import { getExperiences } from '@/actions/get-experiences';
-import { getSkills } from '@/actions/get-about-data';
-import ProjectList from '@/components/Projects/ProjectList';
 import Hero from '@/components/Hero/Hero';
 import AboutSection from '@/components/About/AboutSection';
+import ProjectList from '@/components/Projects/ProjectList';
 import CertificateSection from '@/components/Certificates/CertificateSection';
 import ContactSection from '@/components/Contact/ContactSection';
 
-import { skills as staticSkills, experienceData as staticExperiences } from '@/constants/about';
+import { projectsData } from '@/constants/projects';
+import { certificatesData } from '@/constants/certificates';
+import { experienceData } from '@/constants/about';
+import { skills as staticSkills } from '@/constants/about';
 
-// Configure caching: Disable long-term cache to show admin updates immediately
-export const revalidate = 0;
+// Full static — rendered once at build time, zero runtime overhead
+export const dynamic = 'force-static';
 
-export default async function Page() {
-  const [projects, certificates, dbExperiences, dbSkills] = await Promise.all([
-    getProjects(),
-    getCertificates(),
-    getExperiences(),
-    getSkills(),
-  ]);
+export default function Page() {
+  // Sort projects by sort_order
+  const projects = [...projectsData].sort((a, b) => a.sort_order - b.sort_order);
 
-  // Fallback to static data if DB is empty for both skills and experiences
-  const experiences = dbExperiences && dbExperiences.length > 0 ? dbExperiences : staticExperiences;
-  
-  const skills = dbSkills && dbSkills.length > 0 ? dbSkills : staticSkills.map((s, idx) => ({
+  // Sort certificates newest first
+  const certificates = [...certificatesData].sort(
+    (a, b) => new Date(b.issued_at).getTime() - new Date(a.issued_at).getTime()
+  );
+
+  // Map experience static data
+  const experiences = experienceData.map((exp, index) => ({
+    id: `static-exp-${index}`,
+    position: exp.role,
+    company: exp.company,
+    period: exp.period,
+    description: exp.description,
+    type: exp.type,
+    brand_color: exp.brandColor,
+    sort_order: index + 1,
+  }));
+
+  // Map skills static data
+  const skills = staticSkills.map((s, idx) => ({
     id: `static-${idx}`,
     name: s.name,
     category: s.category,
-    icon_key: s.name.toLowerCase().replace(/\./g, '') // Normalize key
+    icon_key: s.icon_key,
   }));
 
   return (
@@ -39,7 +49,7 @@ export default async function Page() {
       {/* About Section */}
       <AboutSection experiences={experiences} skills={skills} />
 
-      {/* Projects Section - Brutalist */}
+      {/* Projects Section */}
       <section id="portfolio" className="py-20 md:py-32 relative overflow-hidden bg-white dark:bg-[#1a1c23] border-b-4 border-black dark:border-white transition-colors duration-150">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 md:mb-32">
