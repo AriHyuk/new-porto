@@ -14,8 +14,8 @@ interface AboutStatsProps {
 }
 
 const FALLBACK_STATS: Stat[] = [
-  { label: 'GPA', value: '3.51', suffix: '/4.0' },
-  { label: 'Semester', value: '8', suffix: 'th' },
+  { label: 'GPA', value: '3.53', suffix: '/4.0' },
+  { label: 'Degree', value: 'S.Kom', suffix: '' },
   { label: 'Experience', value: '2', suffix: '+ Yrs' },
   { label: 'Projects', value: '15', suffix: '+' },
 ];
