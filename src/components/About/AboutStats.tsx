@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { containerVariants, itemVariants } from '@/utils/animation';
+import { useCountUp } from '@/utils/useCountUp';
 
 interface Stat {
   label: string;
@@ -20,6 +21,45 @@ const FALLBACK_STATS: Stat[] = [
   { label: 'Projects', value: '15', suffix: '+' },
 ];
 
+// Detect if value is purely numeric; non-numeric values (e.g. "S.Kom") skip counter
+function parseNumericValue(value: string): { isNumeric: boolean; target: number; decimals: number } {
+  const num = parseFloat(value);
+  if (isNaN(num)) return { isNumeric: false, target: 0, decimals: 0 };
+  const decimalPart = value.includes('.') ? value.split('.')[1]?.length ?? 0 : 0;
+  return { isNumeric: true, target: num, decimals: decimalPart };
+}
+
+interface StatCardProps {
+  stat: Stat;
+}
+
+function StatCard({ stat }: StatCardProps) {
+  const { isNumeric, target, decimals } = parseNumericValue(stat.value);
+  const { display, ref } = useCountUp({
+    target: isNumeric ? target : 0,
+    duration: 1800,
+    decimals,
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={itemVariants}
+      className="bg-[#F5F0E8] dark:bg-[#1a1c23] p-4 md:p-6 border-2 border-black dark:border-white flex flex-col items-center justify-center text-center group hover:bg-[#CCFF00] dark:hover:bg-[#2B5CE6] transition-all duration-150 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.3)]"
+    >
+      <div className="text-2xl md:text-4xl font-black text-black dark:text-white mb-1.5 tracking-tighter group-hover:text-black dark:group-hover:text-white transition-colors leading-none tabular-nums">
+        {isNumeric ? display : stat.value}
+        <span className="text-[10px] md:text-sm font-black text-[#2B5CE6] group-hover:text-black dark:text-[#5b82ff] dark:group-hover:text-white ml-0.5">
+          {stat.suffix}
+        </span>
+      </div>
+      <p className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em] text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
+        {stat.label}
+      </p>
+    </motion.div>
+  );
+}
+
 export default function AboutStats({ stats: propStats }: AboutStatsProps) {
   const stats = propStats?.length ? propStats : FALLBACK_STATS;
 
@@ -31,20 +71,10 @@ export default function AboutStats({ stats: propStats }: AboutStatsProps) {
       viewport={{ once: true }}
       className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 p-2"
     >
-      {stats.map((stat, index) => (
-        <motion.div
-          key={index}
-          variants={itemVariants}
-          className="bg-[#F5F0E8] dark:bg-[#1a1c23] p-4 md:p-6 border-2 border-black dark:border-white flex flex-col items-center justify-center text-center group hover:bg-[#CCFF00] dark:hover:bg-[#2B5CE6] transition-all duration-150 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.2)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.3)]"
-        >
-          <div className="text-2xl md:text-4xl font-black text-black dark:text-white mb-1.5 tracking-tighter group-hover:text-black dark:group-hover:text-white transition-colors leading-none">
-            {stat.value}<span className="text-[10px] md:text-sm font-black text-[#2B5CE6] group-hover:text-black dark:text-[#5b82ff] dark:group-hover:text-white ml-0.5">{stat.suffix}</span>
-          </div>
-          <p className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em] text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
-            {stat.label}
-          </p>
-        </motion.div>
+      {stats.map((stat) => (
+        <StatCard key={stat.label} stat={stat} />
       ))}
     </motion.div>
   );
 }
+
