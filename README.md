@@ -1,4 +1,4 @@
-# Ari Awaludin Portfolio v2.1.0
+# Ari Awaludin Portfolio v3.0.0
 
 🚀 **Live Site**: [https://ariawaludin.my.id](https://ariawaludin.my.id)
 
@@ -7,12 +7,11 @@ Modern portfolio website built with **Next.js 16**, **TypeScript**, and **Tailwi
 ## Key Features
 
 - **🚀 Next.js 16 (App Router)**: Memanfaatkan fitur terbaru untuk rendering yang cepat.
-- **🎨 Tailwind CSS v4**: Styling modern dengan performa optimal.
-- **⚡ Framer Motion**: Animasi yang smooth dan interaktif.
-- **🔐 Admin Dashboard**: Fitur manajemen project, pengalaman, dan sertifikat secara langsung.
-- **🔢 Project Sorting**: Pengaturan urutan project secara manual melalui dashboard.
-- **🖼️ Multi-Image Gallery**: Dukungan galeri foto (carousel) dengan fitur direct upload.
-- **🌓 Adaptive Theme**: Modal project yang responsif terhadap Light & Dark mode.
+- **🎨 Tailwind CSS v4 + Neobrutalism**: Desain premium dengan estetika neobrutalist — hard shadows, bold borders.
+- **⚡ Framer Motion**: Animasi yang smooth dan interaktif, termasuk animated number counter.
+- **📄 Fully Static Site**: Semua data (projects, certificates, experiences) dikelola via static data files — tanpa CMS/Admin panel.
+- **🖼️ Multi-Image Gallery**: Dukungan galeri foto (carousel) per project.
+- **🌓 Adaptive Theme**: Responsif terhadap Light & Dark mode.
 - **📱 Responsive Design**: Tampilan optimal di semua perangkat (Desktop, Tablet, Mobile).
 - **🐳 Dockerized**: Siap dideploy menggunakan Docker Container.
 
@@ -21,10 +20,11 @@ Modern portfolio website built with **Next.js 16**, **TypeScript**, and **Tailwi
 - **Framework**: Next.js 16
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
+- **Design System**: Neobrutalism (hard shadows, bold borders)
 - **Animations**: Framer Motion
-- **Database/Auth**: Supabase (PostgreSQL)
+- **Data**: Static data files (TypeScript)
 - **Form Handling**: React Hook Form + Zod
-- **Icons**: React Icons & HugeIcons
+- **Icons**: React Icons, Lucide React
 - **Deployment**: Local Docker / Google Cloud Run
 
 ## Getting Started
@@ -54,19 +54,24 @@ Visit [http://localhost:3000](http://localhost:3000) to see the app.
 
 ```text
 src/
-├── app/                # Next.js App Router & Server Actions
+├── app/                # Next.js App Router
 │   ├── (public)/       # Landing page sections
-│   ├── admin/          # Dashboard Admin routes
-│   ├── actions/        # Server Actions (CRUD Operations)
+│   ├── actions/        # Server Actions (contact form, etc.)
 │   ├── api/            # API Route handlers
 │   └── globals.css     # Tailwind v4 configuration
 ├── components/         # Reusable UI components
-│   ├── UI/             # Base UI elements
+│   ├── About/          # About section components (Stats, Tabs, etc.)
+│   ├── Hero/           # Hero section components
+│   ├── Projects/       # Projects section & modal
+│   ├── Certificates/   # Certificates section
+│   ├── Contact/        # Contact form
 │   ├── Navbar/         # Navigation components
-│   └── Footer/         # Footer components
-├── lib/                # Shared logic & Supabase client
+│   ├── Footer/         # Footer components
+│   └── UI/             # Base UI elements
+├── data/               # Static data files (projects, certs, experiences)
+├── lib/                # Shared logic & Supabase client (contact form)
 ├── types/              # TypeScript definitions
-├── utils/              # Helper functions & animations
+├── utils/              # Helper functions, animations & hooks
 └── public/             # Static assets (Images, SVGs)
 ```
 
