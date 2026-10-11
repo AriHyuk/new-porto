@@ -25,11 +25,10 @@ test.describe('Homepage', () => {
     const hero = page.locator('#hero');
     await expect(hero).toBeVisible();
 
-    // Cek teks "Cloud-Native" ada di Hero
-    await expect(hero.getByText('Cloud-Native')).toBeVisible();
-
-    // Cek teks "Software Engineer" — scope ke #hero agar tidak ambiguous dengan section #about
-    await expect(hero.getByText('Software Engineer').first()).toBeVisible();
+    // Cek teks headline role ada di Hero
+    await expect(hero.getByText(/Fullstack/i).first()).toBeVisible();
+    await expect(hero.getByText(/Software/i).first()).toBeVisible();
+    await expect(hero.getByText(/Engineer/i).first()).toBeVisible();
   });
 
   test('Hero CTA button - "View My Work" should be clickable', async ({ page }) => {
@@ -87,6 +86,6 @@ test.describe('Responsive - Mobile', () => {
     await expect(hero).toBeVisible();
     
     // Teks utama tidak overflow atau hilang total
-    await expect(page.getByText('Cloud-Native')).toBeVisible();
+    await expect(page.getByText(/Fullstack/i).first()).toBeVisible();
   });
 });

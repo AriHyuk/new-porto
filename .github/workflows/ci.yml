@@ -43,12 +43,8 @@ jobs:
         run: pnpm exec eslint . --max-warnings 200
 
       # 6. Build Next.js (validasi build dan generate next-env.d.ts)
-      #    Env vars kosong oke — kita hanya cek apakah build compile dengan benar
       - name: 🏗️ Build Next.js
         run: pnpm run build
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
       # 7. TypeScript Type Check (Berjalan setelah build agar next-env.d.ts sudah ada)
       - name: 🔍 TypeScript type check
@@ -71,8 +67,6 @@ jobs:
           kill $SERVER_PID
         env:
           BASE_URL: 'http://localhost:3000'
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
       # 10. Upload Playwright report kalau ada kegagalan
       - name: 📊 Upload Playwright report (on failure)
