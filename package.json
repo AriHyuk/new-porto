@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbo -H 0.0.0.0",
     "build": "next build",
-    "start": "next start",
+    "start": "serve out -l 3000",
     "lint": "eslint .",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -45,6 +45,7 @@
     "eslint": "^10.0.0",
     "eslint-config-next": "^16.1.6",
     "postcss": "^8.5.6",
+    "serve": "^14.2.6",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "wait-on": "^9.0.4"
