@@ -31,35 +31,25 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NODE_ENV=production
+ARG NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+ENV NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=$NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
 
-# Build Next.js standalone output
+# Build Next.js static export
 RUN pnpm build
 
 # ============================================================
-# Stage 3: Runner (minimal production image)
+# Stage 3: Runner (Nginx Web Server for Static Export)
 # ============================================================
-FROM node:22-alpine AS runner
+FROM nginx:alpine AS runner
 
-WORKDIR /app
+# Cloud Run dynamic PORT support via envsubst template
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-ENV NODE_ENV=production
-# Disable Next.js telemetry
-ENV NEXT_TELEMETRY_DISABLED=1
+# Copy static export files
+COPY --from=builder /app/out /usr/share/nginx/html
 
-# Create a non-root user for security
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+ENV PORT=8080
 
-# Copy standalone output + static assets
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+EXPOSE 8080
 
-USER nextjs
-
-EXPOSE 3000
-
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]

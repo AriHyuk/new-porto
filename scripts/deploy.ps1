@@ -19,8 +19,7 @@ $IMAGE_TAG = "$REGION-docker.pkg.dev/$PROJECT_ID/$REPO/app:latest"
 
 Write-Host "--- 🏗️ Building Docker Image ---" -ForegroundColor Cyan
 docker build `
-  --build-arg NEXT_PUBLIC_SUPABASE_URL=$env:NEXT_PUBLIC_SUPABASE_URL `
-  --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=$env:NEXT_PUBLIC_SUPABASE_ANON_KEY `
+  --build-arg NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=$env:NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY `
   -t $IMAGE_TAG .
 
 if ($LASTEXITCODE -ne 0) { Write-Error "Build gagal!"; exit }
@@ -38,7 +37,7 @@ gcloud run deploy $SERVICE `
   --min-instances 0 `
   --cpu-boost `
   --cpu 1 `
-  --memory 1Gi
+  --memory 256Mi
 
 Write-Host "--- 🎉 Deployment Selesai! ---" -ForegroundColor Green
 Write-Host "🌐 Live at: https://ariawaludin.my.id" -ForegroundColor Blue

@@ -1,13 +1,18 @@
 import { ImageResponse } from 'next/og';
-import { getProjectBySlug } from '@/actions/get-project-by-slug';
+import { getProjectBySlug, getAllProjectSlugs } from '@/lib/projects';
 
-export const runtime = 'edge';
+export const dynamic = 'force-static';
 export const alt = 'Project Preview';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(params.slug);
+export async function generateStaticParams() {
+  return getAllProjectSlugs().map((slug) => ({ slug }));
+}
+
+export default async function Image({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
+  const resolvedParams = await params;
+  const project = getProjectBySlug(resolvedParams.slug);
 
   const title = project?.title || 'Project';
   const description = project?.description?.slice(0, 120) || 'A project by Ari Awaludin';

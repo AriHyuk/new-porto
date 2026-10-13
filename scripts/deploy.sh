@@ -18,8 +18,7 @@ IMAGE_TAG="$REGION-docker.pkg.dev/$PROJECT_ID/$REPO/app:latest"
 
 echo "--- 🏗️ Building Docker Image ---"
 docker build \
-  --build-arg NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
-  --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
+  --build-arg NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=$NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY \
   -t $IMAGE_TAG .
 
 echo "--- 🚚 Pushing Image to Artifact Registry ---"
@@ -29,7 +28,8 @@ echo "--- 🚀 Deploying to Cloud Run ---"
 gcloud run deploy $SERVICE \
   --image $IMAGE_TAG \
   --region $REGION \
-  --platform managed
+  --platform managed \
+  --memory 256Mi
 
 echo "--- 🎉 Deployment Selesai! ---"
 echo "🌐 Live at: https://ariawaludin.my.id"

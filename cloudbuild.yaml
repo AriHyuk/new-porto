@@ -46,11 +46,9 @@ steps:
       - '--cpu'
       - '1'
       - '--memory'
-      - '1Gi'
+      - '256Mi'
       - '--allow-unauthenticated'
       - '--quiet'
-      - '--set-secrets'
-      - 'WEB3FORMS_ACCESS_KEY=WEB3FORMS_ACCESS_KEY:latest'
 
 # ------------------------------------------------------------------
 # Konfigurasi Build

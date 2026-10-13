@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { sendMessage } from '@/actions/send-message';
+import { sendContactMessage } from '@/lib/contact';
 import { CollaborationSchema, type CollaborationFormData } from '@/lib/validations/contact';
 import { toast } from 'react-hot-toast';
 import { FaPaperPlane, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
@@ -38,7 +38,7 @@ export default function ContactForm() {
 
   const onSubmit: SubmitHandler<CollaborationFormData> = async (data) => {
     try {
-      const result = await sendMessage(data);
+      const result = await sendContactMessage(data);
       
       if (result.success) {
         setIsSuccess(true);

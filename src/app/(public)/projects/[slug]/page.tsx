@@ -1,4 +1,4 @@
-import { getProjectBySlug } from '@/actions/get-project-by-slug';
+import { getProjectBySlug, getAllProjectSlugs } from '@/lib/projects';
 
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -10,7 +10,9 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 // Full static
 export const dynamic = 'force-static';
-export async function generateStaticParams() { return []; }
+export async function generateStaticParams() {
+  return getAllProjectSlugs().map((slug) => ({ slug }));
+}
 
 
 interface PageProps {
