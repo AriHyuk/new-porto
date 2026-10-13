@@ -15,10 +15,10 @@ interface AboutStatsProps {
 }
 
 const FALLBACK_STATS: Stat[] = [
-  { label: 'GPA', value: '3.53', suffix: '/4.0' },
-  { label: 'Degree', value: 'S.Kom', suffix: '' },
   { label: 'Experience', value: '2', suffix: '+ Yrs' },
   { label: 'Projects', value: '15', suffix: '+' },
+  { label: 'Tech Stack', value: '12', suffix: '+' },
+  { label: 'Code Commits', value: '500', suffix: '+' },
 ];
 
 // Detect if value is purely numeric; non-numeric values (e.g. "S.Kom") skip counter
