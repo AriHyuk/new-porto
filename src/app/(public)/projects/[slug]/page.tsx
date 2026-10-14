@@ -1,12 +1,11 @@
 import { getProjectBySlug, getAllProjectSlugs } from '@/lib/projects';
-
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import TechStackBadge from '@/components/UI/TechStackBadge';
 import ProjectLinks from '@/components/Projects/ProjectLinks';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaRocket, FaLightbulb, FaTools } from 'react-icons/fa';
+import { HiLightningBolt } from 'react-icons/hi';
 
 // Full static
 export const dynamic = 'force-static';
@@ -14,25 +13,26 @@ export async function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }));
 }
 
-
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return {
-      title: 'Project Not Found',
+      title: 'Project Not Found | Ari Awaludin Portfolio',
     };
   }
 
   return {
-    title: `${project.title} | Ari Awaludin Portfolio`,
-    description: project.description || `Details about ${project.title}`,
+    title: `${project.title} — Case Study | Ari Awaludin`,
+    description: project.summary || project.description || `Details about ${project.title}`,
     openGraph: {
+      title: `${project.title} — Case Study | Ari Awaludin`,
+      description: project.summary || project.description,
       images: project.image_url ? [project.image_url] : [],
     },
   };
@@ -40,30 +40,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
+  const galleryImages = [project.image_url, ...(project.additional_images || [])].filter(Boolean) as string[];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-32 pb-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        {/* Navigation */}
-        <div className="mb-8">
+    <div className="min-h-screen bg-[#F5F0E8] dark:bg-[#0F1117] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+      <div className="max-w-6xl mx-auto">
+        {/* Navigation / Back Button */}
+        <div className="mb-8 flex items-center justify-between">
           <Link
-            href="/"
-            className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="/#portfolio"
+            className="inline-flex items-center gap-2.5 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black uppercase tracking-widest text-xs border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.5)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.6)] transition-all active:translate-y-0 active:translate-x-0"
           >
-            <FaArrowLeft className="mr-2" />
-            Back to Projects
+            <FaArrowLeft className="text-xs" />
+            <span>Back to Projects</span>
           </Link>
+
+          <span className="px-3 py-1.5 bg-[#CCFF00] text-black border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+            Case Study Archive
+          </span>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-          {/* Header Image */}
-          <div className="relative h-64 md:h-96 w-full bg-gray-200 dark:bg-gray-700">
+        {/* Main Card Container */}
+        <article className="border-4 border-black dark:border-white bg-white dark:bg-[#1a1c23] shadow-[8px_8px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_rgba(255,255,255,0.2)] overflow-hidden">
+          
+          {/* Hero Banner Image */}
+          <div className="relative h-72 sm:h-96 md:h-[450px] w-full bg-[#CCFF00] border-b-4 border-black dark:border-white overflow-hidden">
             {project.image_url ? (
               <Image
                 src={project.image_url}
@@ -75,72 +82,204 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               />
             ) : (
               <div className="flex items-center justify-center h-full">
-                <span className="text-gray-400">No Image Available</span>
+                <span className="text-black font-black uppercase text-lg">No Image Available</span>
               </div>
             )}
             
-            {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            
-            {/* Title on Image (Mobile/Tablet) */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 shadow-sm drop-shadow-md">
-                {project.title}
-              </h1>
-              {project.created_at && (
-                <p className="text-gray-200 text-sm md:text-base">
-                  Added on {new Date(project.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-              )}
+            {/* Top Category Badge */}
+            <div className="absolute top-4 left-4 z-10">
+              <span className="px-3 py-1 bg-black text-white text-[10px] font-black uppercase tracking-widest border-2 border-white shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                {project.category || 'Showcase'}
+              </span>
             </div>
           </div>
 
-          <div className="p-6 md:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-              {/* Main Content */}
-              <div className="lg:col-span-2 space-y-8">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
-                    <span className="w-1 h-8 bg-blue-600 rounded-full inline-block"></span>
-                    About Project
-                  </h2>
-                  <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <p>{project.description || 'No description provided.'}</p>
-                    {/* Future: Add Rich Text rendering here since description might be markdown/html */}
-                  </div>
-                </div>
+          {/* Header Title Section */}
+          <div className="p-6 sm:p-8 md:p-12 border-b-4 border-black dark:border-white bg-[#F5F0E8] dark:bg-[#14161f]">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="text-[11px] font-black uppercase tracking-widest text-black/70 dark:text-white/70">
+                Production Project
+              </span>
+              {project.created_at && (
+                <>
+                  <span className="text-black dark:text-white font-black">•</span>
+                  <span className="text-[11px] font-bold text-black/70 dark:text-white/70">
+                    {new Date(project.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+                  </span>
+                </>
+              )}
+            </div>
 
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
-                    <span className="w-1 h-8 bg-purple-600 rounded-full inline-block"></span>
-                    Tech Stack
-                  </h2>
-                  <div className="flex flex-wrap gap-3">
-                    {project.tech_stack?.map((tech) => (
-                      <TechStackBadge key={tech} tech={tech} className="text-base px-4 py-2" />
-                    ))}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-black dark:text-white uppercase tracking-tight leading-tight mb-4">
+              {project.title}
+            </h1>
+
+            {project.summary && (
+              <p className="text-base sm:text-lg text-black dark:text-gray-200 font-bold max-w-3xl leading-relaxed">
+                {project.summary}
+              </p>
+            )}
+          </div>
+
+          {/* Body Content Grid */}
+          <div className="p-6 sm:p-8 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14">
+              
+              {/* Left Column: Case Study Narrative */}
+              <div className="lg:col-span-2 space-y-10">
+                
+                {/* Section: Overview */}
+                <section>
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <FaRocket className="text-black dark:text-white text-base" />
+                    <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white border-b-2 border-black dark:border-white inline-block">
+                      THE OVERVIEW
+                    </h2>
                   </div>
-                </div>
+                  <p className="text-gray-800 dark:text-gray-200 text-base leading-relaxed font-medium">
+                    {project.description || project.summary}
+                  </p>
+                </section>
+
+                {/* Section: The Challenge */}
+                {project.challenge && (
+                  <section>
+                    <div className="p-6 sm:p-8 bg-[#FF4D00] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] relative overflow-hidden">
+                      <div className="flex items-center gap-2.5 mb-3">
+                        <FaLightbulb className="text-black text-base" />
+                        <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black">
+                          THE CHALLENGE
+                        </h2>
+                      </div>
+                      <p className="text-black font-black text-base sm:text-lg uppercase leading-snug">
+                        &ldquo;{project.challenge}&rdquo;
+                      </p>
+                    </div>
+                  </section>
+                )}
+
+                {/* Section: Contribution */}
+                {project.contribution && (
+                  <section>
+                    <div className="flex items-center gap-2.5 mb-4">
+                      <FaTools className="text-black dark:text-white text-base" />
+                      <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white border-b-2 border-black dark:border-white inline-block">
+                        MY CONTRIBUTION & ARCHITECTURE
+                      </h2>
+                    </div>
+                    <p className="text-gray-800 dark:text-gray-200 leading-relaxed text-base font-medium">
+                      {project.contribution}
+                    </p>
+                  </section>
+                )}
+
+                {/* Section: Core Features */}
+                {project.key_features && project.key_features.length > 0 && (
+                  <section>
+                    <div className="flex items-center gap-2.5 mb-5">
+                      <HiLightningBolt className="text-black dark:text-white text-base" />
+                      <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white border-b-2 border-black dark:border-white inline-block">
+                        CORE CAPABILITIES
+                      </h2>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {project.key_features.map((feature, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start gap-3 p-4 bg-[#F5F0E8] dark:bg-black border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)]"
+                        >
+                          <div className="w-2.5 h-2.5 bg-[#CCFF00] mt-1 shrink-0 border border-black" />
+                          <span className="text-sm text-black dark:text-white font-bold">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {/* Section: Image Gallery (If additional images exist) */}
+                {galleryImages.length > 1 && (
+                  <section className="pt-6 border-t-2 border-black dark:border-white">
+                    <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white mb-6">
+                      VISUAL SHOWCASE ({galleryImages.length} SHOTS)
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {galleryImages.map((imgUrl, idx) => (
+                        <div
+                          key={idx}
+                          className="relative h-56 border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.3)] bg-[#CCFF00] overflow-hidden group"
+                        >
+                          <Image
+                            src={imgUrl}
+                            alt={`${project.title} screenshot ${idx + 1}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
               </div>
 
-              {/* Sidebar */}
-              <div className="lg:col-span-1 space-y-8">
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6 border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-6">
-                    Project Links
+              {/* Right Column: Sidebar (Links, Tech Stack, Metadata) */}
+              <aside className="lg:col-span-1 space-y-8">
+                
+                {/* Action Links Box */}
+                <div className="border-2 border-black dark:border-white bg-[#F5F0E8] dark:bg-black p-6 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.3)]">
+                  <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white mb-6 border-b-2 border-black dark:border-white pb-2">
+                    PROJECT LINKS
                   </h3>
-                  <ProjectLinks 
-                    repoUrl={project.repo_url} 
-                    demoUrl={project.demo_url} 
+                  <ProjectLinks
+                    repoUrl={project.repo_url}
+                    demoUrl={project.demo_url}
                     projectTitle={project.title}
                   />
                 </div>
 
-                {/* Optional: Add "More Projects" or "Similar Projects" here */}
-              </div>
+                {/* Tech Stack Box */}
+                <div className="border-2 border-black dark:border-white bg-white dark:bg-[#1a1c23] p-6 shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.3)]">
+                  <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white mb-5 border-b-2 border-black dark:border-white pb-2">
+                    TECH ARSENAL
+                  </h3>
+                  <div className="flex flex-wrap gap-2.5">
+                    {project.tech_stack?.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1.5 bg-white dark:bg-black text-black dark:text-white text-xs font-black uppercase border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.5)] hover:bg-[#CCFF00] dark:hover:bg-[#CCFF00] hover:text-black dark:hover:text-black transition-all"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quick Info Box */}
+                <div className="border-2 border-black dark:border-white bg-[#CCFF00] text-black p-6 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+                  <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-black mb-4 border-b-2 border-black pb-2">
+                    QUICK FACTS
+                  </h3>
+                  <ul className="space-y-3 text-xs font-bold uppercase tracking-wide">
+                    <li className="flex justify-between items-center border-b border-black/30 pb-2">
+                      <span className="text-black/70">Category</span>
+                      <span className="font-black">{project.category || 'Engineering'}</span>
+                    </li>
+                    <li className="flex justify-between items-center border-b border-black/30 pb-2">
+                      <span className="text-black/70">Platform</span>
+                      <span className="font-black">Web Application</span>
+                    </li>
+                    <li className="flex justify-between items-center">
+                      <span className="text-black/70">Status</span>
+                      <span className="font-black px-2 py-0.5 bg-black text-white text-[10px]">Production</span>
+                    </li>
+                  </ul>
+                </div>
+
+              </aside>
+
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   );
