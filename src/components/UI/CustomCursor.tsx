@@ -58,9 +58,14 @@ export default function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block">
-      {/* Primary Dot */}
+      {/* Primary Reticle Center */}
       <motion.div
-        className="w-2 h-2 bg-blue-600 rounded-full fixed top-0 left-0"
+        className="w-2.5 h-2.5 bg-[#FF4D00] border border-black dark:border-white fixed top-0 left-0"
+        animate={{
+          scale: isHovering ? 1.4 : 1,
+          rotate: isHovering ? 45 : 0,
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -70,14 +75,19 @@ export default function CustomCursor() {
         }}
       />
       
-      {/* Outer Circle */}
+      {/* Outer Brutalist Frame */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full border border-blue-600/30 dark:border-blue-400/50"
+        className="fixed top-0 left-0 border-2 border-black dark:border-white"
         animate={{
-          width: isHovering ? 60 : 32,
-          height: isHovering ? 60 : 32,
-          backgroundColor: isHovering ? 'rgba(37, 99, 235, 0.1)' : 'rgba(37, 99, 235, 0)',
+          width: isHovering ? 48 : 28,
+          height: isHovering ? 48 : 28,
+          rotate: isHovering ? 45 : 0,
+          backgroundColor: isHovering ? 'rgba(204, 255, 0, 0.35)' : 'rgba(0, 0, 0, 0)',
+          boxShadow: isHovering
+            ? '3px 3px 0px rgba(0, 0, 0, 1)'
+            : '0px 0px 0px rgba(0, 0, 0, 0)',
         }}
+        transition={{ type: "spring", stiffness: 250, damping: 22 }}
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
