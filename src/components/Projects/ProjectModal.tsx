@@ -4,6 +4,7 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaRocket, FaLightbulb, FaTools, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { HiLightningBolt } from "react-icons/hi";
 import Image from "next/image";
+import Link from "next/link";
 import type { Project } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -251,27 +252,39 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 </motion.section>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  {project.demo_url && (
-                    <a
-                      href={project.demo_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 py-4 flex items-center justify-center gap-2.5 bg-[#2B5CE6] text-white font-black text-sm uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-150 active:scale-95"
-                    >
-                      <FaExternalLinkAlt className="text-xs" /> Live Showcase
-                    </a>
-                  )}
-                  {project.repo_url && (
-                    <a
-                      href={project.repo_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 py-4 flex items-center justify-center gap-2.5 bg-white text-black font-black text-sm uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-gray-100 hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-150 active:scale-95"
-                    >
-                      <FaGithub className="text-lg" /> Repository
-                    </a>
-                  )}
+                <div className="space-y-3 pt-4">
+                  {/* Dedicated Case Study Route Link */}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    onClick={onClose}
+                    className="w-full py-4 px-6 flex items-center justify-center gap-2.5 bg-[#CCFF00] text-black font-black text-xs md:text-sm uppercase tracking-widest border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.4)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.6)] transition-all duration-150 active:scale-95"
+                  >
+                    <span>Read Full Case Study Archive</span>
+                    <span className="text-base font-black">→</span>
+                  </Link>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    {project.demo_url && (
+                      <a
+                        href={project.demo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 py-3.5 flex items-center justify-center gap-2.5 bg-[#2B5CE6] text-white font-black text-xs uppercase tracking-widest border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.4)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.6)] transition-all duration-150 active:scale-95"
+                      >
+                        <FaExternalLinkAlt className="text-xs" /> Live Showcase
+                      </a>
+                    )}
+                    {project.repo_url && (
+                      <a
+                        href={project.repo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 py-3.5 flex items-center justify-center gap-2.5 bg-white dark:bg-black text-black dark:text-white font-black text-xs uppercase tracking-widest border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.4)] hover:bg-gray-100 dark:hover:bg-gray-900 hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_rgba(255,255,255,0.6)] transition-all duration-150 active:scale-95"
+                      >
+                        <FaGithub className="text-base" /> Repository
+                      </a>
+                    )}
+                  </div>
                 </div>
 
               </div>

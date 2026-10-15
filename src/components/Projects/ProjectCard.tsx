@@ -206,9 +206,15 @@ export default function ProjectCard({ project, onClick, layoutId }: ProjectCardP
                )}
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#FF4D00] group-hover:translate-x-1 transition-transform">
-               Case Study <span className="text-lg">→</span>
-            </div>
+            <Link
+              href={`/projects/${project.slug}`}
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FF4D00] text-black font-black text-[11px] uppercase tracking-wider border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.4)] hover:bg-[#CCFF00] hover:translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+              title={`Read full case study for ${project.title}`}
+            >
+              <span>Case Study</span>
+              <span className="text-sm font-black">→</span>
+            </Link>
         </div>
       </div>
     </motion.div>

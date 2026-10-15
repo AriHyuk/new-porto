@@ -1,10 +1,10 @@
-import { getProjectBySlug, getAllProjectSlugs } from '@/lib/projects';
+import { getProjectBySlug, getAllProjectSlugs, getAdjacentProjects } from '@/lib/projects';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import ProjectLinks from '@/components/Projects/ProjectLinks';
-import { FaArrowLeft, FaRocket, FaLightbulb, FaTools } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaRocket, FaLightbulb, FaTools, FaPaperPlane } from 'react-icons/fa';
 import { HiLightningBolt } from 'react-icons/hi';
 
 // Full static
@@ -46,6 +46,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const { prev, next } = getAdjacentProjects(slug);
   const galleryImages = [project.image_url, ...(project.additional_images || [])].filter(Boolean) as string[];
 
   return (
@@ -280,6 +281,101 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </div>
           </div>
         </article>
+
+        {/* Adjacent Projects Navigation (Prev / Next) */}
+        <section className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {prev ? (
+            <Link
+              href={`/projects/${prev.slug}`}
+              className="group p-6 bg-white dark:bg-[#1a1c23] border-4 border-black dark:border-white shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_rgba(0,0,0,1)] dark:hover:shadow-[10px_10px_0px_rgba(255,255,255,0.4)] transition-all flex flex-col justify-between"
+            >
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#FF4D00] mb-3">
+                <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+                <span>Previous Case Study</span>
+              </div>
+              <h4 className="text-xl font-black text-black dark:text-white uppercase tracking-tight group-hover:text-[#2B5CE6] dark:group-hover:text-[#5b82ff] transition-colors">
+                {prev.title}
+              </h4>
+              <span className="text-xs text-gray-600 dark:text-gray-400 font-bold mt-2">
+                {prev.category} Archive
+              </span>
+            </Link>
+          ) : (
+            <Link
+              href="/#portfolio"
+              className="group p-6 bg-[#F5F0E8] dark:bg-[#14161f] border-4 border-black dark:border-white shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:-translate-x-1 transition-all flex flex-col justify-between"
+            >
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60 mb-3">
+                <FaArrowLeft />
+                <span>Beginning of Archive</span>
+              </div>
+              <h4 className="text-xl font-black text-black dark:text-white uppercase tracking-tight">
+                Explore All Projects
+              </h4>
+              <span className="text-xs text-gray-600 dark:text-gray-400 font-bold mt-2">
+                Return to Showcase Grid
+              </span>
+            </Link>
+          )}
+
+          {next ? (
+            <Link
+              href={`/projects/${next.slug}`}
+              className="group p-6 bg-white dark:bg-[#1a1c23] border-4 border-black dark:border-white shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_rgba(0,0,0,1)] dark:hover:shadow-[10px_10px_0px_rgba(255,255,255,0.4)] transition-all flex flex-col justify-between text-right"
+            >
+              <div className="flex items-center justify-end gap-2 text-[10px] font-black uppercase tracking-widest text-[#2B5CE6] dark:text-[#5b82ff] mb-3">
+                <span>Next Case Study</span>
+                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </div>
+              <h4 className="text-xl font-black text-black dark:text-white uppercase tracking-tight group-hover:text-[#FF4D00] transition-colors">
+                {next.title}
+              </h4>
+              <span className="text-xs text-gray-600 dark:text-gray-400 font-bold mt-2">
+                {next.category} Archive
+              </span>
+            </Link>
+          ) : (
+            <Link
+              href="/#portfolio"
+              className="group p-6 bg-[#F5F0E8] dark:bg-[#14161f] border-4 border-black dark:border-white shadow-[6px_6px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:-translate-x-1 transition-all flex flex-col justify-between text-right"
+            >
+              <div className="flex items-center justify-end gap-2 text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60 mb-3">
+                <span>End of Archive</span>
+                <FaArrowRight />
+              </div>
+              <h4 className="text-xl font-black text-black dark:text-white uppercase tracking-tight">
+                Explore All Projects
+              </h4>
+              <span className="text-xs text-gray-600 dark:text-gray-400 font-bold mt-2">
+                Return to Showcase Grid
+              </span>
+            </Link>
+          )}
+        </section>
+
+        {/* Collaborative Call To Action */}
+        <section className="mt-14 p-8 sm:p-12 bg-[#2B5CE6] text-white border-4 border-black dark:border-white shadow-[10px_10px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_rgba(255,255,255,0.3)] flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="max-w-xl">
+            <span className="inline-block px-3 py-1 bg-[#CCFF00] text-black font-black uppercase text-[10px] tracking-widest border-2 border-black mb-4">
+              COLLABORATION OPPORTUNITY
+            </span>
+            <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight leading-tight mb-3">
+              Need High-Impact Engineering or Architecture?
+            </h3>
+            <p className="text-sm sm:text-base font-bold text-white/90 leading-relaxed">
+              From intuitive frontend interfaces to scalable backend infrastructure — let&apos;s build production-grade solutions together.
+            </p>
+          </div>
+
+          <Link
+            href="/#contact"
+            className="shrink-0 px-8 py-5 bg-[#CCFF00] text-black font-black text-xs sm:text-sm uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all flex items-center gap-3 active:scale-95"
+          >
+            <FaPaperPlane className="text-xs" />
+            <span>Initiate Collaboration</span>
+          </Link>
+        </section>
+
       </div>
     </div>
   );
