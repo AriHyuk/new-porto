@@ -60,8 +60,8 @@ test.describe('Dark Mode', () => {
     const html = page.locator('html');
     await expect(html).toBeVisible();
     
-    // Cari tombol dark mode toggle
-    const themeToggle = page.locator('[aria-label*="theme"], [aria-label*="dark"], [aria-label*="light"], button:has(svg)').first();
+    // Cari tombol dark mode toggle yang visible di viewport saat ini
+    const themeToggle = page.locator('[aria-label*="theme"]:visible, [aria-label*="dark"]:visible, [aria-label*="light"]:visible').first();
     
     if (await themeToggle.isVisible()) {
       // Klik toggle

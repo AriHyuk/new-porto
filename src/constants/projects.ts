@@ -16,8 +16,11 @@ export const projectsData: Project[] = [
     demo_url: 'https://labshare.unpam.ac.id/',
     repo_url: null,
     sort_order: 1,
-    additional_images: [],
-    created_at: new Date().toISOString(),
+    additional_images: [
+      '/projects/labshare-catalog.jpg',
+      '/projects/labshare-dashboard.jpg',
+    ],
+    created_at: '2025-06-15T00:00:00.000Z',
   },
   {
     id: 'project-2',
@@ -34,7 +37,10 @@ export const projectsData: Project[] = [
     demo_url: 'https://www.fajarputracikande.co.id/',
     repo_url: 'https://github.com/AriHyuk',
     sort_order: 2,
-    additional_images: [],
-    created_at: new Date().toISOString(),
+    additional_images: [
+      '/projects/fpc-careers.jpg',
+      '/projects/fpc-services.jpg',
+    ],
+    created_at: '2025-08-01T00:00:00.000Z',
   },
 ];

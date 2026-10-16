@@ -206,23 +206,36 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
                 {/* Section: Image Gallery (If additional images exist) */}
                 {galleryImages.length > 1 && (
-                  <section className="pt-6 border-t-2 border-black dark:border-white">
-                    <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white mb-6">
-                      VISUAL SHOWCASE ({galleryImages.length} SHOTS)
-                    </h2>
+                  <section className="pt-8 border-t-2 border-black dark:border-white">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-[12px] font-black uppercase tracking-[0.2em] text-black dark:text-white flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 bg-[#FF4D00] inline-block border border-black dark:border-white" />
+                        VISUAL SHOWCASE ({galleryImages.length} SHOTS)
+                      </h2>
+                      <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white shadow-[2px_2px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.4)]">
+                        Production UI
+                      </span>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {galleryImages.map((imgUrl, idx) => (
                         <div
                           key={idx}
-                          className="relative h-56 border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.3)] bg-[#CCFF00] overflow-hidden group"
+                          className={`relative border-2 border-black dark:border-white shadow-[4px_4px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_rgba(255,255,255,0.3)] bg-[#CCFF00] overflow-hidden group ${
+                            idx === 0 && galleryImages.length % 2 !== 0 ? 'sm:col-span-2 h-72 sm:h-96' : 'h-64 sm:h-72'
+                          }`}
                         >
                           <Image
                             src={imgUrl}
                             alt={`${project.title} screenshot ${idx + 1}`}
                             fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
+                          <div className="absolute bottom-3 left-3 z-10">
+                            <span className="px-2.5 py-1 bg-black/90 text-white text-[10px] font-black uppercase tracking-widest border border-white/60 shadow-[2px_2px_0px_rgba(0,0,0,1)] backdrop-blur-sm">
+                              Shot 0{idx + 1}
+                            </span>
+                          </div>
                         </div>
                       ))}
                     </div>
