@@ -1,4 +1,5 @@
 import { getProjectBySlug, getAllProjectSlugs, getAdjacentProjects } from '@/lib/projects';
+import { getProjectJsonLd } from '@/lib/jsonld';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -46,11 +47,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const jsonLd = getProjectJsonLd(project);
   const { prev, next } = getAdjacentProjects(slug);
   const galleryImages = [project.image_url, ...(project.additional_images || [])].filter(Boolean) as string[];
 
   return (
     <div className="min-h-screen bg-[#F5F0E8] dark:bg-[#0F1117] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-6xl mx-auto">
         {/* Navigation / Back Button */}
         <div className="mb-8 flex items-center justify-between">

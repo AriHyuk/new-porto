@@ -4,6 +4,7 @@ import { Providers } from './providers';
 import { Toaster } from 'react-hot-toast';
 import VisualEffects from '@/components/UI/VisualEffects';
 import { Metadata } from 'next';
+import { getRootJsonLd } from '@/lib/jsonld';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -58,8 +59,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = getRootJsonLd();
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${inter.className} antialiased selection:bg-[#CCFF00] selection:text-black`} suppressHydrationWarning>
         <Providers>
           <VisualEffects />
